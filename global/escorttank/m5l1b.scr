@@ -1,0 +1,396 @@
+main:
+
+
+setcvar "g_scoreboardpic" "m5l1a"
+
+setcvar "g_gametype" "3"
+
+setcvar fraglimit "1"
+
+
+//thread escort/mapfile/m5l1b_newspawns.scr::spawnblock
+exec escort/mapfile/m5l1b_newspawns.scr::activate_spawns
+exec escort/mapfile/m5l1b_newspawns.scr::1st_wave_spawn_allies_side
+exec escort/escort_messages.scr::Gamemod
+exec escort/escort_messages.scr::messages
+
+local.point = spawn info_vehiclepoint "targetname" "tank_1" "target" "tank_2"
+
+$exploderchunk remove
+$explodersmashed remove
+$enemyspawner remove
+	
+//	exec global/ai.scr
+	exec global/exploder.scr
+//	exec global/loadout_precache.scr maps/m5l1b.scr
+	// call additional stuff for playing this map round based is needed
+	if(level.roundbased)
+		thread roundbasedthread
+
+
+
+removeclass actor
+removeclass health
+removeclass ammo
+removeclass ammoentity
+
+
+///////////////////////
+level waittill prespawn
+///////////////////////
+
+	//*** Precache Dm Stuff
+	exec global/DMprecache.scr
+
+	level.script = maps/m5l1b.scr
+
+//	exec global/friendly.scr
+//	exec global/cabinet.scr
+	exec global/door_locked.scr
+	
+$world farplane 3900 // 3800
+//level.farplanecolor = (.33 .33 .35)
+
+//$world farplane level.farplane
+//$world farplane_color level.farplane_color
+
+//	exec global/weather_escort.scr
+
+	exec global/shutter.scr
+	exec global/ambient.scr m5l1b
+//	exec global/bomber.scr
+
+//	$dead_eng notsolid
+//	$dead_eng remove
+
+        //$tank.gun = $tank QueryTurretSlotEntity 0
+	//$tank.gun remove
+	$tank remove
+	$muro remove	
+	$cabinet remove
+
+thread maps/m5l1b.scr::tanky
+thread maps/m5l1b.scr::tanky2
+
+
+
+/////// Objects ////////////////////////////////////////////
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix"
+$floorfix.origin = ( -3920 -2390 290 ) //290
+$floorfix.angles = ( 180 -25 -5 ) // 180 -45 -5
+$floorfix scale 10
+$floorfix solid
+$floorfix setsize ( -250 -350 0 ) ( 250 350 1 )
+$floorfix hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix1"
+$floorfix1.origin = ( -4030 -2510 290 ) //290
+$floorfix1.angles = ( 180 -25 -5 ) // 180 -45 -5
+$floorfix1 scale 10
+$floorfix1 solid
+$floorfix1 setsize ( -250 -350 0 ) ( 250 350 1 )
+$floorfix1 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix2"
+$floorfix2.origin = ( -3400 -2100 290 ) //300
+$floorfix2.angles = ( 180 -65 0 ) // -8 0 10
+$floorfix2 scale 10
+$floorfix2 solid
+$floorfix2 setsize ( -200 -300 0 ) ( 200 300 1 )
+$floorfix2 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix3"
+$floorfix3.origin = ( -2854 -2109 290 ) //310
+$floorfix3.angles = ( 180 -85 0 ) // -8 0 10
+$floorfix3 scale 10
+$floorfix3 solid
+$floorfix3 setsize ( -200 -300 0 ) ( 200 300 1 )
+$floorfix3 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix4"
+$floorfix4.origin = ( -2533 -2194 290 ) //310
+$floorfix4.angles = ( 180 -85 0 ) // -8 0 10
+$floorfix4 scale 10
+$floorfix4 solid
+$floorfix4 setsize ( -200 -300 0 ) ( 200 300 1 )
+$floorfix4 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix5"
+$floorfix5.origin = ( -2131 -1855 290 ) //280
+$floorfix5.angles = ( 180 -120 0 ) // -8 0 10
+$floorfix5 scale 10
+$floorfix5 solid
+$floorfix5 setsize ( -350 -120 0 ) ( 350 120 1 )
+$floorfix5 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix6"
+$floorfix6.origin = ( -1530 -1625 302 ) //295
+$floorfix6.angles = ( 180 -60 -3 ) // -8 0 10
+$floorfix6 scale 10
+$floorfix6 solid
+$floorfix6 setsize ( -200 -450 0 ) ( 200 450 1 )
+$floorfix6 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix7"
+$floorfix7.origin = ( -1150 -1350 358 ) //350
+$floorfix7.angles = ( 180 -50 -3 ) // -8 0 10
+$floorfix7 scale 10
+$floorfix7 solid
+$floorfix7 setsize ( -300 -250 0 ) ( 300 250 1 )
+$floorfix7 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix8"
+$floorfix8.origin = ( -1554 -375 396 ) //400  
+$floorfix8.angles = ( 180 0 -3 ) // -8 0 10
+$floorfix8 scale 10
+$floorfix8 solid
+$floorfix8 setsize ( -200 -420 0 ) ( 200 430 1 ) // 550
+$floorfix8 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix9"
+$floorfix9.origin = ( -1330 290 408 ) //405
+$floorfix9.angles = ( 180 0 0 ) // -8 0 10
+$floorfix9 scale 10
+$floorfix9 solid
+$floorfix9 setsize ( -580 -220 0 ) ( 580 220 1 )
+$floorfix9 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix10"
+$floorfix10.origin = ( -407 604 390 ) //384 390
+$floorfix10.angles = ( 180 90 0 ) // -8 0 10
+$floorfix10 scale 10
+$floorfix10 solid
+$floorfix10 setsize ( -220 -930 0 ) ( 220 930 1 )
+$floorfix10 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix10_5"
+$floorfix10_5.origin = ( 816 -60 382 ) //382
+$floorfix10_5.angles = ( 180 20 0 ) // -8 0 10
+$floorfix10_5 scale 10
+$floorfix10_5 solid
+$floorfix10_5 setsize ( -300 -940 0 ) ( 300 940 1 )
+$floorfix10_5 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix11"
+$floorfix11.origin = ( 2000 -1083 382 ) //382
+$floorfix11.angles = ( 180 0 0 ) // -8 0 10
+$floorfix11 scale 10
+$floorfix11 solid
+$floorfix11 setsize ( -1000 -300 0 ) ( 1000 300 1 )
+$floorfix11 hide
+
+// ---------------------------
+
+
+local.crate = spawn script_model "model" "static/librarytabledestroyed.tik" "targetname" "furniture1"
+$furniture1.origin = ( 2220 524 510 ) //98 -140
+$furniture1.angles = ( 0 90 35 ) // -8 0 10
+$furniture1 setsize ( -200 -100 -60 ) ( 200 100 60 )
+
+local.crate = spawn script_model "model" "static/grandfathers_clock_d.tik" "targetname" "furniture2"
+$furniture2.origin = ( 208 178 592 ) //( 208 106 654 ) //98 -140
+$furniture2 scale 1.2
+$furniture2.angle =  180 // -8 0 10
+$furniture2 setsize ( -15 -15 0 ) ( 15 15 130 )
+
+local.crate = spawn script_model "model" "static/flowerpainting.tik" "targetname" "furniture3"
+$furniture3.origin = ( 218 230 754 ) //( 208 106 654 ) //98 -140
+$furniture3 scale 1
+$furniture3.angle =  180 // -8 0 10
+$furniture3 setsize ( -10 -10 0 ) ( 10 10 30 )
+
+local.crate = spawn script_model "model" "static/cabinet_small.tik" "targetname" "furniture4"
+$furniture4.origin = ( 831 639 624 ) //98 -140
+$furniture4.angles = ( 0 0 0 ) // -8 0 10
+$furniture4 solid
+
+local.barbwire = spawn script_model "model" "static/barbwire.tik" "targetname" "barbwire"
+$barbwire.origin = ( -2656 -2502 640 ) //98 -140
+$barbwire.angles = ( 0 0 90 ) // -8 0 10
+$barbwire scale 0.5
+$barbwire notsolid
+
+local.car = spawn script_model "model" "vehicles/vehicle_car_burnt-notstatic.tik" "targetname" "carro"
+$carro.origin = ( -3771 -1930 300 )
+$carro.angles = ( 0.00 -45 0.00 )
+$carro notsolid
+
+local.car1 = spawn script_models "model" "fx/dummy.tik"
+local.car1.origin = ( -3800 -1900 300 )
+local.car1.angles = ( 0.00 -45 0.00 )
+local.car1 solid
+local.car1 setsize ( -70 -48 0 ) ( 70 48 60 )
+local.car1 nodamage
+local.car1 immune bullet
+local.car1 immune fast_bullet
+local.car1 immune bash
+local.car1 immune mg
+local.car1 immune explosion
+
+local.car2 = spawn script_models "model" "fx/dummy.tik"
+local.car2.origin = ( -3718 -1980 297 )
+local.car2.angles = ( 0.00 -45 0.00 )
+local.car2 solid
+local.car2 setsize ( -50 -48 0 ) ( 50 48 70 )
+local.car2 nodamage
+local.car2 immune bullet
+local.car2 immune fast_bullet
+local.car2 immune bash
+local.car2 immune mg
+local.car2 immune explosion
+
+local.car_top = spawn script_models "model" "fx/dummy.tik"
+local.car_top.origin = ( -3795 -1905 380 )
+local.car_top.angles = ( 0.00 -45 0.00 )
+local.car_top solid
+local.car_top setsize ( -50 -48 0 ) ( 50 48 10 )
+local.car_top nodamage
+local.car_top immune bullet
+local.car_top immune fast_bullet
+local.car_top immune bash
+local.car_top immune mg
+local.car_top immune explosion
+
+
+//   ------
+
+local.mg42 = spawn script_model
+local.mg42 model "statweapons/mg42_bipod.tik"
+local.mg42.origin = ( -3240 -1780 395 )  
+local.mg42.angles = (0 0 90)
+local.mg42gun = spawn models/statweapons/mg42_gun.tik
+local.mg42gun.origin = local.mg42.origin + ( 0 0 0 )
+local.mg42gun.angle = 0
+local.mg42gun yawCenter -5
+local.mg42gun maxyawoffset 40
+
+local.ammobox = spawn script_model
+local.ammobox model "static/mg42ammoboxwbelt.tik" 
+local.ammobox.origin = ( -3260 -1723 331 )
+local.ammobox.angles = (0 0 0)
+local.ammobox.scale = 1.0
+local.ammobox notsolid
+
+/////// Objects ////////////////////////////////////////////
+
+
+
+
+///////////////////////
+level waittill spawn
+///////////////////////
+
+exec escort/ladderspawn.scr ( 2130 -378 510 ) 228 wood 90
+
+	exec escort/cabinet.scr::m5l1b_closet
+	exec escort/cabinet.scr::m5l1b_closet2
+	$closet_trigger nottriggerable
+	$closet_trigger2 nottriggerable
+
+end
+
+// ===================================================
+tanky:
+
+spawn vehicles/panzer_tank.tik "targetname" "tank_axis"
+$tank_axis.origin = ( -3778 -3228 -1000 )
+$tank_axis.angles = ( 0 90 0 )
+//$tank_axis setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_axis nodamage
+$tank_axis notsolid
+$tank_axis.corona = 1
+$tank_axis rendereffects "-shadow"
+$tank_axis immune bullet
+$tank_axis immune fast_bullet
+$tank_axis immune grenade
+$tank_axis immune bash
+$tank_axis.health = 300 // 300
+//$tank_axis takedamage
+waitframe
+
+end
+// ===================================================
+
+
+// ===================================================
+tanky2:
+
+spawn vehicles/panzer_tank_europe.tik "targetname" "tank_allies"
+$tank_allies.origin = ( -3778 -3228 204 )
+$tank_allies.angles = ( 0 90 0 )
+//$tank_allies setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_allies nodamage
+$tank_allies notsolid
+$tank_allies.corona = 1
+$tank_allies rendereffects "-shadow"
+$tank_allies immune bullet
+$tank_allies immune fast_bullet
+$tank_allies immune grenade
+$tank_allies immune bash
+$tank_allies.health = 300 // 300
+//$tank_allies takedamage
+waitframe
+end
+// ===================================================
+
+
+	//$tank setcollisionentity $tank.target
+	//$kingtank setcollisionentity $kingtank.target
+
+roundbasedthread:
+
+	// Can specify different scoreboard messages for round based games here.
+
+	level waitTill prespawn
+
+	level waittill spawn
+
+	// set the parameters for this round based match
+	level.dmrespawning = 1 // 1 or 0
+	level.dmroundlimit = 10 // round time limit in minutes
+	level.clockside = allies // set to axis, allies, kills, or draw
+
+	level waittill roundstart
+   
+        exec escort/util.scr::teamleft
+	exec escort/escort_allies.scr
+	exec escort/mapfile/m5l1b_node_points.scr::node_point
+	exec escort/util.scr::map_timecount_10min
+	exec escort/escort_messages.scr::counttime
+	$closet_trigger triggerable
+	$closet_trigger2 triggerable
+
+end
+
+
+// End some labels
+planesflyby:
+end
+kaboom:
+end
+kaboom1:
+end
+early_trigger:
+end
+tankdrive:
+end
+building2thread:
+end
+building4thread:
+end
+403_trigger:
+end
+obj3:
+end
+endsetup:
+end
+obj2:
+end
+lateleveltrigger:
+end
+obj1:
+end
+building_explode:
+end
+

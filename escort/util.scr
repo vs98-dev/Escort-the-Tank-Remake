@@ -1,0 +1,1064 @@
+/*
+
+ ******************************************
+ **                                      **
+ **     This file is part of the MOD     **
+ **                                      **
+ **       -=[Escort-The-Tank]=-          **  *  You are not allowed to modify this mod without the permission of the creator. *
+ **                                      **
+ **     Game MOD created by [PacRac]     **
+ **                                      **
+ ******************************************
+
+*/
+
+map_timecount_12min:
+
+level.counttime = 719
+
+	while (map_is_running)
+	{
+
+/*
+
+huddraw_align 60 center center
+	huddraw_font 60 facfont-20
+	huddraw_rect 60 -30 20 80 20	
+	huddraw_alpha 60 1.0
+	huddraw_string 60 ("Ending in: " + (level.counttime) + " Seconds" )
+*/
+		
+		
+		if (level.counttime == 0)
+		{
+		end
+		}
+		
+		level.counttime--
+		wait 1
+	}
+end
+
+map_timecount_10min:
+
+level.counttime = 599
+
+	while (map_is_running)
+	{
+
+		
+		if (level.counttime == 0)
+		{
+		end
+		}
+		
+		level.counttime--
+		wait 1
+	}
+end
+
+map_timecount_8min:
+
+level.counttime = 479
+
+	while (map_is_running)
+	{
+
+	
+		if (level.counttime == 0)
+		{
+		end
+		}
+		
+		level.counttime--
+		wait 1
+	}
+end
+
+map_timecount_6min:
+
+level.counttime = 359
+
+	while (map_is_running)
+	{
+		
+		
+		if (level.counttime == 0)
+		{
+		end
+		}
+		
+		level.counttime--
+		wait 1
+	}
+end
+
+// ***********************************************************************
+
+axis_side:
+
+$trigger_node1 triggerable
+$trigger_node2 triggerable
+$trigger_node3 triggerable
+$trigger_node4 triggerable
+$trigger_node4_2 triggerable
+$trigger_node5 triggerable
+$trigger_node6 triggerable
+$trigger_node7 triggerable
+$trigger_node7_1 triggerable
+$trigger_node8 triggerable
+$trigger_node9 triggerable
+$trigger_node10 triggerable
+
+$tank_trigger remove
+$tank_allies notsolid
+
+$destroyed remove
+$repair_target.trigger_name remove
+$repair_target remove
+
+//$tank_allies.gun = $tank_allies QueryTurretSlotEntity 0
+//$tank_allies.gun remove
+
+level.mapname = getcvar (mapname)
+
+switch ( level.mapname )
+ {
+
+   case "m1l2b":
+  {
+$tank_allies.origin = ( 1700 1100 -99999 )
+break
+  }
+  case "m6l2a":
+  {
+$tank_allies.origin = ( -3900 -290 -99999 )
+break
+  }
+  case "m3l3":
+  {
+$tank_allies.origin = ( 2203 3628 -99999 )
+break
+  }
+  case "m5l1b":
+  {
+$tank_allies.origin = ( -3778 -3228 -99999 )
+break
+  }
+  case "dm/mohdm2":
+  {
+$tank_allies.origin = ( -2805 710 -99999 )
+break
+  }
+case "dm/mohdm4":
+  {
+$tank_allies.origin = ( -672 -2304 -99999 )
+break
+  }
+case "dm/mohdm3":
+  {
+$tank_allies.origin = ( 5675 -2400 -99999 )
+break
+  }
+case "dm/mohdm7":
+  {
+$tank_allies.origin = ( -1049 -1170 -99999 )
+break
+  }
+case "m4l3":
+  {
+$tank_allies.origin = ( -5345 -5614 -99999 )
+break
+  }
+
+}
+
+level.counttime = 799
+
+exec escort/escort_axis.scr
+
+level.mapname = getcvar (mapname)
+
+switch ( level.mapname )
+ {
+
+case "m1l2b":
+  {
+waitthread escort/mapfile/m1l2b_newspawns.scr::1st_wave_spawn_axis_side
+break
+  }
+case "m6l2a":
+  {
+waitthread escort/mapfile/m6l2a_newspawns.scr::1st_wave_spawn_axis_side
+break
+  }
+case "m3l3":
+  {
+waitthread escort/mapfile/m3l3_newspawns.scr::1st_wave_spawn_axis_side
+break
+  }
+case "m5l1b":
+  {
+waitthread escort/mapfile/m5l1b_newspawns.scr::1st_wave_spawn_axis_side
+break
+  }
+case "dm/mohdm2":
+  {
+waitthread escort/mapfile/dv_newspawns.scr::1st_wave_spawn_axis_side
+break
+  }
+case "dm/mohdm4":
+  {
+waitthread escort/mapfile/cross_newspawns.scr::1st_wave_spawn_axis_side
+break
+  }
+case "dm/mohdm3":
+  {
+waitthread escort/mapfile/rem_newspawns.scr::1st_wave_spawn_axis_side
+break
+  }
+case "dm/mohdm7":
+  {
+waitthread escort/mapfile/alg_newspawns.scr::1st_wave_spawn_axis_side
+break
+  }
+case "m4l3":
+  {
+waitthread escort/mapfile/m4l3_newspawns.scr::1st_wave_spawn_axis_side
+break
+  }
+
+}
+$player stufftext "locationprint 260 200 SIDES-CHANGED...DONE!!"
+wait 1
+
+		for(local.i=1;local.i <= $player.size;local.i++) 
+		{
+			if($player[local.i].dmteam != "spectator") 
+		{
+			$player[local.i] respawn
+		} 
+		}
+
+
+
+end
+
+allies_side:
+
+$trigger_node1 triggerable
+$trigger_node2 triggerable
+$trigger_node3 triggerable
+$trigger_node4 triggerable
+$trigger_node4_2 triggerable
+$trigger_node5 triggerable
+$trigger_node6 triggerable
+$trigger_node7 triggerable
+$trigger_node7_1 triggerable
+$trigger_node8 triggerable
+$trigger_node9 triggerable
+$trigger_node10 triggerable
+
+
+$tank_trigger remove
+$tank_axis notsolid
+
+$destroyed remove
+$repair_target.trigger_name remove
+$repair_target remove
+
+//$tank_axis.gun = $tank_axis QueryTurretSlotEntity 0
+//$tank_axis.gun remove
+
+level.mapname = getcvar (mapname)
+
+switch ( level.mapname )
+ {
+
+case "m1l2b":
+  {
+$tank_axis.origin = ( 1700 1100 -99999 )
+break
+  }
+case "m6l2a":
+  {
+$tank_axis.origin = ( -3900 -290 -99999 )
+break
+  }
+case "m3l3":
+  {
+$tank_axis.origin = ( 2203 3628 -99999 )
+break
+  }
+case "dm/m5l1b":
+  {
+$tank_axis.origin = ( -3778 -3228 -99999 )
+break
+  }
+case "dm/mohdm2":
+  {
+$tank_axis.origin = ( -2805 710 -99999 )
+break
+  }
+case "dm/mohdm4":
+  {
+$tank_axis.origin = ( -672 -2304 -99999 )
+break
+  }
+case "dm/mohdm3":
+  {
+$tank_axis.origin = ( 5675 -2400 -99999 )
+break
+  }
+case "dm/mohdm7":
+  {
+$tank_axis.origin = ( -1049 -1170 -99999 )
+break
+  }
+case "m4l3":
+  {
+$tank_axis.origin = ( -5345 -5614 -99999 )
+break
+  }
+
+}
+
+level.counttime = 799	
+
+exec escort/escort_allies.scr
+
+level.mapname = getcvar (mapname)
+
+switch ( level.mapname )
+ {
+
+case "m1l2b":
+  {
+waitthread escort/mapfile/m1l2b_newspawns.scr::1st_wave_spawn_allies_side
+break
+  }
+case "m6l2a":
+  {
+waitthread escort/mapfile/m6l2a_newspawns.scr::1st_wave_spawn_allies_side
+break
+  }
+case "m3l3":
+  {
+waitthread escort/mapfile/m3l3_newspawns.scr::1st_wave_spawn_allies_side
+break
+  }
+case "m5l1b":
+  {
+waitthread escort/mapfile/m5l1b_newspawns.scr::1st_wave_spawn_allies_side
+break
+  }
+case "dm/mohdm2":
+  {
+waitthread escort/mapfile/dv_newspawns.scr::1st_wave_spawn_allies_side
+break
+  }
+case "dm/mohdm4":
+  {
+waitthread escort/mapfile/cross_newspawns.scr::1st_wave_spawn_allies_side
+break
+  }
+case "dm/mohdm3":
+  {
+waitthread escort/mapfile/rem_newspawns.scr::1st_wave_spawn_allies_side
+break
+  }
+case "dm/mohdm7":
+  {
+waitthread escort/mapfile/alg_newspawns.scr::1st_wave_spawn_allies_side
+break
+  }
+case "m4l3":
+  {
+waitthread escort/mapfile/m4l3_newspawns.scr::1st_wave_spawn_allies_side
+break
+  }
+
+}
+$player stufftext "locationprint 260 200 SIDES-CHANGED...DONE!!"
+wait 1
+
+		for(local.i=1;local.i <= $player.size;local.i++) 
+		{
+			if($player[local.i].dmteam != "spectator") 
+		{
+			$player[local.i] respawn
+		} 
+		}
+
+
+end
+
+
+// **********************************************************************************
+
+// ----------------------------------------------------------------------------------
+
+timeover_axis_12min:
+
+wait 1
+
+level.clockcount11 = 1
+level.clockcount10 = 1
+level.clockcount9 = 1
+level.clockcount8 = 1
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+while (map_is_running)
+{
+
+if ( level.counttime < 1 )	
+{	
+
+level.dmroundlimit = 24
+
+level.clockcount11 = 1
+level.clockcount10 = 1
+level.clockcount9 = 1
+level.clockcount8 = 1
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+
+
+$player takeall
+$player stufftext "locationprint 260 200 CHANGING-SIDES...PLEASE-WAIT!!"
+
+wait 3	
+
+thread escort/util.scr::allies_side
+wait 0.1
+end
+}
+				
+		wait 0.1
+	}
+end
+
+timeover_allies_12min:
+
+wait 1
+
+level.clockcount11 = 1
+level.clockcount10 = 1
+level.clockcount9 = 1
+level.clockcount8 = 1
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+while (map_is_running)
+{
+
+if ( level.counttime < 1 )	
+{	
+
+level.dmroundlimit = 24
+
+level.clockcount11 = 1
+level.clockcount10 = 1
+level.clockcount9 = 1
+level.clockcount8 = 1
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+
+
+$player takeall
+$player stufftext "locationprint 260 200 CHANGING-SIDES...PLEASE-WAIT!!"
+
+
+wait 3	
+	
+thread escort/util.scr::axis_side
+wait 0.1
+end
+}
+				
+		wait 0.1
+	}
+end
+
+timeover_axis_10min:
+
+wait 1
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 1
+level.clockcount8 = 1
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+while (map_is_running)
+{
+
+if ( level.counttime < 1 )	
+{	
+
+level.dmroundlimit = 20
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 1
+level.clockcount8 = 1
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+
+
+$player takeall
+$player stufftext "locationprint 260 200 CHANGING-SIDES...PLEASE-WAIT!!"
+
+
+if (getcvar(mapname) == "dm/mohdm2")
+  {
+$trigger_node10 nottriggerable
+$node10.origin = $tank_axis.origin
+$trigger_node10.origin = $node10.origin
+waitframe
+$trigger_node10 nottriggerable
+$node10.origin = $destroyed.origin
+$trigger_node10.origin = $node10.origin
+  }
+
+wait 3	
+
+thread escort/util.scr::allies_side
+wait 0.1
+end
+}
+				
+		wait 0.1
+	}
+end
+
+timeover_allies_10min:
+
+wait 1
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 1
+level.clockcount8 = 1
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+while (map_is_running)
+{
+
+if ( level.counttime < 1 )	
+{	
+
+level.dmroundlimit = 20
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 1
+level.clockcount8 = 1
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+
+
+$player takeall
+$player stufftext "locationprint 260 200 CHANGING-SIDES...PLEASE-WAIT!!"
+
+if (getcvar(mapname) == "m5l1b")
+  {
+$trigger_node10 nottriggerable
+$node10.origin = $tank_allies.origin
+$trigger_node10.origin = $node10.origin
+waitframe
+$trigger_node10 nottriggerable
+$node10.origin = $destroyed.origin
+$trigger_node10.origin = $node10.origin
+  }
+
+if (getcvar(mapname) == "m3l3")
+  {
+$trigger_node10 nottriggerable
+$node10.origin = $tank_allies.origin
+$trigger_node10.origin = $node10.origin
+waitframe
+$trigger_node10 nottriggerable
+$node10.origin = $destroyed.origin
+$trigger_node10.origin = $node10.origin
+  }
+
+wait 3	
+	
+thread escort/util.scr::axis_side
+wait 0.1
+end
+}
+				
+		wait 0.1
+	}
+end
+
+// ----------------------------------------------------------------------------------
+
+// ----------------------------------------------------------------------------------
+
+timeover_axis_8min:
+
+wait 1
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+while (map_is_running)
+{
+
+if ( level.counttime < 1 )	
+{	
+
+
+
+level.dmroundlimit = 16
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+$player takeall
+$player stufftext "locationprint 260 200 CHANGING-SIDES...PLEASE-WAIT!!"
+
+if (getcvar(mapname) == "m6l2a")
+  {
+$trigger_node8 nottriggerable
+$node8.origin = $tank_axis.origin
+$trigger_node8.origin = $node8.origin
+waitframe
+$trigger_node8 nottriggerable
+$node8.origin = $destroyed.origin
+$trigger_node8.origin = $node8.origin
+  }
+
+if (getcvar(mapname) == "dm/mohdm3")
+  {
+$trigger_node9 nottriggerable
+$node9.origin = $tank_axis.origin
+$trigger_node9.origin = $node9.origin
+waitframe
+$trigger_node9 nottriggerable
+$node9.origin = $destroyed.origin
+$trigger_node9.origin = $node9.origin
+  }
+
+if (getcvar(mapname) == "dm/mohdm7")
+  {
+$trigger_node7 nottriggerable
+$node7.origin = $tank_axis.origin
+$trigger_node7.origin = $node7.origin
+waitframe
+$trigger_node7 nottriggerable
+$node7.origin = $destroyed.origin
+$trigger_node7.origin = $node7.origin
+  }
+
+wait 3
+
+thread escort/util.scr::allies_side
+wait 0.1
+end
+}
+				
+		wait 0.1
+	}
+end
+
+timeover_allies_8min:
+
+wait 1
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+while (map_is_running)
+{
+
+if ( level.counttime < 1 )	
+{	
+
+level.dmroundlimit = 16
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+
+
+$player takeall
+$player stufftext "locationprint 260 200 CHANGING-SIDES...PLEASE-WAIT!!"
+
+
+if (getcvar(mapname) == "dm/mohdm4")
+  {
+$trigger_node10 nottriggerable
+$node10.origin = $tank_allies.origin
+$trigger_node10.origin = $node10.origin
+waitframe
+$trigger_node10 nottriggerable
+$node10.origin = $destroyed.origin
+$trigger_node10.origin = $node10.origin
+  }
+
+if (getcvar(mapname) == "m1l2b")
+  {
+$trigger_node5 nottriggerable
+$node5.origin = $tank_allies.origin
+$trigger_node5.origin = $node5.origin
+waitframe
+$trigger_node5 nottriggerable
+$node5.origin = $destroyed.origin
+$trigger_node5.origin = $node5.origin
+  }
+
+if (getcvar(mapname) == "m4l3")
+  {
+$trigger_node8 nottriggerable
+$node8.origin = $tank_allies.origin
+$trigger_node8.origin = $node8.origin
+waitframe
+$trigger_node8 nottriggerable
+$node8.origin = $destroyed.origin
+$trigger_node8.origin = $node8.origin
+  }
+
+wait 3	
+	
+thread escort/util.scr::axis_side
+wait 0.1
+end
+}
+				
+		wait 0.1
+	}
+end
+
+// ----------------------------------------------------------------------------------
+
+timeover_axis_6min:
+
+wait 1
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 0
+level.clockcount6 = 0
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+while (map_is_running)
+{
+
+if ( level.counttime < 1 )	
+{	
+
+level.dmroundlimit = 12
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 0
+level.clockcount6 = 0
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+
+
+$player takeall
+$player stufftext "locationprint 260 200 CHANGING-SIDES...PLEASE-WAIT!!"
+wait 3	
+
+thread escort/util.scr::allies_side
+wait 0.1
+end
+}
+				
+		wait 0.1
+	}
+end
+
+timeover_allies_6min:
+
+wait 1
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 0
+level.clockcount6 = 0
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+while (map_is_running)
+{
+
+if ( level.counttime < 1 )	
+{	
+
+level.dmroundlimit = 12
+
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 0
+level.clockcount6 = 0
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+
+
+
+$player takeall
+$player stufftext "locationprint 260 200 CHANGING-SIDES...PLEASE-WAIT!!"
+wait 3	
+	
+thread escort/util.scr::axis_side
+wait 0.1
+end
+}
+				
+		wait 0.1
+	}
+end
+
+// ----------------------------------------------------------------------------------
+
+teamleft:
+
+while(map_is_running)
+{
+wait 40
+	level.allies = 0
+	level.axis = 0
+	for(local.i=1;local.i <= $player.size;local.i++) 
+	{
+		if($player[local.i].dmteam == "axis") 
+			level.axis++
+		else 
+			if($player[local.i].dmteam == "allies") 
+				level.allies++
+	}
+waitframe
+
+check:
+
+	if ((level.axis >= 1) && (level.allies == 0))
+	{
+
+	wait 5
+	local.gametype = getcvar "g_gametype"
+	setcvar "g_gametype" "4"
+	teamwin axis
+	wait 0.1
+	setcvar "g_gametype" local.gametype
+	thread screenclean
+	wait 1
+
+	}
+	if ((level.allies >= 1) && (level.axis == 0))
+	{
+
+	wait 5
+	local.gametype = getcvar "g_gametype"
+	setcvar "g_gametype" "4"
+	teamwin allies
+	wait 0.1
+	setcvar "g_gametype" local.gametype
+	thread screenclean
+	wait 1
+
+
+	}
+	
+	wait .5
+}
+end
+
+// -----------------------------------------------------------------------
+
+teams:
+while(map_is_running)
+{ 
+wait 2
+huddraw_align  101 left bottom
+huddraw_font   101 "courier-16"
+huddraw_rect   101 41 -120 100 14
+huddraw_color  101 1 1 1
+huddraw_alpha  101 1.0
+huddraw_string 101 (level.allies)
+huddraw_shader 203 ("textures/hud/allies")
+huddraw_align  203 left bottom
+huddraw_rect   203 16 -120 16 16
+huddraw_alpha  203 1.0
+huddraw_align  204 left bottom
+huddraw_font   204 "courier-16"
+huddraw_rect   204 41 -100 100 14
+huddraw_color  204 1 1 1
+huddraw_alpha  204 1.0
+huddraw_string 204 (level.axis)
+huddraw_shader 205 ("textures/hud/axis")
+huddraw_align  205 left bottom
+huddraw_rect   205 16 -100 16 16
+huddraw_alpha  205 1.0
+huddraw_align  206 left bottom
+huddraw_font   206 "handle-18"
+huddraw_rect   206 16 -140 20 20
+huddraw_alpha  206 1.0
+huddraw_string 206 ("Players")
+
+wait 1
+
+}
+end
+
+setup:
+
+while(map_is_running)
+{
+	level.allies = 0
+	level.axis = 0
+	for(local.i=1;local.i <= $player.size;local.i++) 
+	{
+		if($player[local.i].dmteam == "axis") 
+			level.axis++
+		else 
+			if($player[local.i].dmteam == "allies") 
+				level.allies++
+	}
+waitframe
+
+flash:
+	huddraw_color 206 1.00 1.00 1.00
+	if ((level.axis > level.allies+1) && (getcvar("g_gametype") != "1"))
+	{
+		huddraw_color 206 1 0 0
+	}
+	if ((level.allies > level.axis+1) && (getcvar("g_gametype") != "1"))
+	{
+		huddraw_color 206 1 0 0
+	}
+	wait .5
+	huddraw_color 206 1.00 1.00 1.00
+	wait .5
+}
+end
+
+screenclean:
+waitframe
+	// Clean screen //
+	huddraw_alpha 004 0
+	huddraw_alpha 005 0
+	huddraw_alpha 006 0
+	huddraw_alpha 021 0
+	huddraw_alpha 022 0
+	huddraw_alpha 023 0
+	huddraw_alpha 024 0
+	huddraw_alpha 031 0
+	huddraw_alpha 032 0
+	huddraw_alpha 223 0
+	huddraw_alpha 224 0
+	huddraw_alpha 225 0
+	huddraw_alpha 226 0
+	huddraw_alpha 227 0
+	//////////////////
+end
+// ----------------------------------------------------------------------------------

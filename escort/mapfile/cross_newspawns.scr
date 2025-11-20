@@ -1,0 +1,340 @@
+/*
+
+ ******************************************
+ **                                      **
+ **     This file is part of the MOD     **
+ **                                      **
+ **       -=[Escort-The-Vehicle]=-       **  *  You are not allowed to modify this mod without the permission of the creator. *
+ **                                      **
+ **     Game MOD created by [PacRac]     **
+ **                                      **
+ ******************************************
+
+*/
+
+// ####################################################
+//
+//
+// 		Escort_spawns (CROSSROADS MAP)
+//
+//
+// ####################   |   ########################
+//			  v
+
+spawnblock:
+
+// »»»»»»»»»»»»» AXIS BLOCK «««««««««««««««««««««««««««
+
+/*
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 48 672 56.13 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 632 3040 920.13 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 593 3081 921.13 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 848 -2192 240.13 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 694 1592 26.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 672 2580 672.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 784 4588 240.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 1292 3368 240.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -68 4188 16.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 847 -2191 239.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 849 -2193 241.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -794 -2032 240.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 631 3039 919.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 633 3041 921.13  )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1340 2492 328.13 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 694 1592 26.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -67 4187 15.13 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -69 4189 17.13 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 671 2579 671 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 673 2581 673 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 1292 3368 240.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -324 3756 652.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1040 2256 472.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 816 -1136 480.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 468 4336 324.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 784 4588 240.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1488 4076 236.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1040 -1132 240.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1488 4076 246.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1040 -1132 250.13 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1040 2256 482.26 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -896 4608 240.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -794 -2032 250.26 )
+
+// »»»»»»»»»»»»» ALLIES BLOCK «««««««««««««««««««««««««««
+
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 1284 -804 192.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1372 1092 248.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 80 -3024 240.13 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1328 2292 240.13 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1256 2824 448.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 624 2580 264.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1656 3108 184.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -528 2032 248.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 336 3136 26.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -812 2452 240.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1328 2292 250.26 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -502 -1384 248.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 848 -2384 240.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( -1508 884 248.13 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 1252 1296 72.13 ) 
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 624 2580 274.26 )
+exec escort/escort_spawnblock.scr::spawn_block_trigger  ( 1576 3112 240.13 ) 
+*/
+
+end
+
+// ******************************************************************************************
+
+activate_spawns:
+
+
+// »»»»»»»»»»»»» AXIS SPAWN «««««««««««««««««««««««««««
+
+local.axis = spawn info_player_axis "targetname" "Axis_side_spawn_01"
+
+local.axis = spawn info_player_axis "targetname" "Axis_side_spawn_02"
+
+local.axis = spawn info_player_axis "targetname" "Axis_side_spawn_03"
+
+local.axis = spawn info_player_axis "targetname" "Axis_side_spawn_04"
+
+local.axis = spawn info_player_axis "targetname" "Axis_side_spawn_05"
+
+local.axis = spawn info_player_axis "targetname" "Axis_side_spawn_06"
+
+local.axis = spawn info_player_axis "targetname" "Axis_side_spawn_07"
+
+local.axis = spawn info_player_axis "targetname" "Axis_side_spawn_08"
+
+local.axis = spawn info_player_axis "targetname" "Axis_side_spawn_09"
+
+// »»»»»»»»»»»»» ALLIES SPAWN «««««««««««««««««««««««««««
+
+local.allied = spawn info_player_allied "targetname" "Allies_side_spawn_01"
+
+local.allied = spawn info_player_allied "targetname" "Allies_side_spawn_02"
+
+local.allied = spawn info_player_allied "targetname" "Allies_side_spawn_03"
+
+local.allied = spawn info_player_allied "targetname" "Allies_side_spawn_04"
+
+local.allied = spawn info_player_allied "targetname" "Allies_side_spawn_05"
+
+local.allied = spawn info_player_allied "targetname" "Allies_side_spawn_06"
+
+local.allied = spawn info_player_allied "targetname" "Allies_side_spawn_07"
+
+local.allied = spawn info_player_allied "targetname" "Allies_side_spawn_08"
+
+local.allied = spawn info_player_allied "targetname" "Allies_side_spawn_09"
+
+end
+
+// ******************************************************************************************
+
+// ################
+1st_wave_spawn_allies_side:
+// #################
+
+//iprintlnbold "1st_wave_spawn_allies_side"
+
+// »»»»»»»»»»»»» AXIS SPAWN «««««««««««««««««««««««««««
+
+$Axis_side_spawn_01.origin = ( -1011 1301 305.13 ) 
+$Axis_side_spawn_01.angle = 0
+$Axis_side_spawn_02.origin = ( -1552 1868 250.13 )
+$Axis_side_spawn_02.angle = -30
+$Axis_side_spawn_03.origin = ( -1482 853 258.13 ) 
+$Axis_side_spawn_03.angle = 50
+$Axis_side_spawn_04.origin = ( 1162 1451 250.13 ) 
+$Axis_side_spawn_04.angle = 120
+$Axis_side_spawn_05.origin = ( 1215 1373 82 ) 
+$Axis_side_spawn_05.angle = -128
+$Axis_side_spawn_06.origin = ( -933 2134 258 ) 
+$Axis_side_spawn_06.angle = 23
+$Axis_side_spawn_07.origin = ( 1382 1845 194 ) 
+$Axis_side_spawn_07.angle = 180
+$Axis_side_spawn_08.origin = ( 646 2572 274.13 ) 
+$Axis_side_spawn_08.angle = 115
+$Axis_side_spawn_09.origin = ( -15 654 66 ) 
+$Axis_side_spawn_09.angle = 170
+
+
+// »»»»»»»»»»»»» ALLIES SPAWN «««««««««««««««««««««««««««
+
+
+$Allies_side_spawn_01.origin = ( 529 -2215 250.13 ) 
+$Allies_side_spawn_01.angle = 156
+$Allies_side_spawn_02.origin = ( 885 -901 480 )
+$Allies_side_spawn_02.angle = -150
+$Allies_side_spawn_03.origin = ( -1629 -1203 231 ) 
+$Allies_side_spawn_03.angle = 55
+$Allies_side_spawn_04.origin = ( -1026 -1194 250 ) 
+$Allies_side_spawn_04.angle = 80
+$Allies_side_spawn_05.origin = ( 896 -1322 490 ) 
+$Allies_side_spawn_05.angle = 130
+$Allies_side_spawn_06.origin = ( -504 -1890 260.13 ) 
+$Allies_side_spawn_06.angle = 59
+$Allies_side_spawn_07.origin = ( 1290 -766 200 ) 
+$Allies_side_spawn_07.angle = -133
+$Allies_side_spawn_08.origin = ( 879 -1300 260 ) 
+$Allies_side_spawn_08.angle = 105
+$Allies_side_spawn_09.origin = ( 84 -2582 240 ) 
+$Allies_side_spawn_09.angle = 130
+
+end
+
+// ################
+2nd_wave_spawn_allies_side:
+// #################
+
+//iprintlnbold "2nd_wave_spawn_allies_side"
+
+// »»»»»»»»»»»»» AXIS SPAWN «««««««««««««««««««««««««««
+
+$Axis_side_spawn_01.origin = ( -1471 3400 186.13 ) 
+$Axis_side_spawn_01.angle = -64
+$Axis_side_spawn_02.origin = ( -764 3447 542 )
+$Axis_side_spawn_02.angle = 170
+$Axis_side_spawn_03.origin = ( -1663 2889 194.13 ) 
+$Axis_side_spawn_03.angle = 20
+$Axis_side_spawn_04.origin = ( 485 3791 334 ) 
+$Axis_side_spawn_04.angle = 170
+$Axis_side_spawn_05.origin = ( 1204 2967 250 ) 
+$Axis_side_spawn_05.angle = 130
+$Axis_side_spawn_06.origin = ( -993 2351 482 ) 
+$Axis_side_spawn_06.angle = -25
+$Axis_side_spawn_07.origin = ( -86 3987 26 ) 
+$Axis_side_spawn_07.angle = -80
+$Axis_side_spawn_08.origin = ( -374 3701 662 ) 
+$Axis_side_spawn_08.angle = -110
+$Axis_side_spawn_09.origin = ( -764 2472 250.13 ) 
+$Axis_side_spawn_09.angle = 35
+
+
+// »»»»»»»»»»»»» ALLIES SPAWN «««««««««««««««««««««««««««
+
+$Allies_side_spawn_01.origin = ( 1554 1175 250 ) 
+$Allies_side_spawn_01.angle = 113
+$Allies_side_spawn_02.origin = ( -1506 1846 250 )
+$Allies_side_spawn_02.angle = -16
+$Allies_side_spawn_03.origin = ( -1475 860 258.13 ) 
+$Allies_side_spawn_03.angle = 45
+$Allies_side_spawn_04.origin = ( -1545 1567 250.13 ) 
+$Allies_side_spawn_04.angle = 42
+$Allies_side_spawn_05.origin = ( 63 656 66 ) 
+$Allies_side_spawn_05.angle = 13
+$Allies_side_spawn_06.origin = ( -1114 706 66.13 ) 
+$Allies_side_spawn_06.angle = 11
+$Allies_side_spawn_07.origin = ( 1227 877 82 ) 
+$Allies_side_spawn_07.angle = 96
+$Allies_side_spawn_08.origin = ( 1531 2123 194 ) 
+$Allies_side_spawn_08.angle = -170
+$Allies_side_spawn_09.origin = ( -1532 1608 250 ) 
+$Allies_side_spawn_09.angle = 52
+
+
+end
+
+
+// #################
+1st_wave_spawn_axis_side:
+// #################
+
+//iprintlnbold "1st_wave_spawn_axis_side"
+
+// »»»»»»»»»»»»» ALLIES SPAWN «««««««««««««««««««««««««««
+
+$Allies_side_spawn_01.origin = ( -1011 1301 305.13 ) 
+$Allies_side_spawn_01.angle = 0
+$Allies_side_spawn_02.origin = ( -1552 1868 250.13 )
+$Allies_side_spawn_02.angle = -30
+$Allies_side_spawn_03.origin = ( -1482 853 258.13 ) 
+$Allies_side_spawn_03.angle = 50
+$Allies_side_spawn_04.origin = ( 1162 1451 250.13 ) 
+$Allies_side_spawn_04.angle = 120
+$Allies_side_spawn_05.origin = ( 1215 1373 82 ) 
+$Allies_side_spawn_05.angle = -128
+$Allies_side_spawn_06.origin = ( -933 2134 258 ) 
+$Allies_side_spawn_06.angle = 23
+$Allies_side_spawn_07.origin = ( 1382 1845 194 ) 
+$Allies_side_spawn_07.angle = 180
+$Allies_side_spawn_08.origin = ( 646 2572 274.13 ) 
+$Allies_side_spawn_08.angle = 115
+$Allies_side_spawn_09.origin = ( -15 654 66 ) 
+$Allies_side_spawn_09.angle = 170
+
+// »»»»»»»»»»»»» AXIS SPAWN «««««««««««««««««««««««««««
+
+$Axis_side_spawn_01.origin = ( 529 -2215 250.13 ) 
+$Axis_side_spawn_01.angle = 156
+$Axis_side_spawn_02.origin = ( 885 -901 480 )
+$Axis_side_spawn_02.angle = -150
+$Axis_side_spawn_03.origin = ( -1629 -1203 231 ) 
+$Axis_side_spawn_03.angle = 55
+$Axis_side_spawn_04.origin = ( -1026 -1194 250 ) 
+$Axis_side_spawn_04.angle = 80
+$Axis_side_spawn_05.origin = ( 896 -1322 490 ) 
+$Axis_side_spawn_05.angle = 130
+$Axis_side_spawn_06.origin = ( -504 -1890 260.13 ) 
+$Axis_side_spawn_06.angle = 59
+$Axis_side_spawn_07.origin = ( 1290 -766 200 ) 
+$Axis_side_spawn_07.angle = -133
+$Axis_side_spawn_08.origin = ( 879 -1300 260 ) 
+$Axis_side_spawn_08.angle = 105
+$Axis_side_spawn_09.origin = ( 84 -2582 240 ) 
+$Axis_side_spawn_09.angle = 130
+
+end
+
+// ################
+2nd_wave_spawn_axis_side:
+// #################
+
+//iprintlnbold "2nd_wave_spawn_axis_side"
+
+// »»»»»»»»»»»»» ALLIES SPAWN «««««««««««««««««««««««««««
+
+$Allies_side_spawn_01.origin = ( -1471 3400 186.13 ) 
+$Allies_side_spawn_01.angle = -64
+$Allies_side_spawn_02.origin = ( -764 3447 542 )
+$Allies_side_spawn_02.angle = 170
+$Allies_side_spawn_03.origin = ( -1663 2889 194.13 ) 
+$Allies_side_spawn_03.angle = 20
+$Allies_side_spawn_04.origin = ( 485 3791 334 ) 
+$Allies_side_spawn_04.angle = 170
+$Allies_side_spawn_05.origin = ( 1204 2967 250 ) 
+$Allies_side_spawn_05.angle = 130
+$Allies_side_spawn_06.origin = ( -993 2351 482 ) 
+$Allies_side_spawn_06.angle = -25
+$Allies_side_spawn_07.origin = ( -86 3987 26 ) 
+$Allies_side_spawn_07.angle = -80
+$Allies_side_spawn_08.origin = ( -374 3701 662 ) 
+$Allies_side_spawn_08.angle = -110
+$Allies_side_spawn_09.origin = ( -764 2472 250.13 ) 
+$Allies_side_spawn_09.angle = 35
+
+// »»»»»»»»»»»»» AXIS SPAWN «««««««««««««««««««««««««««
+
+$Axis_side_spawn_01.origin = ( 1554 1175 250 ) 
+$Axis_side_spawn_01.angle = 113
+$Axis_side_spawn_02.origin = ( -1506 1846 250 )
+$Axis_side_spawn_02.angle = -16
+$Axis_side_spawn_03.origin = ( -1475 860 258.13 ) 
+$Axis_side_spawn_03.angle = 45
+$Axis_side_spawn_04.origin = ( -1545 1567 250.13 ) 
+$Axis_side_spawn_04.angle = 42
+$Axis_side_spawn_05.origin = ( 63 656 66 ) 
+$Axis_side_spawn_05.angle = 13
+$Axis_side_spawn_06.origin = ( -1114 706 66.13 ) 
+$Axis_side_spawn_06.angle = 11
+$Axis_side_spawn_07.origin = ( 1227 877 82 ) 
+$Axis_side_spawn_07.angle = 96
+$Axis_side_spawn_08.origin = ( 1531 2123 194 ) 
+$Axis_side_spawn_08.angle = -170
+$Axis_side_spawn_09.origin = ( -1532 1608 250 ) 
+$Axis_side_spawn_09.angle = 52
+
+end
+
+// **********************************************************

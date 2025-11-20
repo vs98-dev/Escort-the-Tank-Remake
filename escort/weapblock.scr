@@ -1,0 +1,42 @@
+/*
+
+ ******************************************
+ **                                      **
+ **     This file is part of the MOD     **
+ **                                      **
+ **       -=[Escort-The-Vehicle]=-       **  *  You are not allowed to modify this mod without the permission of the creator. *
+ **                                      **
+ **     Game MOD created by [PacRac]     **
+ **                                      **
+ ******************************************
+
+*/
+
+weapblock local.player:
+
+//self scale 1.02
+
+local.antiga = "models/weapons/bazooka.tik"
+local.antiga1 = "models/weapons/panzerschreck.tik"
+
+waitframe
+local.nvezes = randomint 9999
+self weaponcommand dual targetname ("arma" + local.nvezes)
+local.arma = $("arma" + local.nvezes).model 
+
+
+if(local.arma == local.antiga) {
+	self spectator
+	self stufftext "pushmenu SelectPrimaryWeapon"
+end
+}
+
+if(local.arma == local.antiga1) {
+	self spectator
+	self stufftext "pushmenu SelectPrimaryWeapon"
+end
+}
+
+end local.player
+
+

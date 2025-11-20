@@ -1,0 +1,339 @@
+main:
+
+setcvar "g_scoreboardpic" "m4l3"
+
+setcvar "g_gametype" "3"
+
+setcvar fraglimit "1"
+
+//thread escort/mapfile/m4l3_newspawns.scr::spawnblock
+exec escort/mapfile/m4l3_newspawns.scr::activate_spawns
+exec escort/mapfile/m4l3_newspawns.scr::1st_wave_spawn_allies_side
+exec escort/escort_messages.scr::Gamemod
+exec escort/escort_messages.scr::messages
+
+
+local.point = spawn info_vehiclepoint "targetname" "tank_1" "target" "tank_2"
+
+	
+//	exec global/ai.scr
+//	exec global/exploder.scr
+//	exec global/loadout_precache.scr maps/m4l3.scr
+	// call additional stuff for playing this map round based is needed
+	if(level.roundbased)
+		thread roundbasedthread
+
+	// Remove AI
+	removeclass actor
+	removeclass turretGun
+	removeclass health
+	removeclass ammo
+	removeclass AmmoEntity
+
+
+/////////////////////////////////
+
+level waitTill prespawn
+
+/////////////////////////////////
+
+	//*** Precache Dm Stuff
+	exec global/DMprecache.scr
+
+	level.script = maps/m4l3.scr
+
+//*** INITIALIZE AMBIENT SOUND SYSTEM
+
+
+	exec global/ambient.scr m4l2 //m4l3
+
+//*** INITIALIZE DOOR LOCKING SYSTEM
+
+exec global/door_locked.scr::lock
+
+//*** INITIALIZE FOG DISTANCE AND COLOR
+
+$world farplane 10000 // 6000
+$world farplane_color (.1 .1 .1)
+
+/////////////////////// OBJECTS ////////////////////////////////////////////////
+
+	$spotlight remove
+	$tank1_bomb remove
+	$tank2_bomb remove
+	$tank1_bomb_trigger nottriggerable
+	$tank2_bomb_trigger nottriggerable
+	$faketruck_model remove
+	$faketruck_collision remove
+	$opeltruck_end_collision remove
+
+	$truckblock remove
+
+$explosive_barrel_launch_dummy remove
+$explosive_barrel remove
+$explosive_barrel_launch remove
+
+	$p01 lock
+	//$p02 lock
+	$p03 lock
+	$p04 lock
+	$p05 lock
+	$p06 lock
+	$p07 lock
+	$p08 lock
+	$p09 lock
+	//$p10 lock
+	$p11 lock
+	$p12 lock
+	$p13 lock
+	$p14 lock
+	$p15 lock
+	$p16 lock
+	//$door_building3_front1 lock
+	$door_sidehouse_bathroom lock
+	$door_building3_front2 lock
+	$door_building3_rear lock
+	$door_building2_rear1 lock
+	$door_building2_rear2 lock
+	$door_building2_side lock
+
+	$realtruck vehicleanim idlelights
+	$realtruck.corona = 1
+
+	$realtruck.origin = ( -5740 -4155 -301 )
+	$realtruck setcollisionentity $opeltruck_start_exit_collisionmask
+	$realtruck.angle = 45
+	$realtruck nodamage 
+	local.dummy1 = spawn script_model "model" "fx/dummy.tik"
+	local.dummy1.origin = ( -5740 -4155 -301 )
+	local.dummy1 loopsound opeltruck_snd_idle
+
+
+	$tank1.origin = ( -4127 -1261 -36 )
+	$tank1.angle = 90
+	$tank1_turret.origin = $tank1.origin + ( 0 -80 110 )
+	$tank1_turret.angle = $tank1.angle
+	$tank1_collision.origin = $tank1.origin + ( 0 0 81 )
+	$tank1_collision.angle = 180
+	
+	$tank2.origin = ( -4650 1900 2 )
+	$tank2_collision.origin = $tank2.origin + ( 0 25 81 )
+	$tank2_turret.origin = $tank2.origin + ( -70 32 112 )
+	$tank2_collision.origin = $tank2.origin + ( 0 25 81 )
+
+	$truckgate solid
+	$truckgate.origin = ( -4030 1668 100 )
+	$truckgate.angle = 90
+
+
+local.wall = spawn script_model 
+local.wall model "static/indycrate.tik"
+local.wall.origin = ( -6400 -833 168 )
+local.wall.angles = ( 0.00 0.00 0.00 ) 
+local.wall solid
+local.wall setsize ( 50 -500 0 ) ( 50 500 160 )
+local.wall hide
+
+local.car = spawn script_model "model" "vehicles/jeep.tik" "targetname" "carro"
+$carro.origin = ( -4824 1291 -3 )
+$carro.angle = 180
+$carro notsolid
+
+local.car1 = spawn script_models "model" "fx/dummy.tik"
+local.car1.origin = $carro.origin
+local.car1.angle = $carro.angle
+local.car1 solid
+local.car1 setsize ( -100 -50 0 ) ( 100 50 60)
+local.car1 nodamage
+local.car1 immune bullet
+local.car1 immune fast_bullet
+local.car1 immune bash
+local.car1 immune mg
+local.car1 immune explosion
+
+// ------------ gmctruck solid ----------------------
+
+local.camiao = spawn script_model "model" "vehicles/gmctruck.tik" "targetname" "camiao"
+$camiao.origin = ( -5566 1624 -6 ) 
+$camiao.angles = ( 0 -90 0 )
+$camiao notsolid
+$camiao nodamage
+$camiao immune bullet
+$camiao immune fast_bullet
+$camiao immune bash
+$camiao immune mg
+$camiao immune explosion
+
+local.camiao_atras = spawn script_model "model" "fx/dummy.tik" "targetname" "camiao_atras"
+$camiao_atras.origin = ( -5566 1694 -6 ) // ( x +70 x )
+$camiao_atras.angles = ( 0 -90 0 )
+$camiao_atras setsize ( -110 -60 0 ) ( 110 60 160 )
+$camiao_atras solid
+$camiao_atras nodamage
+$camiao_atras immune bullet
+$camiao_atras immune fast_bullet
+$camiao_atras immune bash
+$camiao_atras immune mg
+$camiao_atras immune explosion
+
+local.camiao_atras = spawn script_model "model" "fx/dummy.tik" "targetname" "camiao_meio"
+$camiao_meio.origin = ( -5566 1544 -6 ) // ( x -80 x )
+$camiao_meio.angles = ( 0 -90 0 )
+$camiao_meio setsize ( -20 -50 0 ) ( 20 50 130 )
+$camiao_meio solid
+$camiao_meio nodamage
+$camiao_meio immune bullet
+$camiao_meio immune fast_bullet
+$camiao_meio immune bash
+$camiao_meio immune mg
+$camiao_meio immune explosion
+
+local.camiao_atras = spawn script_model "model" "fx/dummy.tik" "targetname" "camiao_frente"
+$camiao_frente.origin = ( -5566 1474 -6 ) // ( x -150 x )
+$camiao_frente.angles = ( 0 -90 0 )
+$camiao_frente setsize ( -30 -50 0 ) ( 30 50 90 )
+$camiao_frente solid
+$camiao_frente nodamage
+$camiao_frente immune bullet
+$camiao_frente immune fast_bullet
+$camiao_frente immune bash
+$camiao_frente immune mg
+$camiao_frente immune explosion
+
+// -----------------------------------------------------
+
+
+
+/////////////////////// OBJECTS ////////////////////////////////////////////////
+
+thread maps/m4l3.scr::tanky
+thread maps/m4l3.scr::tanky2
+
+/////////////////////////////////
+
+level waitTill spawn
+
+/////////////////////////////////
+
+	exec escort/cabinet.scr::m4l3_closet
+	exec escort/cabinet.scr::m4l3_closet2
+	$closet_trigger nottriggerable
+	$closet_trigger2 nottriggerable
+
+end
+
+// ===================================================
+tanky:
+
+spawn vehicles/panzer_tank.tik "targetname" "tank_axis"
+$tank_axis.origin = ( -5345 -5614 -1000 )
+$tank_axis.angles = ( 0 90 0 )
+//$tank_axis setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_axis nodamage
+$tank_axis notsolid
+$tank_axis.corona = 1
+$tank_axis rendereffects "-shadow"
+$tank_axis immune bullet
+$tank_axis immune fast_bullet
+$tank_axis immune grenade
+$tank_axis immune bash
+$tank_axis.health = 300 // 300
+//$tank_axis takedamage
+waitframe
+
+end
+// ===================================================
+
+
+// ===================================================
+tanky2:
+
+spawn vehicles/panzer_tank_europe.tik "targetname" "tank_allies"
+$tank_allies.origin = ( -5345 -5614 -256 )
+$tank_allies.angles = ( 0 90	 0 )
+//$tank_allies setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_allies nodamage
+$tank_allies notsolid
+$tank_allies.corona = 1
+$tank_allies rendereffects "-shadow"
+$tank_allies immune bullet
+$tank_allies immune fast_bullet
+$tank_allies immune grenade
+$tank_allies immune bash
+$tank_allies.health = 300 // 300
+//$tank_allies takedamage
+waitframe
+end
+// ===================================================
+
+roundbasedthread:
+
+	// Can specify different scoreboard messages for round based games here.
+
+	level waitTill prespawn
+
+	level waittill spawn
+
+	// set the parameters for this round based match
+	level.dmrespawning = 1 // 1 or 0
+	level.dmroundlimit = 8 // round time limit in minutes
+	level.clockside = allies // set to axis, allies, kills, or draw
+
+	level waittill roundstart
+   
+        exec escort/util.scr::teamleft
+	exec escort/escort_allies.scr
+	exec escort/mapfile/m4l3_node_points.scr::node_point
+	exec escort/util.scr::map_timecount_8min
+	exec escort/escort_messages.scr::counttime
+	$closet_trigger triggerable
+	$closet_trigger2 triggerable
+
+end
+
+
+// End some labels
+alarm_player_reset:
+end
+dogsyes:
+end
+ending_spawner1:
+end
+ending_spawner4:
+end
+tank2_bomb_plant:
+end
+end_level:
+end
+manon_shout:
+end
+objective5_add:
+end
+objective1_complete:
+end
+objective2_complete:
+end
+objective5_complete:
+end
+objective3_complete:
+end
+objective4_complete:
+end
+faketruck_playerexit:
+end
+intro_truck_unlockview:
+end
+end_truck:
+end
+tank1_bomb_plant:
+end
+tank_bomb_pickup:
+end
+ending_spawner2:
+end
+phone:
+end
+dogsno:
+end
+end_autosave:
+end

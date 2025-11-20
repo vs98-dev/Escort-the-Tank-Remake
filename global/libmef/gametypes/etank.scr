@@ -1,0 +1,36 @@
+register_gametypes: 
+	level.mef_gametypes["etank"] = global/libmef/gametypes/etank.scr::init_gametype 
+end
+
+init_gametype: 
+	self.gametypestring = "Escort the Tank"
+	self.basegametype = 3
+	
+	thread etank_begin 
+end
+
+etank_begin: 
+	if (level.etank_running) 
+	{
+		end
+	} 
+
+	level.etank_running = 1
+	
+	level.mef_credits[0] = "Escort the Tank"
+	level.mef_credits[1] = ""
+	level.mef_credits[2] = "by [PacRac]"
+	level.mef_credits[3] = ""
+	level.mef_credits[4] = "Changed by JardiGol"
+	level.mef_credits[5] = " [NG] Team "
+
+	setcvar "g_obj_alliedtext1" "Escort the Tank"
+	setcvar "g_obj_alliedtext2" "by [PacRac]"
+	setcvar "g_obj_alliedtext3" ""
+	setcvar "g_obj_axistext1" ""
+	setcvar "g_obj_axistext2" "Changed by JardiGol"
+	setcvar "g_obj_axistext3" "[NG] Team"
+ 
+	waitexec ("global/escorttank/" + level.mef_fullmapname + ".scr")
+
+end

@@ -1,0 +1,1168 @@
+/*
+
+ ******************************************
+ **                                      **
+ **     This file is part of the MOD     **
+ **                                      **
+ **       -=[Escort-The-Vehicle]=-       **  *  You are not allowed to modify this mod without the permission of the creator. *
+ **                                      **
+ **     Game MOD created by [PacRac]     **
+ **                                      **
+ ******************************************
+
+*/
+
+// ********************* DESTROYED VILLAGE MAP ***************************************
+
+dv_closet:
+
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -2430 -1759 240 )
+    local.trigger1 setsize ( -20 -55 0 ) ( 20 40 80 )
+    local.trigger1.angles = ( 0 -90 0 )
+    local.trigger1 setthread "Opening"
+    local.trigger1.targetname = "closet_trigger"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger.origin
+    local.closet.angles = $closet_trigger.angles
+    local.closet.targetname = "armario"
+    local.closet.trigger_name = "closet_trigger"
+
+    local.clip = spawn script_model
+    local.clip model "static/indycrate.tik"
+    local.clip.origin = ( $armario.origin ) + ( 25 0 60 )
+    local.clip.angles = ( $armario.angles ) + ( 0 0 90 )
+    local.clip solid
+    local.clip hide
+
+    local.fix = spawn script_model
+    local.fix model "static/cratelid1.tik"
+    local.fix setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix.origin = ( $armario.origin ) + ( 0 -10 100 )
+    local.fix solid
+    local.fix hide
+
+    spawn models/weapons/bazooka.tik "targetname" "rpgicon"
+    $rpgicon.origin = ( $armario.origin ) + ( 5 -5 130 )
+    $rpgicon.angles = ( 180 180 0 )
+    $rpgicon scale 0.6
+    $rpgicon nottriggerable
+    $rpgicon light 0 1 0 50
+
+    spawn models/weapons/bazooka.tik "targetname" "rpg1"
+    $rpg1.origin = ( $armario.origin ) + ( 0 -15 -1000 )
+    $rpg1.angles = ( 90 180 0 )
+    $rpg1 notsolid
+
+end
+
+dv_closet2:
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -1300 -1765 8 ) 
+    local.trigger1 setsize ( -20 -55 0 ) ( 20 40 80 ) 
+    local.trigger1.angles = ( 0 -90 0 )
+    local.trigger1 setthread "Opening2"
+    local.trigger1.targetname = "closet_trigger2"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger2.origin
+    local.closet.angles = $closet_trigger2.angles
+    local.closet.targetname = "armario2"
+    local.closet.trigger_name = "closet_trigger2"
+
+    local.clip2 = spawn script_model
+    local.clip2 model "static/indycrate.tik"
+    local.clip2.origin = ( $armario2.origin ) + ( 25 0 60 )
+    local.clip2.angles = ( $armario2.angles ) + ( 0 0 90 )
+    local.clip2 solid
+    local.clip2 hide
+
+    local.fix2 = spawn script_model
+    local.fix2 model "static/cratelid1.tik"
+    local.fix2 setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix2.origin = ( $armario2.origin ) + ( 0 -10 100 )
+    local.fix2 solid
+    local.fix2 hide
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpgicon2"
+    $rpgicon2.origin = ( $armario2.origin ) + ( 5 -15 130 )
+    $rpgicon2.angles = ( 180 0 0 )
+    $rpgicon2 scale 0.6
+    $rpgicon2 nottriggerable
+    $rpgicon2 light 0 1 0 50
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpg2"
+    $rpg2.origin = ( $armario2.origin ) + ( 0 -15 -1000 )
+    $rpg2.angles = ( 90 180 180 )
+    $rpg2 notsolid
+
+end
+
+
+// ********************* DESTROYED VILLAGE MAP ***************************************
+
+
+// ********************* CROSSROADS MAP **********************************************
+
+cross_closet:
+
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -1272 2754 448 )
+    local.trigger1 setsize ( -40 -20 0 ) ( 55 20 80 )
+    local.trigger1.angles = ( 0 0 0 )
+    local.trigger1 setthread "Opening"
+    local.trigger1.targetname = "closet_trigger"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger.origin
+    local.closet.angles = $closet_trigger.angles
+    local.closet.targetname = "armario"
+    local.closet.trigger_name = "closet_trigger"
+
+    local.clip = spawn script_model
+    local.clip model "static/indycrate.tik"
+    local.clip.origin = ( $armario.origin ) + ( 0 25 60 )
+    local.clip.angles = ( $armario.angles ) + ( 0 0 90 )
+    local.clip solid
+    local.clip hide
+
+    local.fix = spawn script_model
+    local.fix model "static/cratelid1.tik"
+    local.fix setsize ( -25 -30 -10 ) ( 25 30 10 ) // NS
+    local.fix.origin = ( $armario.origin ) + ( 10 0 100 )
+    local.fix solid
+    local.fix hide
+
+    spawn models/weapons/bazooka.tik "targetname" "rpgicon"
+    $rpgicon.origin = ( $armario.origin ) + ( 5 5 130 )
+    $rpgicon.angles = ( 180 -90 0 )
+    $rpgicon scale 0.6
+    $rpgicon nottriggerable
+    $rpgicon light 0 1 0 50
+
+    spawn models/weapons/bazooka.tik "targetname" "rpg1"
+    $rpg1.origin = ( $armario.origin ) + ( 15 0 -1000 )
+    $rpg1.angles = ( 90 -90 0 )
+    $rpg1 notsolid
+
+end
+
+cross_closet2:
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -1374 849 248 ) 
+    local.trigger1 setsize ( -20 -40 0 ) ( 20 55 80 ) 
+    local.trigger1.angles = ( 0 90 0 )
+    local.trigger1 setthread "Opening2"
+    local.trigger1.targetname = "closet_trigger2"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger2.origin
+    local.closet.angles = $closet_trigger2.angles
+    local.closet.targetname = "armario2"
+    local.closet.trigger_name = "closet_trigger2"
+
+    local.clip2 = spawn script_model
+    local.clip2 model "static/indycrate.tik"
+    local.clip2.origin = ( $armario2.origin ) + ( -25 0 60 )
+    local.clip2.angles = ( $armario2.angles ) + ( 0 0 90 )
+    local.clip2 solid
+    local.clip2 hide
+
+    local.fix2 = spawn script_model
+    local.fix2 model "static/cratelid1.tik"
+    local.fix2 setsize ( -25 -30 -10 ) ( 25 30 10 ) // NS
+    local.fix2.origin = ( $armario2.origin ) + ( 0 10 100 )
+    local.fix2 solid
+    local.fix2 hide
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpgicon2"
+    $rpgicon2.origin = ( $armario2.origin ) + ( 5 -5 130 )
+    $rpgicon2.angles = ( 180 0 0 )
+    $rpgicon2 scale 0.6
+    $rpgicon2 nottriggerable
+    $rpgicon2 light 0 1 0 50
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpg2"
+    $rpg2.origin = ( $armario2.origin ) + ( 0 15 -1000 )
+    $rpg2.angles = ( 90 180 180 )
+    $rpg2 notsolid
+
+end
+
+// ********************* CROSSROADS MAP **********************************************
+
+// ********************* REMAGEN MAP **********************************************
+
+rem_closet:
+
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( 1693 -1162 -55.88 )
+    local.trigger1 setsize ( -40 -20 0 ) ( 55 20 80 )
+    local.trigger1.angles = ( 0 0 0 )
+    local.trigger1 setthread "Opening"
+    local.trigger1.targetname = "closet_trigger"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger.origin
+    local.closet.angles = $closet_trigger.angles
+    local.closet.targetname = "armario"
+    local.closet.trigger_name = "closet_trigger"
+
+    local.clip = spawn script_model
+    local.clip model "static/indycrate.tik"
+    local.clip.origin = ( $armario.origin ) + ( 0 25 60 )
+    local.clip.angles = ( $armario.angles ) + ( 0 0 90 )
+    local.clip solid
+    local.clip hide
+
+    local.fix = spawn script_model
+    local.fix model "static/cratelid1.tik"
+    local.fix setsize ( -25 -30 -10 ) ( 25 30 10 ) // NS
+    local.fix.origin = ( $armario.origin ) + ( 10 0 100 )
+    local.fix solid
+    local.fix hide
+
+    spawn models/weapons/bazooka.tik "targetname" "rpgicon"
+    $rpgicon.origin = ( $armario.origin ) + ( 5 5 130 )
+    $rpgicon.angles = ( 180 -90 0 )
+    $rpgicon scale 0.6
+    $rpgicon nottriggerable
+    $rpgicon light 0 1 0 50
+
+    spawn models/weapons/bazooka.tik "targetname" "rpg1"
+    $rpg1.origin = ( $armario.origin ) + ( 15 0 -1000 )
+    $rpg1.angles = ( 90 -90 0 )
+    $rpg1 notsolid
+
+end
+
+rem_closet2:
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( 2480 -1969 208.13 ) 
+    local.trigger1 setsize ( -20 -55 0 ) ( 20 40 80 ) 
+    local.trigger1.angles = ( 0 -90 0 )
+    local.trigger1 setthread "Opening2"
+    local.trigger1.targetname = "closet_trigger2"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger2.origin
+    local.closet.angles = $closet_trigger2.angles
+    local.closet.targetname = "armario2"
+    local.closet.trigger_name = "closet_trigger2"
+
+    local.clip2 = spawn script_model
+    local.clip2 model "static/indycrate.tik"
+    local.clip2.origin = ( $armario2.origin ) + ( 25 0 60 )
+    local.clip2.angles = ( $armario2.angles ) + ( 0 0 90 )
+    local.clip2 solid
+    local.clip2 hide
+
+    local.fix2 = spawn script_model
+    local.fix2 model "static/cratelid1.tik"
+    local.fix2 setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix2.origin = ( $armario2.origin ) + ( 0 -10 100 )
+    local.fix2 solid
+    local.fix2 hide
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpgicon2"
+    $rpgicon2.origin = ( $armario2.origin ) + ( 5 -5 130 )
+    $rpgicon2.angles = ( 180 0 0 )
+    $rpgicon2 scale 0.6
+    $rpgicon2 nottriggerable
+    $rpgicon2 light 0 1 0 50
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpg2"
+    $rpg2.origin = ( $armario2.origin ) + ( 0 15 -1000 )
+    $rpg2.angles = ( 90 180 180 )
+    $rpg2 notsolid
+
+end
+
+// ********************* REMAGEN MAP **********************************************
+
+// ********************* M5l1b MAP MAP **********************************************
+
+m5l1b_closet:
+
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -1182 -1925 480 )
+    local.trigger1 setsize ( -40 -20 0 ) ( 55 20 80 )
+    local.trigger1.angles = ( 0 0 0 )
+    local.trigger1 setthread "Opening"
+    local.trigger1.targetname = "closet_trigger"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger.origin
+    local.closet.angles = $closet_trigger.angles
+    local.closet.targetname = "armario"
+    local.closet.trigger_name = "closet_trigger"
+
+    local.clip = spawn script_model
+    local.clip model "static/indycrate.tik"
+    local.clip.origin = ( $armario.origin ) + ( 0 25 60 )
+    local.clip.angles = ( $armario.angles ) + ( 0 0 90 )
+    local.clip solid
+    local.clip hide
+
+    local.fix = spawn script_model
+    local.fix model "static/cratelid1.tik"
+    local.fix setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix.origin = ( $armario.origin ) + ( 10 0 100 )
+    local.fix solid
+    local.fix hide
+
+    spawn models/weapons/bazooka.tik "targetname" "rpgicon"
+    $rpgicon.origin = ( $armario.origin ) + ( 5 5 130 )
+    $rpgicon.angles = ( 180 -90 0 )
+    $rpgicon scale 0.6
+    $rpgicon nottriggerable
+    $rpgicon light 0 1 0 50
+
+    spawn models/weapons/bazooka.tik "targetname" "rpg1"
+    $rpg1.origin = ( $armario.origin ) + ( 15 0 -1000 )
+    $rpg1.angles = ( 90 -90 0 )
+    $rpg1 notsolid
+
+end
+
+m5l1b_closet2:
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( 2060 878 656 ) 
+    local.trigger1 setsize ( -20 -55 0 ) ( 20 40 80 ) 
+    local.trigger1.angles = ( 0 -90 0 )
+    local.trigger1 setthread "Opening2"
+    local.trigger1.targetname = "closet_trigger2"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger2.origin
+    local.closet.angles = $closet_trigger2.angles
+    local.closet.targetname = "armario2"
+    local.closet.trigger_name = "closet_trigger2"
+
+    local.clip2 = spawn script_model
+    local.clip2 model "static/indycrate.tik"
+    local.clip2.origin = ( $armario2.origin ) + ( 25 0 60 )
+    local.clip2.angles = ( $armario2.angles ) + ( 0 0 90 )
+    local.clip2 solid
+    local.clip2 hide
+
+    local.fix2 = spawn script_model
+    local.fix2 model "static/cratelid1.tik"
+    local.fix2 setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix2.origin = ( $armario2.origin ) + ( 0 -10 100 )
+    local.fix2 solid
+    local.fix2 hide
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpgicon2"
+    $rpgicon2.origin = ( $armario2.origin ) + ( 5 -5 130 )
+    $rpgicon2.angles = ( 180 0 0 )
+    $rpgicon2 scale 0.6
+    $rpgicon2 nottriggerable
+    $rpgicon2 light 0 1 0 50
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpg2"
+    $rpg2.origin = ( $armario2.origin ) + ( 0 15 -1000 )
+    $rpg2.angles = ( 90 180 180 )
+    $rpg2 notsolid
+
+end
+
+// ********************* M5l1b MAP **********************************************
+
+// ********************* M3l3 MAP  **********************************************
+
+m3l3_closet:
+
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( 2985 172 -327 )
+    local.trigger1 setsize ( -20 -55 0 ) ( 20 40 80 ) 
+    local.trigger1.angles = ( 0 -90 0 )
+    local.trigger1 setthread "Opening"
+    local.trigger1.targetname = "closet_trigger"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger.origin
+    local.closet.angles = $closet_trigger.angles
+    local.closet.targetname = "armario"
+    local.closet.trigger_name = "closet_trigger"
+
+    local.clip = spawn script_model
+    local.clip model "static/indycrate.tik"
+    local.clip.origin = ( $armario.origin ) + ( 25 0 60 )
+    local.clip.angles = ( $armario.angles ) + ( 0 0 90 )
+    local.clip solid
+    local.clip hide
+
+
+    local.fix = spawn script_model
+    local.fix model "static/cratelid1.tik"
+    local.fix setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix.origin = ( $armario.origin ) + ( 0 -10 100 )
+    local.fix solid
+    local.fix hide
+
+    spawn models/weapons/bazooka.tik "targetname" "rpgicon"
+    $rpgicon.origin = ( $armario.origin ) + ( -5 -5 130 )
+    $rpgicon.angles = ( 180 0 0 )
+    $rpgicon scale 0.6
+    $rpgicon nottriggerable
+    $rpgicon light 0 1 0 50
+
+    spawn models/weapons/bazooka.tik "targetname" "rpg1"
+    $rpg1.origin = ( $armario.origin ) + ( 0 -15 -1000 )
+    $rpg1.angles = ( 90 180 180 )
+    $rpg1 notsolid
+
+end
+
+m3l3_closet2:
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( 4102 2206 -271 ) 
+    local.trigger1 setsize ( -20 -55 0 ) ( 20 40 80 ) 
+    local.trigger1.angles = ( 0 -90 0 )
+    local.trigger1 setthread "Opening2"
+    local.trigger1.targetname = "closet_trigger2"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger2.origin
+    local.closet.angles = $closet_trigger2.angles
+    local.closet.targetname = "armario2"
+    local.closet.trigger_name = "closet_trigger2"
+
+    local.clip2 = spawn script_model
+    local.clip2 model "static/indycrate.tik"
+    local.clip2.origin = ( $armario2.origin ) + ( 25 0 60 )
+    local.clip2.angles = ( $armario2.angles ) + ( 0 0 90 )
+    local.clip2 solid
+    local.clip2 hide
+
+    local.fix2 = spawn script_model
+    local.fix2 model "static/cratelid1.tik"
+    local.fix2 setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix2.origin = ( $armario2.origin ) + ( 0 -10 100 )
+    local.fix2 solid
+    local.fix2 hide
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpgicon2"
+    $rpgicon2.origin = ( $armario2.origin ) + ( 5 -5 130 )
+    $rpgicon2.angles = ( 180 0 0 )
+    $rpgicon2 scale 0.6
+    $rpgicon2 nottriggerable
+    $rpgicon2 light 0 1 0 50
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpg2"
+    $rpg2.origin = ( $armario2.origin ) + ( 0 -15 -1000 )
+    $rpg2.angles = ( 90 180 180 )
+    $rpg2 notsolid
+
+end
+
+// ********************* M3l3 MAP **********************************************
+
+// ********************* M6l2a MAP  **********************************************
+
+m6l2a_closet:
+
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -100 -2600 -151 )
+    local.trigger1 setsize ( -20 -40 0 ) ( 20 55 80 ) 
+    local.trigger1.angles = ( 0 90 0 )
+    local.trigger1 setthread "Opening"
+    local.trigger1.targetname = "closet_trigger"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger.origin
+    local.closet.angles = $closet_trigger.angles
+    local.closet.targetname = "armario"
+    local.closet.trigger_name = "closet_trigger"
+
+    local.clip = spawn script_model
+    local.clip model "static/indycrate.tik"
+    local.clip.origin = ( $armario.origin ) + ( -25 0 60 )
+    local.clip.angles = ( $armario.angles ) + ( 0 0 90 )
+    local.clip solid
+    local.clip hide
+
+    local.fix = spawn script_model
+    local.fix model "static/cratelid1.tik"
+    local.fix setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix.origin = ( $armario.origin ) + ( 0 10 100 )
+    local.fix solid
+    local.fix hide
+
+    spawn models/weapons/bazooka.tik "targetname" "rpgicon"
+    $rpgicon.origin = ( $armario.origin ) + ( -5 5 130 )
+    $rpgicon.angles = ( 180 0 0 )
+    $rpgicon scale 0.6
+    $rpgicon nottriggerable
+    $rpgicon light 0 1 0 50
+
+    spawn models/weapons/bazooka.tik "targetname" "rpg1"
+    $rpg1.origin = ( $armario.origin ) + ( 0 15 -1000 )
+    $rpg1.angles = ( 90 180 180 )
+    $rpg1 notsolid
+
+end
+
+m6l2a_closet2:
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -3200 -2770 8.12 ) 
+    local.trigger1 setsize ( -20 -40 0 ) ( 20 55 80 ) 
+    local.trigger1.angles = ( 0 90 0 )
+    local.trigger1 setthread "Opening2"
+    local.trigger1.targetname = "closet_trigger2"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger2.origin
+    local.closet.angles = $closet_trigger2.angles
+    local.closet.targetname = "armario2"
+    local.closet.trigger_name = "closet_trigger2"
+
+    local.clip2 = spawn script_model
+    local.clip2 model "static/indycrate.tik"
+    local.clip2.origin = ( $armario2.origin ) + ( -25 0 60 )
+    local.clip2.angles = ( $armario2.angles ) + ( 0 0 90 )
+    local.clip2 solid
+    local.clip2 hide
+
+    local.fix2 = spawn script_model
+    local.fix2 model "static/cratelid1.tik"
+    local.fix2 setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix2.origin = ( $armario2.origin ) + ( 0 10 100 )
+    local.fix2 solid
+    local.fix2 hide
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpgicon2"
+    $rpgicon2.origin = ( $armario2.origin ) + ( 5 5 130 )
+    $rpgicon2.angles = ( 180 0 0 )
+    $rpgicon2 scale 0.6
+    $rpgicon2 nottriggerable
+    $rpgicon2 light 0 1 0 50
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpg2"
+    $rpg2.origin = ( $armario2.origin ) + ( 0 15 -1000 )
+    $rpg2.angles = ( 90 180 180 )
+    $rpg2 notsolid
+
+end
+
+// ********************* M6l2a MAP **********************************************
+
+// ********************* M1l2b MAP  **********************************************
+
+m1l2b_closet:
+
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -1375 2500 -255 )
+    local.trigger1 setsize ( -20 -40 0 ) ( 20 55 80 ) 
+    local.trigger1.angles = ( 0 90 0 )
+    local.trigger1 setthread "Opening"
+    local.trigger1.targetname = "closet_trigger"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger.origin
+    local.closet.angles = $closet_trigger.angles
+    local.closet.targetname = "armario"
+    local.closet.trigger_name = "closet_trigger"
+
+    local.clip = spawn script_model
+    local.clip model "static/indycrate.tik"
+    local.clip.origin = ( $armario.origin ) + ( -25 0 60 )
+    local.clip.angles = ( $armario.angles ) + ( 180 0 90 )
+    local.clip solid
+    local.clip hide
+
+    local.fix = spawn script_model
+    local.fix model "static/cratelid1.tik"
+    local.fix setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix.origin = ( $armario.origin ) + ( 0 10 100 )
+    local.fix solid
+    local.fix hide
+
+    spawn models/weapons/bazooka.tik "targetname" "rpgicon"
+    $rpgicon.origin = ( $armario.origin ) + ( -5 5 130 )
+    $rpgicon.angles = ( 180 0 0 )
+    $rpgicon scale 0.6
+    $rpgicon nottriggerable
+    $rpgicon light 0 1 0 50
+
+    spawn models/weapons/bazooka.tik "targetname" "rpg1"
+    $rpg1.origin = ( $armario.origin ) + ( 0 15 -1000 )
+    $rpg1.angles = ( 90 180 180 )
+    $rpg1 notsolid
+
+end
+
+
+m1l2b_closet2:
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -3180 3498 -255 )
+    local.trigger1 setsize ( -55 -20 0 ) ( 40 20 80 )
+    local.trigger1.angles = ( 0 180 0 )
+    local.trigger1 setthread "Opening2"
+    local.trigger1.targetname = "closet_trigger2"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger2.origin
+    local.closet.angles = $closet_trigger2.angles
+    local.closet.targetname = "armario2"
+    local.closet.trigger_name = "closet_trigger2"
+
+    local.clip2 = spawn script_model
+    local.clip2 model "static/indycrate.tik"
+    local.clip2.origin = ( $armario2.origin ) + ( 0 -25 60 )
+    local.clip2.angles = ( $armario2.angles ) + ( 180 0 90 )
+    local.clip2 solid
+    local.clip2 hide
+
+    local.fix2 = spawn script_model
+    local.fix2 model "static/cratelid1.tik"
+    local.fix2 setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix2.origin = ( $armario2.origin ) + ( -10 0 100 )
+    local.fix2 solid
+    local.fix2 hide
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpgicon2"
+    $rpgicon2.origin = ( $armario2.origin ) + ( -5 -5 130 )
+    $rpgicon2.angles = ( 180 -90 0 )
+    $rpgicon2 scale 0.6
+    $rpgicon2 nottriggerable
+    $rpgicon2 light 0 1 0 50
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpg2"
+    $rpg2.origin = ( $armario2.origin ) + ( 14 0 -1000 )
+    $rpg2.angles = ( 90 90 180 )
+    $rpg2 notsolid
+
+end
+
+// ********************* M1L2b MAP **********************************************
+
+// ********************* ALGIERS MAP ***************************************
+
+alg_closet:
+
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -2866 3176 64 )
+    local.trigger1 setsize ( -20 -55 0 ) ( 20 40 80 )
+    local.trigger1.angles = ( 0 -90 0 )
+    local.trigger1 setthread "Opening"
+    local.trigger1.targetname = "closet_trigger"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger.origin
+    local.closet.angles = $closet_trigger.angles
+    local.closet.targetname = "armario"
+    local.closet.trigger_name = "closet_trigger"
+
+    local.clip = spawn script_model
+    local.clip model "static/indycrate.tik"
+    local.clip.origin = ( $armario.origin ) + ( 25 0 60 )
+    local.clip.angles = ( $armario.angles ) + ( 0 0 90 )
+    local.clip solid
+    local.clip hide
+
+    local.fix = spawn script_model
+    local.fix model "static/cratelid1.tik"
+    local.fix setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix.origin = ( $armario.origin ) + ( 0 -10 100 )
+    local.fix solid
+    local.fix hide
+
+    spawn models/weapons/bazooka.tik "targetname" "rpgicon"
+    $rpgicon.origin = ( $armario.origin ) + ( 5 -5 130 )
+    $rpgicon.angles = ( 180 180 0 )
+    $rpgicon scale 0.6
+    $rpgicon nottriggerable
+    $rpgicon light 0 1 0 50
+
+    spawn models/weapons/bazooka.tik "targetname" "rpg1"
+    $rpg1.origin = ( $armario.origin ) + ( 0 -15 -1000 )
+    $rpg1.angles = ( 90 180 0 )
+    $rpg1 notsolid
+
+end
+
+alg_closet2:
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( 231 1490 -135 )
+    local.trigger1 setsize ( -40 -20 0 ) ( 55 20 80 )
+    local.trigger1.angles = ( 0 0 0 )
+    local.trigger1 setthread "Opening2"
+    local.trigger1.targetname = "closet_trigger2"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger2.origin
+    local.closet.angles = $closet_trigger2.angles
+    local.closet.targetname = "armario2"
+    local.closet.trigger_name = "closet_trigger2"
+
+    local.clip2 = spawn script_model
+    local.clip2 model "static/indycrate.tik"
+    local.clip2.origin = ( $armario2.origin ) + ( 0 25 60 )
+    local.clip2.angles = ( $armario2.angles ) + ( 0 0 90 )
+    local.clip2 solid
+    local.clip2 hide
+
+    local.fix2 = spawn script_model
+    local.fix2 model "static/cratelid1.tik"
+    local.fix2 setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix2.origin = ( $armario2.origin ) + ( 10 0 100 )
+    local.fix2 solid
+    local.fix2 hide
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpgicon2"
+    $rpgicon2.origin = ( $armario2.origin ) + ( 5 -5 130 )
+    $rpgicon2.angles = ( 180 -90 0 )
+    $rpgicon2 scale 0.6
+    $rpgicon2 nottriggerable
+    $rpgicon2 light 0 1 0 50
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpg2"
+    $rpg2.origin = ( $armario2.origin ) + ( 14 0 -1000 )
+    $rpg2.angles = ( 90 90 180 )
+    $rpg2 notsolid
+
+end
+
+
+// ********************* ALGIERS MAP ***************************************
+
+// ********************* M4L3 MAP *****************************************
+
+m4l3_closet:
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -4070 -2045 -52 )
+    local.trigger1 setsize ( -20 -40 0 ) ( 20 55 80 ) 
+    local.trigger1.angles = ( 0 90 0 )
+    local.trigger1 setthread "Opening"
+    local.trigger1.targetname = "closet_trigger"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger.origin
+    local.closet.angles = $closet_trigger.angles
+    local.closet.targetname = "armario"
+    local.closet.trigger_name = "closet_trigger"
+
+    local.clip = spawn script_model
+    local.clip model "static/indycrate.tik"
+    local.clip.origin = ( $armario.origin ) + ( -25 0 60 )
+    local.clip.angles = ( $armario.angles ) + ( 180 0 90 )
+    local.clip solid
+    local.clip hide
+
+    local.fix = spawn script_model
+    local.fix model "static/cratelid1.tik"
+    local.fix setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix.origin = ( $armario.origin ) + ( 0 10 100 )
+    local.fix solid
+    local.fix hide
+
+    spawn models/weapons/bazooka.tik "targetname" "rpgicon"
+    $rpgicon.origin = ( $armario.origin ) + ( -5 5 130 )
+    $rpgicon.angles = ( 180 0 0 )
+    $rpgicon scale 0.6
+    $rpgicon nottriggerable
+    $rpgicon light 0 1 0 50
+
+    spawn models/weapons/bazooka.tik "targetname" "rpg1"
+    $rpg1.origin = ( $armario.origin ) + ( 0 15 -1000 )
+    $rpg1.angles = ( 90 180 180 )
+    $rpg1 notsolid
+
+end
+
+m4l3_closet2:
+
+
+    local.trigger1 = spawn trigger_use
+    local.trigger1.origin = ( -5504 1060 -11 ) 
+    local.trigger1 setsize ( -20 -40 0 ) ( 20 55 80 ) 
+    local.trigger1.angles = ( 0 90 0 )
+    local.trigger1 setthread "Opening2"
+    local.trigger1.targetname = "closet_trigger2"
+
+    local.closet = spawn script_model
+    local.closet model "animate/hidden_cabinet_c.tik"
+    local.closet.origin = $closet_trigger2.origin
+    local.closet.angles = $closet_trigger2.angles
+    local.closet.targetname = "armario2"
+    local.closet.trigger_name = "closet_trigger2"
+
+    local.clip2 = spawn script_model
+    local.clip2 model "static/indycrate.tik"
+    local.clip2.origin = ( $armario2.origin ) + ( -25 0 60 )
+    local.clip2.angles = ( $armario2.angles ) + ( 0 0 90 )
+    local.clip2 solid
+    local.clip2 hide
+
+    local.fix2 = spawn script_model
+    local.fix2 model "static/cratelid1.tik"
+    local.fix2 setsize ( -30 -25 -10 ) ( 30 25 10 ) // EW
+    local.fix2.origin = ( $armario2.origin ) + ( 0 10 100 )
+    local.fix2 solid
+    local.fix2 hide
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpgicon2"
+    $rpgicon2.origin = ( $armario2.origin ) + ( 5 5 130 )
+    $rpgicon2.angles = ( 180 0 0 )
+    $rpgicon2 scale 0.6
+    $rpgicon2 nottriggerable
+    $rpgicon2 light 0 1 0 50
+
+    spawn models/weapons/panzerschreck.tik "targetname" "rpg2"
+    $rpg2.origin = ( $armario2.origin ) + ( 0 15 -1000 )
+    $rpg2.angles = ( 90 180 180 )
+    $rpg2 notsolid
+
+end
+
+
+// ********************* M4L3 MAP *****************************************
+
+Opening:
+
+$closet_trigger triggerable
+
+
+  level.opening_set = 0
+
+
+  level.opening_set_time = 40
+
+  level.openingusefov = 30
+
+
+$armario model animate/hidden_cabinet_c.tik
+$armario notsolid
+
+
+while ( $($armario.trigger_name) )
+{
+
+//println "waittill trigger " $armario.trigger_name
+$armario.trigger_name waittill trigger
+
+
+  local.player = parm.other
+
+if ( (Isalive local.player) && (local.player istouching $closet_trigger level.openingusefov) && (local.player.useheld == 1) )
+  {
+
+      local.player stufftext "locationprint 020 190 Opening..."
+  }
+
+
+  local.counter = 0
+  while ( (Isalive local.player) && (local.player istouching $closet_trigger level.openingusefov) && (local.player.useheld == 1) )
+  {
+    if (local.counter == 0)
+
+      local.player stopwatch (level.opening_set_time * .1)
+
+    local.counter++
+
+    wait .1
+    if (local.counter >= level.opening_set_time)
+    {
+
+
+
+      $armario.live = 1
+      level.opening_set ++
+
+wait 0.1
+
+level.mapname = getcvar (mapname)
+
+switch ( level.mapname )
+ {
+   case "dm/mohdm2":
+  {
+$rpg1.origin = ( $armario.origin ) + ( 0 -15 45 )
+break
+  }
+
+   case "dm/mohdm4":
+  {
+$rpg1.origin = ( $armario.origin ) + ( 15 0 45 )
+break
+  }
+
+   case "dm/mohdm3":
+  {
+$rpg1.origin = ( $armario.origin ) + ( 15 0 45 )
+break
+  }
+
+   case "m5l1b":
+  {
+$rpg1.origin = ( $armario.origin ) + ( 15 0 45 )
+break
+  }
+
+   case "m3l3":
+  {
+$rpg1.origin = ( $armario.origin ) + ( 0 -15 45 )
+break
+  }
+
+   case "m6l2a":
+  {
+$rpg1.origin = ( $armario.origin ) + ( 0 15 45 )
+break
+  }
+
+   case "m1l2b":
+  {
+$rpg1.origin = ( $armario.origin ) + ( 0 15 45 )
+break
+  }
+
+   case "dm/mohdm7":
+  {
+$rpg1.origin = ( $armario.origin ) + ( 0 -15 45 )
+break
+  }
+
+   case "m4l3":
+  {
+$rpg1.origin = ( $armario.origin ) + ( 0 15 45 )
+break
+  }
+}
+$armario anim open
+$armario playsound cabinetopen
+$closet_trigger nottriggerable
+$rpg1 solid
+$rpg1 waittill trigger
+//local.player stufftext ("weapdrop")
+if (local.player IsTouching $rpg1 || local.player.useheld == 1)
+{
+local.player give models/weapons/bazooka.tik
+$rpg1.origin = ( $armario.origin ) + ( 0 -15 -1000 )
+local.player use models/weapons/bazooka.tik
+waitframe
+local.player ammo heavy 6
+local.player ammo heavy -4
+}
+wait 0.5
+//local.player item weapons/bazooka.tik
+local.player ammo heavy 6
+local.player ammo heavy -4
+$armario anim idle
+$armario playsound cabinetopen
+$rpg1 notsolid
+//$rpg1.origin = ( $armario.origin ) + ( 0 -15 -1000 )
+$rpgicon light 1 0 0 50
+wait 12
+$rpgicon light 0 1 0 50
+thread Opening
+end
+    }
+  }
+  if (local.counter > 0)
+    local.player stopwatch 0
+}
+
+
+end
+
+//лллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллл
+
+Opening2:
+
+$closet_trigger2 triggerable
+
+
+  level.opening_set = 0
+
+
+  level.opening_set_time = 40
+
+  level.openingusefov = 30
+
+
+$armario2 model animate/hidden_cabinet_c.tik
+$armario2 notsolid
+
+while ( $($armario2.trigger_name) )
+{
+
+//println "waittill trigger " $armario2.trigger_name
+$armario2.trigger_name waittill trigger
+
+
+  local.player = parm.other
+
+if ( (Isalive local.player) && (local.player istouching $closet_trigger2 level.openingusefov) && (local.player.useheld == 1) )
+  {
+
+      local.player stufftext "locationprint 020 190 Opening..."
+  }
+
+
+  local.counter = 0
+  while ( (Isalive local.player) && (local.player istouching $closet_trigger2 level.openingusefov) && (local.player.useheld == 1) )
+  {
+    if (local.counter == 0)
+
+      local.player stopwatch (level.opening_set_time * .1)
+
+    local.counter++
+
+    wait .1
+    if (local.counter >= level.opening_set_time)
+    {
+
+
+
+      $armario.live = 1
+      level.opening_set ++
+
+wait 0.1
+
+level.mapname = getcvar (mapname)
+
+switch ( level.mapname )
+ {
+   case "dm/mohdm2":
+  {
+$rpg2.origin = ( $armario2.origin ) + ( 0 -15 60 )
+break
+  }
+
+   case "dm/mohdm4":
+  {
+$rpg2.origin = ( $armario2.origin ) + ( 0 15 60 )
+break
+  }
+
+  case "dm/mohdm3":
+  {
+$rpg2.origin = ( $armario2.origin ) + ( 0 -15 60 )
+break
+  }
+
+  case "m5l1b":
+  {
+$rpg2.origin = ( $armario2.origin ) + ( 0 -15 60 )
+break
+  }
+
+  case "m3l3":
+  {
+$rpg2.origin = ( $armario2.origin ) + ( 0 -15 60 )
+break
+  }
+
+  case "m6l2a":
+  {
+$rpg2.origin = ( $armario2.origin ) + ( 0 15 60 )
+break
+  }
+
+  case "m1l2b":
+  {
+$rpg2.origin = ( $armario2.origin ) + ( -15 0 60 )
+break
+  }
+
+  case "dm/mohdm7":
+  {
+$rpg2.origin = ( $armario2.origin ) + ( 15 0 60 )
+break
+  }
+
+  case "m4l3":
+  {
+$rpg2.origin = ( $armario2.origin ) + ( 0 15 60 )
+break
+  }
+}
+$armario2 anim open
+$armario2 playsound cabinetopen
+$closet_trigger2 nottriggerable
+$rpg2 solid
+$rpg2 waittill trigger
+//local.player stufftext ("weapdrop")
+if (local.player IsTouching $rpg2 || local.player.useheld == 1)
+{
+local.player give models/weapons/panzerschreck.tik
+$rpg2.origin = ( $armario2.origin ) + ( 0 -15 -1000 )
+local.player use models/weapons/panzerschreck.tik
+waitframe
+local.player ammo heavy 6
+local.player ammo heavy -4
+}
+wait 0.5
+//local.player item weapons/panzerschreck.tik
+$armario2 anim idle
+$armario2 playsound cabinetopen
+$rpg2 notsolid
+//$rpg2.origin = ( $armario2.origin ) + ( 0 -15 -1000 )
+$rpgicon2 light 1 0 0 50
+wait 12
+$rpgicon2 light 0 1 0 50
+thread Opening2
+end
+    }
+  }
+  if (local.counter > 0)
+    local.player stopwatch 0
+}
+
+end
+

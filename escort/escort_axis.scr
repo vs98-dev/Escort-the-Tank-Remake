@@ -1,0 +1,571 @@
+/*
+
+ ******************************************
+ **                                      **
+ **     This file is part of the MOD     **
+ **                                      **
+ **       -=[Escort-The-Vehicle]=-       **  *  You are not allowed to modify this mod without the permission of the creator. *
+ **                                      **
+ **     Game MOD created by [PacRac]     **
+ **                                      **
+ ******************************************
+
+*/
+
+main:
+
+  thread touch_tank
+  $tank_axis thread tank_think
+  //$tank_axis.health = 300
+  level.allies_side = 0
+  level.axis_side = 1
+  thread escort/escort_messages.scr::axis_obj
+  thread escort/escort_messages.scr::info_axis
+  $tank_axis setsize ( -140 -80 0 ) ( 130 80 100 ) //( -150 -80 0 ) ( 150 80 128 )
+  //$tank_axis nodamage
+
+level.mapname = getcvar (mapname)
+
+switch ( level.mapname )
+ {
+
+   case "m1l2b":
+  {
+thread escort/escort_messages.scr::round2
+
+$tank_1.origin = ( 1660 2190 -255 )  
+$tank_axis.origin = ( 1700 1100 -255 ) 
+break
+  }
+
+   case "m6l2a":
+  {
+thread escort/escort_messages.scr::round1
+
+thread escort/util.scr::timeover_axis_8min
+
+$tank_1.origin = ( -2850 -290 0 ) 
+$tank_axis.origin = ( -3900 -290 0 ) 
+break
+  }
+
+ case "m3l3":
+  {
+
+thread escort/escort_messages.scr::round2
+
+$tank_1.origin = ( 4242 3713 -276 ) 
+$tank_axis.origin = ( 2203 3628 -247 ) 
+break
+  }
+
+case "m5l1b":
+  {
+
+thread escort/escort_messages.scr::round2
+
+$tank_1.origin = ( -4100 -2267 287 ) 
+$tank_axis.origin = ( -3778 -3228 204 ) 
+break
+  }
+
+case "dm/mohdm2":
+  {
+
+thread escort/escort_messages.scr::round1
+
+thread escort/util.scr::timeover_axis_10min
+
+$tank_1.origin = ( -2984 -80 23 )
+$tank_axis.origin = ( -2805 710 34 )
+break
+  }
+
+case "dm/mohdm4":
+  {
+
+thread escort/escort_messages.scr::round2
+
+$tank_1.origin = ( -40 -2265 242 )
+$tank_axis.origin = ( -672 -2304 240 )
+break
+  }
+  
+case "dm/mohdm3":
+  {
+
+thread escort/escort_messages.scr::round1
+
+thread escort/util.scr::timeover_axis_8min
+
+$tank_1.origin = ( 4890 -1750 4 )
+$tank_axis.origin = ( 5675 -2400 0 )
+break
+  }
+
+case "dm/mohdm7":
+  {
+
+thread escort/escort_messages.scr::round1
+
+thread escort/util.scr::timeover_axis_8min
+
+$tank_1.origin = ( 132 -1155 -295 )
+$tank_axis.origin = ( -1049 -1170 -283 )
+break
+  }
+
+case "m4l3":
+  {
+
+thread escort/escort_messages.scr::round2
+
+
+$tank_1.origin = ( -5323 -4819 -341 )
+$tank_axis.origin = ( -5345 -5614 -256 )
+break
+  }
+
+}
+end
+
+
+// **********************************************************************
+
+
+touch_tank:
+
+
+  local.alarm1 = spawn trigger_multiple
+  local.alarm1 setthread "tank_thread"
+  local.alarm1 setsize ( -250 -250 -54 ) ( 250 250 108 )
+  local.alarm1.targetname = "tank_trigger"
+  $tank_trigger glue $tank_axis
+
+end
+
+
+tank_thread:
+
+
+ local.player = parm.other
+
+
+level.check = 0
+
+
+  if(local.player.dmteam == axis)
+  {
+    //iprintlnbold_noloc ("The Axis are near the Truck!")
+
+    level.teamin = 1
+    ////////////////////////////////
+
+    $tank_axis drive $tank_1 10 06 40 256 // speed, accel/decel, close to nodes, lookahead
+
+    ////////////////////////////////
+  }
+
+$tank_trigger nottriggerable
+
+while(map_is_running)
+{
+
+
+  if((local.player IsTouching $tank_trigger)&&(IsAlive local.player)&&(local.player.dmteam != allies))
+  {
+
+if(getcvar(mapname) == "m3l3" || getcvar(mapname) == "m6l2a" || getcvar(mapname) == "m1l2b")
+{
+  if ($tank_axis IsTouching $ramp1)
+  {
+  wait 2
+  $tank_axis drive $tank_1 40 10 40 256 // speed, accel/decel, close to nodes, lookahead
+  }
+}
+
+  wait 0.1
+
+  }
+
+  else
+  {
+  $tank_trigger triggerable
+  $tank_axis stop
+ //local.player iprint ("You are no longer near the Truck.")
+  level.teamin = 0
+  end
+  }
+
+
+waitframe
+
+}
+
+end
+
+// **********************************************************************
+tank_think:
+
+level.tankallies_ok = -1
+
+level.tankaxis_ok = 1
+
+self thread cannon_fire_axis
+
+  self.cannonaxis = self QueryTurretSlotEntity 0 
+  local.gunaxis = self.cannonaxis
+  //self.cannonaxis nodamage
+
+  self rendereffects "-shadow"
+  self immune bullet
+  self immune fast_bullet
+  self immune grenade
+  self immune bash
+  self solid
+  self.health = 300
+  self nodamage
+  self removeondeath 0
+  //if (self.target)
+  // {
+  //  self.collisionent = self.target
+    //self.collisionent hide
+  //}
+
+huddraw_alpha  006 0
+
+huddraw_virtualsize 100 1 
+huddraw_align  004 left bottom
+huddraw_font   004 "handle-16" 
+huddraw_rect   004 40 -175 100 14  
+huddraw_color  004 0.4 1 0 
+huddraw_alpha  004 1 
+huddraw_string 004 ("-Tank Health-")
+
+huddraw_virtualsize 100 1 
+huddraw_align  005 left bottom
+//huddraw_font   005 "verdana-16" 
+huddraw_rect   005 16 -190 16 50 
+//huddraw_color  005 0 1 0 
+huddraw_alpha  005 1
+huddraw_shader 005 ("textures/hud/healthmeter.tga") 
+
+$tank_axis thread tank_axis_health
+
+self waittill death
+
+
+  self show
+  self playsound explode_tank
+  self stop
+  if (local.gunaxis)
+  {
+    self DetachTurretSlot 0
+    local.gunaxis stopfiring
+    local.gunaxis remove
+  }
+
+  exec global/earthquake.scr .2 4 0 0
+  radiusdamage self.origin 200 200
+  self thread spawn_fx models/fx/fx_tank_explosion.tik
+
+  local.name = self
+  local.angles = self.angles
+  local.origin = self.origin
+
+  self hide
+  self notsolid
+  self stop
+
+//  wait .1        
+//  if (self)
+//  self remove
+
+
+
+  local.collision = thread damaged_collision local.angles local.origin local.brushmodel
+  local.collision disconnect_paths
+
+  local.damaged = thread spawn_damaged_new models/vehicles/panzer_iv_d.tik local.angles local.origin
+  $destroyed setsize ( -160 -50 0 ) ( 60 50 128 ) //( -160 -40 0 ) ( 60 40 128 ) 
+  $destroyed nodamage
+  $destroyed immune bullet
+  $destroyed immune fast_bullet
+  $destroyed immune grenade
+  $destroyed immune bash
+  $destroyed solid
+
+  $tank_trigger nottriggerable
+  
+
+huddraw_virtualsize 100 1 
+huddraw_align  004 left bottom
+huddraw_font   004 "handle-16" 
+huddraw_rect   004 40 -175 100 14  
+huddraw_color  004 1 0 0 
+huddraw_alpha  004 1 
+huddraw_string 004 ("-Tank Destroyed-")
+
+huddraw_virtualsize 100 1 
+huddraw_align  005 left bottom
+huddraw_font   005 "verdana-16" 
+huddraw_rect   005 16 -190 16 50 
+huddraw_color  005 0 1 1  
+huddraw_alpha  005 1
+huddraw_shader 005 ("textures/hud/healthback.tga")
+
+huddraw_alpha  006 0
+
+  thread repaired
+  thread escort/escort_messages.scr::tank_destroyed
+
+level.tankaxis_ok = -1
+
+end
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+repaired:
+
+local.name = self
+local.angles = self.angles
+local.origin = self.origin
+
+
+///////////////////////////////
+level.repairing_team = "axis"
+///////////////////////////////
+
+
+thread repair_clip
+
+level.repair_set = 0
+
+level.repair_set_time = 40
+
+level.repairusefov = 30
+
+$repair_target model vehicles/panzer_iv_d.tik
+
+
+while ( $($repair_target.trigger_name) )
+{
+
+println "waittill trigger " $repair_target.trigger_name
+$repair_target.trigger_name waittill trigger
+
+
+  local.player = parm.other
+
+
+if ( (local.player.dmteam == axis ) && (Isalive local.player) && (local.player istouching $repair_trig level.repairusefov) && (local.player.useheld == 1) )
+  {
+      local.player stufftext "locationprint 020 190 Repairing..."
+      local.player playsound jeep_snd_doorclose
+  }
+
+
+  local.counter = 0
+  while ( (local.player.dmteam == axis ) && (Isalive local.player) && (local.player istouching $repair_trig level.repairusefov) && (local.player.useheld == 1) )
+  {
+    if (local.counter == 0)
+
+      local.player stopwatch (level.repair_set_time * .1)
+
+    local.counter++
+
+    wait .1
+    if (local.counter >= level.repair_set_time)
+    {
+
+//$tank_axis remove
+wait 0.1
+$destroyed remove
+$repair_target.trigger_name remove
+//$repair_target.target remove
+$repair_target remove
+spawn vehicles/panzer_tank.tik "targetname" "tank_axis"
+$tank_axis.origin = local.origin
+$tank_axis.angles = local.angles
+$tank_axis rendereffects "-shadow"
+$tank_axis immune bullet
+$tank_axis immune fast_bullet
+$tank_axis immune grenade
+$tank_axis immune bash
+//$tank_axis.health = 300 // 300
+$tank_axis solid
+
+$tank_trigger triggerable
+$tank_trigger glue $tank_axis
+$tank_axis thread tank_think
+
+      $repair_target.live = 1
+      level.repair_set ++
+
+thread escort/escort_messages.scr::tank_repaired
+local.player stufftext "say has repaired the tank!"
+
+if((getcvar("escort_reward") == "1")) //<----ONLY WORKS IF SERVER IS USING REBORN PATCH (add line "seta escort_reward 1" in server.cfg)
+{
+local.player iprint "-=[ 2 KILL POINTS REWARD FOR REPAIR WORK ]=-" 
+local.player addkills 2 
+}
+
+wait 3
+
+$tank_axis setsize ( -140 -80 0 ) ( 130 80 100 ) //( -150 -80 0 ) ( 150 80 128 )
+$tank_axis.health = 300 // 300
+      break
+    }
+  }
+  if (local.counter > 0)
+    local.player stopwatch 0
+
+}
+
+
+end
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+spawn_damaged local.model:
+  local.damaged = spawn script_model model local.model
+  local.damaged.origin = self.origin
+  local.damaged.angles = self.angles
+  local.damaged notsolid
+end local.damaged
+
+spawn_damaged_new local.model local.angles local.origin:
+  local.damaged = spawn script_model model local.model "targetname" "destroyed"
+  local.damaged.origin = local.origin
+  local.damaged.angles = local.angles
+end local.damaged
+
+spawn_fx local.fx:
+  local.temp = spawn script_model model local.fx
+  local.temp notsolid
+  local.temp.origin = self.origin
+  local.temp anim start
+  local.temp notsolid
+  wait 5
+  local.temp remove
+end
+
+damaged_collision local.angles local.origin local.brushmodel:
+  local.collision = spawn script_object model local.brushmodel
+  local.collision.origin = local.origin
+  local.collision.angles = local.angles
+end local.collision
+
+// ----------------------------------------------------------------------------------------
+
+
+repair_clip:
+
+local.repair = spawn script_model
+local.repair model "vehicles/panzer_iv_d.tik"
+local.repair.origin = $destroyed.origin
+local.repair.angles = $destroyed.angles
+local.repair.targetname = "repair_target"
+local.repair.explosion_sound = grenade_explode
+local.repair.explosion_fx = animate/inferno.tik
+local.repair.explosion_fx = animate/fx_explosion_tank.tik
+local.repair.trigger_name = "repair_trig"
+
+spawn trigger_use "targetname" "repair_trig"
+$repair_trig.origin = $repair_target.origin
+$repair_trig.angles = $repair_target.angles
+$repair_trig setsize ( -140 -140 -90 ) ( 140 140 90 )
+
+$tank_axis remove
+
+end
+
+cannon_fire_axis:
+
+while (map_is_running)
+
+{ 
+waitframe
+
+if (level.tankaxis_ok == -1)
+{
+end
+}
+
+if (level.tankaxis_ok == 1)
+{
+	
+ for (local.X=1;local.X <= $player.size;local.X++) 
+   {
+  
+if (!($player[local.X].dmteam!="allies") || !(self cansee $player[local.X]))
+   {
+self.cannonaxis stopfiring
+self.cannonaxis setaimtarget NULL
+   }
+
+ if (vector_length (self.origin - $player[local.X].origin) > 800)
+            {
+               if (vector_length (self.origin - $player[local.X].origin) < 3000)
+               {
+
+   if ((($player[local.X].dmteam=="allies") && (self cansee $player[local.X]) && (isalive $player[local.X])))
+   {
+//self.cannonaxis = self QueryTurretSlotEntity 0
+self.cannonaxis setAimTarget $player[local.X]
+self.cannonaxis waittill ontarget
+wait 1
+self.cannonaxis startfiring // anim "fire"
+break
+   }
+   }
+
+}
+}
+
+}
+
+waitframe
+}
+
+end
+
+tank_axis_health:
+
+local.axisok = self.health
+local.axisdamaged = self.health
+
+while (isalive self)
+{	
+if (self.health < local.axisdamaged)
+{
+
+huddraw_virtualsize 100 1 
+huddraw_align  004 left bottom
+huddraw_font   004 "handle-16" 
+huddraw_rect   004 40 -175 100 14  
+huddraw_color  004 1 1 0 
+huddraw_alpha  004 1 
+huddraw_string 004 ("-Tank Health-")
+
+huddraw_virtualsize 100 1 
+huddraw_align  005 left bottom
+//huddraw_font   005 "verdana-16" 
+huddraw_rect   005 16 -165 16 25  
+huddraw_alpha  005 1
+huddraw_shader 005 ("textures/hud/healthmeter.tga") 
+
+huddraw_virtualsize 100 1 
+huddraw_align  006 left bottom
+//huddraw_font   006 "verdana-16" 
+huddraw_rect   006 16 -190 16 25
+huddraw_color  006 0 1 1 
+huddraw_alpha  006 1
+huddraw_shader 006 ("textures/hud/healthback.tga")
+
+break
+}
+waitframe
+}
+end
