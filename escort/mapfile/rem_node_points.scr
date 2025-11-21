@@ -1,0 +1,57 @@
+/*
+
+ ******************************************
+ **                                      **
+ **     This file is part of the MOD     **
+ **                                      **
+ **       -=[Escort-The-Vehicle]=-       **  *  You are not allowed to modify this mod without the permission of the creator. *
+ **                                      **
+ **     Game MOD created by [PacRac]     **
+ **                                      **
+ ******************************************
+
+*/
+
+//*************** NODE POINTS ***********************************************
+
+node_point:
+
+
+
+   local.vehicle_triggers = makeArray
+    "4890 -1750 4"
+    "3210 -1915 4"
+    "3070 -3095 4"
+    "1470 -3244 3"
+    "1478 -3050 3"
+    "1378 -2900 3"
+    "1356 -2239 6"
+    "1041 -1162 -71"
+    "974 -443 -71"
+    "-92 -394 -27"
+    endArray
+
+    for (local.i = 1; local.i <= local.vehicle_triggers.size; local.i++) {
+
+        local.vehicle_tr_org = local.vehicle_triggers[local.i][1]
+
+        local.vehicle_tr = spawn trigger_vehicle
+        local.vehicle_tr.origin = ( local.vehicle_tr_org )
+        local.vehicle_tr setsize ( -30 -30 -40  ) ( 30 30 40 )
+        local.vehicle_tr setthread vehicle_node
+        local.vehicle_tr targetname "trigger_node"
+    }
+
+
+
+// ================================================================================
+
+end
+
+vehicle_node:
+
+local.tank = parm.other
+
+local.tank stop
+
+end
