@@ -1,0 +1,41 @@
+/*
+
+ ******************************************
+ **                                      **
+ **     This file is part of the MOD     **
+ **                                      **
+ **       -=[Escort-The-Vehicle]=-       **  *  You are not allowed to modify this mod without the permission of the creator. *
+ **                                      **
+ **     Game MOD created by [PacRac]     **
+ **                                      **
+ ******************************************
+
+*/
+
+main:
+waitframe 
+
+
+if (level.axis_side == 0)
+{
+$tank_allies takedamage
+}
+
+if (level.allies_side == 0)
+{
+$tank_axis takedamage
+}
+
+wait 2
+
+if (level.axis_side == 0)
+{
+$tank_allies nodamage
+}
+
+if (level.allies_side == 0)
+{
+$tank_axis nodamage
+}
+
+end

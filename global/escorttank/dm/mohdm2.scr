@@ -1,0 +1,218 @@
+main:
+
+
+setcvar "g_scoreboardpic" "mohdm2"
+
+setcvar "g_gametype" "3"
+
+setcvar fraglimit "1"
+
+//thread escort/mapfile/dv_newspawns.scr::spawnblock
+exec escort/mapfile/dv_newspawns.scr::activate_spawns
+exec escort/mapfile/dv_newspawns.scr::1st_wave_spawn_axis_side
+exec escort/escort_messages.scr::Gamemod
+exec escort/escort_messages.scr::messages
+
+local.point = spawn info_vehiclepoint "targetname" "tank_1" "target" "tank_2"
+
+	// call additional stuff for playing this map round based is needed
+	if(level.roundbased)
+		thread roundbasedthread
+
+	// ====================
+	level waittill prespawn
+	// ====================
+
+	//*** Precache Dm Stuff
+	exec global/DMprecache.scr
+
+	exec global/door_locked.scr::lock
+	level.script = maps/dm/mohdm2.scr
+	exec global/ambient.scr mohdm2
+
+//thread maps/dm/mohdm2.scr::tanky
+//thread maps/dm/mohdm2.scr::tanky2
+
+thread tanky
+thread tanky2
+
+/////// Objects ////////////////////////////////////////////
+
+/*
+local.floorfixer = spawn script_model "model" "static/indycrate.tik" "targetname" "floorfix"
+$floorfix.origin = ( -2646 -2360 -135 ) //98 -140
+$floorfix.angles = ( 0 90 0 ) // -8 0 10
+$floorfix solid
+$floorfix hide
+*/
+
+local.ladderfixer = spawn script_model "model" "static/indycrate.tik" "targetname" "ladderfix"
+$ladderfix.origin = ( -2500 290 620  ) //98 -140
+$ladderfix.angles = ( 180 0 -90 ) // -8 0 10
+$ladderfix solid
+$ladderfix hide
+
+//////////////////////////
+
+local.metalblock = spawn script_model "model" "static/worndowntable.tik" "targetname" "metal_blocker"
+$metal_blocker.origin = ( -3345 -913 80 ) //98 -140
+$metal_blocker.angles = ( 0 90 90 ) // -8 0 10
+$metal_blocker notsolid
+$metal_blocker scale 0.8
+
+local.blockfixer = spawn script_model "model" "static/indycrate.tik" "targetname" "block_fix"
+$block_fix.origin = ( -3330 -885 80  ) //98 -140
+$block_fix.angles = ( 0 0 90 ) // -8 0 10
+$block_fix solid
+$block_fix hide
+$block_fix immune bullet
+$block_fix immune fast_bullet
+$block_fix immune grenade
+$block_fix immune bash
+
+local.metalblock1 = spawn script_model "model" "static/worndowntable.tik" "targetname" "metal_blocker1"
+$metal_blocker1.origin = ( -3376 -790 73 ) //98 -140
+$metal_blocker1.angles = ( 0 180 90 ) // -8 0 10
+$metal_blocker1 notsolid
+$metal_blocker1 scale 0.9
+
+local.blockfixer1 = spawn script_model "model" "static/indycrate.tik" "targetname" "block_fix1"
+$block_fix1.origin = ( -3385 -745 73  ) //98 -140
+$block_fix1.angles = ( 0 0 90 ) // -8 0 10
+$block_fix1 solid
+$block_fix1 hide
+$block_fix1 immune bullet
+$block_fix1 immune fast_bullet
+$block_fix1 immune grenade
+$block_fix1 immune bash
+
+local.metalblock2 = spawn script_model "model" "static/worndowntable.tik" "targetname" "metal_blocker2"
+$metal_blocker2.origin = ( -3345 -1104 100 ) //98 -140
+$metal_blocker2.angles = ( 0 90 90 ) // -8 0 10
+$metal_blocker2 notsolid
+$metal_blocker2 scale 0.7
+
+local.blockfixer2 = spawn script_model "model" "static/indycrate.tik" "targetname" "block_fix2"
+$block_fix2.origin = ( -3340 -1095 80 ) //98 -140
+$block_fix2.angles = ( 0 90 0 ) // -8 0 10
+$block_fix2 solid
+$block_fix2 hide
+$block_fix2 immune bullet
+$block_fix2 immune fast_bullet
+$block_fix2 immune grenade
+$block_fix2 immune bash
+
+////////////////////////
+
+local.mg42 = spawn script_model
+local.mg42 model "statweapons/mg42_bipod.tik"
+local.mg42.origin = ( -2988 1570 336 )  
+local.mg42.angles = (0 -90 0)
+local.mg42gun = spawn models/statweapons/mg42_gun.tik
+local.mg42gun.origin = local.mg42.origin + ( 0 0 0 )
+local.mg42gun.angle = -90
+local.mg42gun yawCenter -90
+local.mg42gun maxyawoffset 60
+
+local.ammobox = spawn script_model
+local.ammobox model "static/mg42ammoboxwbelt.tik" 
+local.ammobox.origin = ( -3022 1628 252 )
+local.ammobox.angles = (0 90 0)
+local.ammobox.scale = 1.0
+local.ammobox notsolid
+
+
+exec escort/ladderspawn.scr ( -2110 -1304 242 ) 238 wood 00
+exec escort/ladderspawn.scr ( -2550 325 42 ) 485 wood 90
+exec escort/ladderspawn.scr ( -1315 -1918 9 ) 230 wood 90
+exec escort/ladderspawn.scr ( -2208 -2132 8 ) 235 wood -62
+//exec escort/ladderspawn.scr ( -1850 -1557 65 ) 200 wood 0
+
+///////////////////////////////////////////////////////////
+
+	// ====================
+	level waittill spawn
+	// ====================
+
+
+	exec escort/cabinet.scr::dv_closet
+	exec escort/cabinet.scr::dv_closet2
+	$closet_trigger nottriggerable
+	$closet_trigger2 nottriggerable
+
+end
+
+
+// ===================================================
+tanky:
+
+local.ent = spawn vehicles/panzer_tank.tik "targetname" "tank_axis"
+$tank_axis.origin = ( -2805 710 34 )
+$tank_axis.angles = ( 0 -90 0 )
+//$tank_axis setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_axis nodamage
+$tank_axis notsolid
+$tank_axis.corona = 1
+$tank_axis rendereffects "-shadow"
+$tank_axis immune bullet
+$tank_axis immune fast_bullet
+$tank_axis immune grenade
+$tank_axis immune bash
+$tank_axis.health = 300 // 300
+//$tank_axis takedamage
+waitframe
+
+end
+// ===================================================
+
+
+// ===================================================
+tanky2:
+
+local.ent = spawn vehicles/panzer_tank_europe.tik "targetname" "tank_allies"
+$tank_allies.origin = ( -2805 710 -1000 )
+$tank_allies.angles = ( 0 -90 0 )
+//$tank_allies setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_allies nodamage
+$tank_allies notsolid
+$tank_allies.corona = 1
+$tank_allies rendereffects "-shadow"
+$tank_allies immune bullet
+$tank_allies immune fast_bullet
+$tank_allies immune grenade
+$tank_allies immune bash
+$tank_allies.health = 300 // 300
+//$tank_allies takedamage
+waitframe
+end
+// ===================================================
+
+
+//-----------------------------------------------------------------------------
+
+roundbasedthread:
+
+	// Can specify different scoreboard messages for round based games here.
+
+	level waitTill prespawn
+
+	level waittill spawn
+
+	// set the parameters for this round based match
+	level.dmrespawning = 1 // 1 or 0
+	level.dmroundlimit = 10 // round time limit in minutes
+	level.clockside = axis // set to axis, allies, kills, or draw
+
+	level waittill roundstart
+
+	exec escort/util.scr::teamleft 
+	exec escort/escort_axis.scr
+	exec escort/mapfile/dv_node_points.scr::node_point
+	exec escort/util.scr::map_timecount_10min
+	exec escort/escort_messages.scr::counttime
+	$closet_trigger triggerable
+	$closet_trigger2 triggerable
+
+
+
+end

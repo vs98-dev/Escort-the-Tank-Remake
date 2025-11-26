@@ -1,0 +1,213 @@
+main:
+
+
+setcvar "g_scoreboardpic" "mohdm4"
+
+setcvar "g_gametype" "3"
+
+setcvar fraglimit "1"
+
+removeclass PlayerIntermission
+
+
+//thread escort/mapfile/cross_newspawns.scr::spawnblock
+exec escort/mapfile/cross_newspawns.scr::activate_spawns
+exec escort/mapfile/cross_newspawns.scr::1st_wave_spawn_allies_side
+exec escort/escort_messages.scr::Gamemod
+exec escort/escort_messages.scr::messages
+
+local.point = spawn info_vehiclepoint "targetname" "tank_1" "target" "tank_2"
+
+	// call additional stuff for playing this map round based is needed
+	if(level.roundbased)
+		thread roundbasedthread
+
+// ---------------------------------
+
+$w.origin = ( -1027 848 824 )
+$w angle -90
+
+$t32.origin = ( -1027 848 824 )
+$t32.angles = ( 0.00 -90.00 0.00 )
+
+// ---------------------------------
+
+$w2.origin = ( -699 3312 744 )
+$w2 angle -90
+
+$t23.origin = ( -699 3312 744 )
+$t23.angles = ( 0.00 -90.00 0.00 )
+
+$p1 remove
+
+// ---------------------------------
+
+thread Carroexplosivo
+
+	// ====================
+	level waittill prespawn
+	// ====================
+
+	//*** Precache Dm Stuff
+	exec global/DMprecache.scr
+
+	exec global/door_locked.scr::lock
+	level.script = maps/dm/mohdm4.scr
+	exec global/ambient.scr mohdm4
+	
+	thread global/minefield.scr::minefield_setup
+
+
+//thread maps/dm/mohdm4.scr::tanky
+//thread maps/dm/mohdm4.scr::tanky2
+
+thread tanky
+thread tanky2
+
+///////// Objects //////////////
+
+spawn script_model "model" "vehicles/european_delivery_truck_red3.tik" targetname "carro"
+$carro.origin = ( -160 2300 238 )
+$carro.angles = ( 1 -90 0 ) 
+$carro.scale = 1.4
+
+local.car1 = spawn script_object
+local.car1 model "vehicles//jeep.tik"
+local.car1.origin = ( 1350 2060 184 )
+local.car1.angles = ( 0.00 180.00 0.00 )
+local.car1 notsolid
+
+local.car1 = spawn script_model "model" "fx/dummy.tik"
+local.car1.origin = ( 1350 2060 184 )
+local.car1.angles = ( 0.00 180.00 0.00 )
+local.car1 solid
+local.car1 setsize ( -100 -50 0 ) ( 100 50 60)
+local.car1 nodamage
+local.car1 immune bullet
+local.car1 immune fast_bullet
+local.car1 immune bash
+local.car1 immune mg
+local.car1 immune explosion
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+exec escort/ladderspawn.scr ( 270 805 70 ) 160 wood 135
+
+exec escort/ladderspawn.scr ( -270 -805 70 ) 160 wood 135
+
+	// ====================
+	level waittill spawn
+	// ====================
+
+
+	exec escort/cabinet.scr::cross_closet
+	exec escort/cabinet.scr::cross_closet2
+	$closet_trigger nottriggerable
+	$closet_trigger2 nottriggerable
+
+end
+
+// ===================================================
+tanky:
+
+spawn vehicles/panzer_tank.tik "targetname" "tank_axis"
+$tank_axis.origin = ( -672 -2304 -1000 )
+$tank_axis.angles = ( 0 0 0 )
+//$tank_axis setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_axis nodamage
+$tank_axis notsolid
+$tank_axis.corona = 1
+$tank_axis rendereffects "-shadow"
+$tank_axis immune bullet
+$tank_axis immune fast_bullet
+$tank_axis immune grenade
+$tank_axis immune bash
+$tank_axis.health = 300 // 300
+//$tank_axis takedamage
+waitframe
+
+end
+// ===================================================
+
+
+// ===================================================
+tanky2:
+
+spawn vehicles/panzer_tank_europe.tik "targetname" "tank_allies"
+$tank_allies.origin = ( -672 -2304 240 )
+$tank_allies.angles = ( 0 0 0 )
+//$tank_allies setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_allies nodamage
+$tank_allies notsolid
+$tank_allies.corona = 1
+$tank_allies rendereffects "-shadow"
+$tank_allies immune bullet
+$tank_allies immune fast_bullet
+$tank_allies immune grenade
+$tank_allies immune bash
+$tank_allies.health = 300 // 300
+//$tank_allies takedamage
+waitframe
+end
+// ===================================================
+
+
+
+//-----------------------------------------------------------------------------
+
+Carroexplosivo:
+
+
+spawn trigger_multiple targetname "tubo_trigger1" "spawnflags" "128" "health" "1"
+$tubo_trigger1.origin = ( -169 2347 268 )
+$tubo_trigger1 setsize ( -1 -1 -1 ) ( 1 1 1 )
+$tubo_trigger1.angles = (0 0 0)
+$tubo_trigger1 waittill trigger
+spawn script_model "model" "animate/fx_explosion_tank.tik" targetname "fumo1" angle "90" origin ( -169 2250 268 ) scale "0.5"
+spawn script_model "model" "animate/fire.tik" targetname "fogo3" angle "90" origin ( -169 2220 268  ) scale "1.0"
+spawn script_model "model" "animate/fire.tik" targetname "fogo2" angle "90" origin ( -169 2220 268  ) scale "0.6"
+spawn script_model "model" "animate/fire.tik" targetname "fogo1" angle "90" origin ( -169 2220 268  ) scale "0.4"
+$fogo1 loopsound fire_med
+$carro remove
+$fumo1 anim start 
+$fogo3 anim start 
+$fogo2 anim start
+$fogo1 anim start 
+$tubo_trigger1 remove 
+wait 5
+$fumo1 remove
+$fogo3 remove
+wait 2
+$fogo2 remove
+wait 1
+$fogo1 remove
+
+end
+
+//-----------------------------------------------------------------------------
+
+roundbasedthread:
+
+	// Can specify different scoreboard messages for round based games here.
+
+	level waitTill prespawn
+
+	level waittill spawn
+
+	// set the parameters for this round based match
+	level.dmrespawning = 1 // 1 or 0
+	level.dmroundlimit = 8 // round time limit in minutes
+	level.clockside = allies // set to axis, allies, kills, or draw
+
+		level waittill roundstart
+
+        exec escort/util.scr::teamleft
+	exec escort/escort_allies.scr
+	exec escort/mapfile/cross_node_points.scr::node_point
+	exec escort/util.scr::map_timecount_8min
+	exec escort/escort_messages.scr::counttime
+	$closet_trigger triggerable
+	$closet_trigger2 triggerable
+
+end

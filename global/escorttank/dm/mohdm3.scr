@@ -1,0 +1,125 @@
+main:
+
+
+setcvar "g_scoreboardpic" "mohdm3"
+
+setcvar "g_gametype" "3"
+
+setcvar fraglimit "1"
+
+
+//thread escort/mapfile/rem_newspawns.scr::spawnblock
+exec escort/mapfile/rem_newspawns.scr::activate_spawns
+exec escort/mapfile/rem_newspawns.scr::1st_wave_spawn_axis_side
+exec escort/escort_messages.scr::Gamemod
+exec escort/escort_messages.scr::messages
+
+local.point = spawn info_vehiclepoint "targetname" "tank_1" "target" "tank_2"
+
+	// call additional stuff for playing this map round based is needed
+	if(level.roundbased)
+		thread roundbasedthread
+
+	// ====================
+	level waittill prespawn
+	// ====================
+	
+	//*** Precache Dm Stuff
+	exec global/DMprecache.scr
+	
+	level.script = maps/dm/mohdm3.scr
+	exec global/ambient.scr mohdm3
+	
+thread global/door_locked.scr::lock
+
+//thread maps/dm/mohdm3.scr::tanky
+//thread maps/dm/mohdm3.scr::tanky2
+
+thread tanky
+thread tanky2
+
+	// ====================
+	level waittill spawn
+	// ====================
+
+
+	exec escort/cabinet.scr::rem_closet
+	exec escort/cabinet.scr::rem_closet2
+	$closet_trigger nottriggerable
+	$closet_trigger2 nottriggerable
+
+end
+
+// ===================================================
+tanky:
+
+spawn vehicles/panzer_tank.tik "targetname" "tank_axis"
+$tank_axis.origin = ( 5675 -2400 0 )
+$tank_axis.angles = ( 0 125 0 )
+$tank_axis notsolid
+//$tank_axis setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_axis nodamage
+$tank_axis.corona = 1
+$tank_axis rendereffects "-shadow"
+$tank_axis immune bullet
+$tank_axis immune fast_bullet
+$tank_axis immune grenade
+$tank_axis immune bash
+$tank_axis.health = 300 // 300
+//$tank_axis takedamage
+waitframe
+
+end
+// ===================================================
+
+
+// ===================================================
+tanky2:
+
+spawn vehicles/panzer_tank_europe.tik "targetname" "tank_allies"
+$tank_allies.origin = ( 5675 -2400 -1000 )
+$tank_allies.angles = ( 0 125 0 )
+$tank_allies notsolid
+//$tank_allies setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_allies nodamage
+$tank_allies.corona = 1
+$tank_allies rendereffects "-shadow"
+$tank_allies immune bullet
+$tank_allies immune fast_bullet
+$tank_allies immune grenade
+$tank_allies immune bash
+$tank_allies.health = 300 // 300
+//$tank_allies takedamage
+waitframe
+end
+// ===================================================
+
+
+end
+
+//-----------------------------------------------------------------------------
+
+roundbasedthread:
+
+	// Can specify different scoreboard messages for round based games here.
+
+	level waitTill prespawn
+
+	level waittill spawn
+
+	// set the parameters for this round based match
+	level.dmrespawning = 1 // 1 or 0
+	level.dmroundlimit = 8 // round time limit in minutes
+	level.clockside = axis // set to axis, allies, kills, or draw
+
+	level waittill roundstart
+
+	exec escort/util.scr::teamleft
+	exec escort/escort_axis.scr
+	exec escort/mapfile/rem_node_points.scr::node_point
+	exec escort/util.scr::map_timecount_8min
+	exec escort/escort_messages.scr::counttime
+	$closet_trigger triggerable
+	$closet_trigger2 triggerable
+
+end

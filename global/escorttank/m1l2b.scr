@@ -1,0 +1,348 @@
+main:
+
+setcvar "g_scoreboardpic" "m1l2b"
+
+setcvar "g_gametype" "3"
+
+setcvar fraglimit "1"
+
+
+//thread escort/mapfile/m1l2b_newspawns.scr::spawnblock
+exec escort/mapfile/m1l2b_newspawns.scr::activate_spawns
+exec escort/mapfile/m1l2b_newspawns.scr::1st_wave_spawn_allies_side
+exec escort/escort_messages.scr::Gamemod
+exec escort/escort_messages.scr::messages
+
+
+local.point = spawn info_vehiclepoint "targetname" "tank_1" "target" "tank_2"
+
+	
+//	exec global/ai.scr
+//	exec global/exploder.scr
+//	exec global/loadout_precache.scr"maps/m1l2b.scr"
+	// call additional stuff for playing this map round based is needed
+	if(level.roundbased)
+		thread roundbasedthread
+
+	// Remove AI
+	removeclass actor
+	//removeclass turretGun
+	removeclass health
+	removeclass ammo
+	removeclass AmmoEntity
+
+
+//*** INITIALIZE SPOTLIGHT SYSTEM
+
+//exec global/spotlight.scr
+
+
+/////////////////////////////////
+
+level waitTill prespawn
+
+/////////////////////////////////
+	
+
+level.script = maps/m1l2b.scr
+
+	//*** Precache Dm Stuff
+	exec global/DMprecache.scr
+
+//*** INITIALIZE AMBIENT SOUND SYSTEM
+
+	exec global/ambient.scr m1l2b
+
+//*** INITIALIZE DOOR LOCKING SYSTEM
+
+exec global/door_locked.scr::lock
+	
+///////////////////////////////////////////////////////////////
+
+$world farplane 7400	
+$world farplane_color (.12 .12 .11)
+
+//$world farplane 5400	
+//$world farplane_color (.12 .12 .11)
+
+
+	$truckclip notsolid
+	$tankclip notsolid
+	$truck01 setcollisionentity $opelmap
+	$truck01 thread truckstuff
+	$truck01.origin = ( -87 2680 -255 ) 
+	$truck01.angle = -90
+// 	-------------
+	$tank02.collisionent = $tank02.target
+	$tank02.origin = ( 2050 2250 -255 )
+	$tank02.angle = 120
+	$tank02	solid
+	$tank02 show
+//      -------------
+	$tank01 solid
+	$tank01.collisionent = $tank01.target
+	$tank01 show
+	
+	$tank04.collisionent = $tank03.target
+	$tank04.origin = ( -3334 2097 -255 )
+	$tank04.angle = 0
+	$tank04 solid
+
+	$tank03 remove
+	$jeep remove
+	
+	$radio1 loopsound m1l2b_radio1				
+	$radio2 loopsound m1l2b_radio2
+
+	$door01.origin = ( 1086 124 -192 )
+	$door01 lock
+	$door01.angle = -90
+	$door02 lock
+
+	$wire01 remove
+	$wire02 remove
+	$wire03 remove
+	$cutwire01 remove						
+	$cutwire02 remove
+	$cutwire03 remove
+	$spotlight remove
+	$exploder remove
+	$bomb01 remove
+	$bomb02 remove
+	$bomb03 remove
+	$bomb04 remove
+	$bomb05 remove
+	$explosion05_damage remove
+	$exploder remove
+
+/////// Objects ////////////////////////////////////////////
+
+spawn vehicles/opeltruck.tik "targetname" "truck_02"
+$truck_02.origin = ( 150 1700 -255 ) 
+$truck_02.angle = 90
+$truck_02 solid
+$truck_02 setcollisionentity $opelmap
+$truck_02 thread truckstuff
+
+// -----------------------------------------------------
+
+
+local.fix1 = spawn script_model "targetname" "ramp1"
+local.fix1 model "static/worktable.tik" 
+local.fix1.origin = ( -1920 2150 -320 ) // ( 4788 1300 -390 )
+local.fix1.angles = ( 0 90 35 ) 
+local.fix1.scale = 5
+local.fix1 setsize ( -140 -200 -230 ) ( 140 200 230 ) // ( -140 -200 -240 ) ( 140 200 240 )
+local.fix1 solid 
+
+local.fix2 = spawn script_model "targetname" "ramp2"
+local.fix2 model "static/worktable.tik" 
+local.fix2.origin = ( -1990 2150 -320 ) // ( 4724 1300 -390 )
+local.fix2.angles = ( 0 90 -35 ) 
+local.fix2.scale = 5
+local.fix2 setsize ( -140 -200 -230 ) ( 140 200 230 ) // ( -140 -200 -240 ) ( 140 200 240 )
+local.fix2 solid 
+
+local.rampfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "rampfix1"
+$rampfix1.origin = ( -1958 2150 -20 ) //290
+$rampfix1.angles = ( 0 0 0 ) // -8 0 10
+$rampfix1 scale 5
+$rampfix1 solid
+$rampfix1 setsize ( -5 -120 0 ) ( 5 120 10 )
+$rampfix1 hide
+
+
+///  blockers ////
+
+local.wall1 = spawn script_model 
+local.wall1 model "static/indycrate.tik"
+local.wall1.origin = ( -1960 1840 -20 )
+local.wall1.angles = ( 0.00 90.00 0.00 ) 
+local.wall1 solid
+local.wall1 hide
+local.wall2 = spawn script_model 
+local.wall2 model "static/indycrate.tik"
+local.wall2.origin = ( -1960 1840 20 )
+local.wall2.angles = ( 0.00 90.00 0.00 ) 
+local.wall2 solid
+local.wall2 hide
+local.wall3 = spawn script_model 
+local.wall3 model "static/indycrate.tik"
+local.wall3.origin = ( -1900 1840 20 )
+local.wall3.angles = ( 0.00 90.00 0.00 ) 
+local.wall3 solid
+local.wall3 hide
+local.wall4 = spawn script_model 
+local.wall4 model "static/indycrate.tik"
+local.wall4.origin = ( -2025 1910 20 )
+local.wall4.angles = ( 0.00 90.00 0.00 ) 
+local.wall4 solid
+local.wall4 hide
+local.wall5 = spawn script_model 
+local.wall5 model "static/indycrate.tik"
+local.wall5.origin = ( -1955 2505 50 )
+local.wall5.angles = ( 90 0 90 ) 
+local.wall5 solid
+local.wall5 hide
+local.wall6 = spawn script_model 
+local.wall6 model "static/indycrate.tik"
+local.wall6.origin = ( -1890 2505 50 )
+local.wall6.angles = ( 90 0 90 ) 
+local.wall6 solid
+local.wall6 hide
+local.wall7 = spawn script_model 
+local.wall7 model "static/indycrate.tik"
+local.wall7.origin = ( -2020 2505 30 )
+local.wall7.angles = ( 90 0 90 ) 
+local.wall7 solid
+local.wall7 hide
+
+////////////////////////////////////////
+
+
+/////// Objects ////////////////////////////////////////////
+
+thread maps/m1l2b.scr::tanky
+thread maps/m1l2b.scr::tanky2
+
+//exec escort/ladderspawn.scr ( -2468 -1212 8 ) 200 wood 90
+//exec escort/ladderspawn.scr ( -2468 -1248 8 ) 220 wood 90
+
+/////////////////////////////////
+
+level waitTill spawn
+
+/////////////////////////////////
+
+	exec escort/cabinet.scr::m1l2b_closet
+	exec escort/cabinet.scr::m1l2b_closet2
+	$closet_trigger nottriggerable
+	$closet_trigger2 nottriggerable
+
+end
+
+// ===================================================
+tanky:
+
+spawn vehicles/panzer_tank.tik "targetname" "tank_axis"
+$tank_axis.origin = ( 1700 1100 -1000 )
+$tank_axis.angles = ( 0 90 0 )
+//$tank_axis setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_axis nodamage
+$tank_axis notsolid
+$tank_axis.corona = 1
+$tank_axis rendereffects "-shadow"
+$tank_axis immune bullet
+$tank_axis immune fast_bullet
+$tank_axis immune grenade
+$tank_axis immune bash
+$tank_axis.health = 300 // 300
+//$tank_axis takedamage
+waitframe
+
+end
+// ===================================================
+
+
+// ===================================================
+tanky2:
+
+spawn vehicles/panzer_tank_europe.tik "targetname" "tank_allies"
+$tank_allies.origin = ( 1700 1100 -255 )
+$tank_allies.angles = ( 0 90 0 )
+//$tank_allies setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_allies nodamage
+$tank_allies notsolid
+$tank_allies.corona = 1
+$tank_allies rendereffects "-shadow"
+$tank_allies immune bullet
+$tank_allies immune fast_bullet
+$tank_allies immune grenade
+$tank_allies immune bash
+$tank_allies.health = 300 // 300
+//$tank_allies takedamage
+waitframe
+end
+// ===================================================
+
+end
+
+roundbasedthread:
+
+	// Can specify different scoreboard messages for round based games here.
+
+	level waitTill prespawn
+
+	level waittill spawn
+
+	// set the parameters for this round based match
+	level.dmrespawning = 1 // 1 or 0
+	level.dmroundlimit = 8 // round time limit in minutes
+	level.clockside = allies // set to axis, allies, kills, or draw
+
+	level waittill roundstart
+   
+        exec escort/util.scr::teamleft
+	exec escort/escort_allies.scr
+	exec escort/mapfile/m1l2b_node_points.scr::node_point
+	exec escort/util.scr::map_timecount_8min
+	exec escort/escort_messages.scr::counttime
+	$closet_trigger triggerable
+	$closet_trigger2 triggerable
+
+end
+
+
+truckstuff:
+	
+	self anim idlenolights
+	self notsolid
+	self nodamage
+end
+
+
+// End some labels
+tank01_bombed:
+end
+tank02_bombed:
+end
+tank03_bombed:
+end
+tank04_bombed:
+end
+crateguy3_thread:
+end
+jeepsequence:
+end
+wrenchguy2_thread:
+end
+wrenchguy1_thread:
+end
+wrenchguy3_thread:
+end
+crateguy2_thread:
+end
+crateguy1_thread:
+end
+room1:
+end
+chase:
+end
+opentruck01_disabled:
+end
+opentruck02_disabled:
+end
+munitionscache_bombed:
+end
+opentruck03_disabled:
+end
+incomplete:
+end
+activate_smoker_sequence:
+end
+gatecrash:
+end
+endlevel:
+end
+grillosay:
+end

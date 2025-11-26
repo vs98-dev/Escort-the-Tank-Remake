@@ -1,0 +1,184 @@
+ladder local.origin local.hieght local.material local.angle:
+
+	if(local.origin == NIL)
+		{
+		println "[LADDER SPAWN]ERROR: No valid ladder origin is set, ending script." 
+		end
+		}
+
+	if(local.hieght == NIL)
+		local.hieght = 300
+
+
+	if(local.material == NIL)
+		local.material = wood
+
+	if(local.angle == NIL)
+		local.angle = 0
+
+	local.angles = ( 0 local.angle 0 )
+
+
+	local.pos[1] = (local.origin + (angles_toleft local.angles) * 10)
+	local.pos[2] = (local.origin + (angles_toleft local.angles) * -10)
+
+
+	local.i = 1
+	local.result = local.hieght / 15
+	local.rung = 0
+
+	
+
+	local.beam[local.i] = spawn func_beam origin local.pos[1] endpoint (local.pos[1] + ( 0 0 local.hieght ))
+	local.beam[local.i] setsize ( 0 0 0 ) ( 0 0 local.hieght )
+	local.beam[local.i] solid
+	local.i++
+
+	local.beam[local.i] = spawn func_beam origin local.pos[2] endpoint (local.pos[2] + ( 0 0 local.hieght ))
+	local.beam[local.i] setsize ( 0 0 0 ) ( 0 0 local.hieght )
+	local.beam[local.i] solid
+	local.i++
+
+	local.beam[local.i] = spawn func_beam origin (local.pos[1] + ( 0 0 15 )) endpoint (local.pos[2] + ( 0 0 15 )) 
+	local.i++
+
+	local.rung++
+
+	local.rungorigin = (local.pos[1] + ( 0 0 15 ))
+	local.endpoint = (local.pos[2] + ( 0 0 15 ))
+
+	while(local.rung < local.result)
+		{
+		local.beam[local.i] = spawn func_beam origin (local.rungorigin + ( 0 0 15 )) endpoint (local.endpoint + ( 0 0 15 )) 
+		local.rungorigin = (local.rungorigin + ( 0 0 15 ))
+		local.endpoint = (local.endpoint + ( 0 0 15 ))
+		local.rung++
+		local.i++
+		waitframe
+		}
+
+
+	switch(local.material)
+		{
+		case "metal":
+			{
+			local.shader[0] = "textures/general_industrial/jh_rusty1.jpg"
+			local.shader[1] = "textures/general_industrial/bnkrpipe1_iron.jpg"
+			local.shader[2] = "textures/mohcommon/ibeam_1.jpg"
+			}
+		break
+		case "wood" :
+			{
+			local.shader[0] = "textures/mohcommon/woodpost_1drk.jpg"
+  			local.shader[1] = "textures/general_structure/beam_wood1.jpg"
+			local.shader[2] = "textures/mohcommon/beam2.jpg"
+			}
+		break
+		default:
+			{
+			local.shader[0] = "textures/mohcommon/woodpost_1drk.jpg"
+  			local.shader[1] = "textures/general_structure/beam_wood1.jpg"
+			local.shader[2] = "textures/mohcommon/beam2.jpg"
+			local.material = "wood"
+			}
+		break
+		}
+
+	local.shader = local.shader[randomint(local.shader.size)]
+
+
+	for(local.i=1;local.i<=local.beam.size;local.i++)
+		{
+		local.beam[local.i] maxoffset 0
+		local.beam[local.i] shader local.shader
+		local.beam[local.i] scale 1
+		local.beam[local.i] doactivate
+		}
+
+
+	local.newhieght = (local.hieght - 100)
+	thread soundtrig ( local.origin + ( 0 0 16 ))  local.newhieght local.material local.angle
+
+end
+
+
+
+soundtrig local.origin local.one local.two  local.angle:
+
+	local.sound = spawn trigger_multiple origin local.origin setthread "escort/ladderspawn.scr::sound" 
+	local.sound.angle = local.angle
+	local.sound setsize ( -3.5 -3.5 0) ( 3.5 3.5 local.one)
+	local.sound.sound = ("snd_step_" + local.two)
+	local.sound.top = local.origin[2] + local.one
+	local.sound.setsizehieght = ( local.one)
+end
+
+sound:
+ 
+	local.player = parm.other
+	local.counter = 0
+	if((local.player cansee self 100 20 && local.player.viewangles[0] < -40) || (local.player cansee self 100 20 && local.player.useheld))
+		{
+		self nottriggerable
+		//local.player face ( local.player.viewangles[0] self.angle local.player.viewangles[2])
+		local.player forcetorsostate "USE_LADDER_SORRID"
+		wait 1
+		local.team = local.player.dmteam
+		if(isalive local.player && local.player.origin[2] < self.origin[2])
+			{
+			iprintln ""
+			self triggerable
+			end
+			}
+		self.origin = ( self.origin + ( 0 0 100 ))
+		self setsize ( -3.5 -3.5 0) ( 3.5 3.5 ( self.setsizehieght - 100))
+		while(local.player istouching self)
+			{
+			local.counter += 0.05
+			if(local.player == NULL)
+				{
+				self.origin = ( self.origin + ( 0 0 -100 ))
+				self setsize ( -3.5 -3.5 0) ( 3.5 3.5 (self.setsizehieght))
+				self triggerable
+				end
+				}
+			else
+				{
+				if(!isalive local.player || local.player.dmteam != local.team)
+					{
+					self.origin = ( self.origin + ( 0 0 -100 ))
+					self setsize ( -3.5 -3.5 0) ( 3.5 3.5 (self.setsizehieght))
+					self triggerable
+					end
+					}
+				else
+					{
+					if(local.counter >= .5)
+						{
+						local.counter =	0
+						local.point = local.player.origin
+						wait .2
+						if(local.player.origin != local.point)
+							local.player playsound self.sound
+						}
+					else
+						waitframe
+					}
+				}
+			}
+
+
+	if(local.player.origin[2] > self.top)
+		local.player forcetorsostate "GET_OFF_LADDER_TOP"
+	else if(local.player.origin[2] < self.top)
+		local.player forcetorsostate "GET_OFF_LADDER_BOTTOM"
+		
+	wait 1
+	self.origin = ( self.origin + ( 0 0 -100 ))
+	self setsize ( -3.5 -3.5 0) ( 3.5 3.5 (self.setsizehieght))
+	self triggerable
+
+	} 
+end
+
+

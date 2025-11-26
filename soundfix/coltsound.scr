@@ -1,0 +1,24 @@
+main local.command:
+
+	if(level.colt != 1)
+	{
+	end
+	}
+
+	thread local.command
+
+
+
+end
+
+reload:
+
+self playsound colt45_snd_reload
+
+end
+
+shoot:
+
+self playsound colt45_snd_fire
+
+end

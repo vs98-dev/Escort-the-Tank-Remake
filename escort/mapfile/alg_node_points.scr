@@ -1,0 +1,725 @@
+/*
+
+ ******************************************
+ **                                      **
+ **     This file is part of the MOD     **
+ **                                      **
+ **       -=[Escort-The-Vehicle]=-       **  *  You are not allowed to modify this mod without the permission of the creator. *
+ **                                      **
+ **     Game MOD created by [PacRac]     **
+ **                                      **
+ ******************************************
+
+*/
+
+//*************** NODE POINTS ***********************************************
+
+node_point:
+
+
+// ---------------------- CHANGE COORDINATES HERE -----------------------------------
+// ----------------------            |            -----------------------------------
+// ----------------------            V            -----------------------------------
+
+    level.corona1 = spawn script_model "targetname" "node1"
+    level.corona1 model "static/corona_orange.tik"
+    level.corona1.origin = ( 132 -1155 -295 )
+    level.corona1.angles = ( 0 0 0 )
+    level.corona1 notsolid
+    level.corona1 scale 1.00
+
+   level.corona1 hide
+
+    level.corona1 = spawn script_model "targetname" "node2"
+    level.corona1 model "static/corona_orange.tik"
+    level.corona1.origin = ( 152 -160 -250 )
+    level.corona1.angles = ( 0 0 0 )
+    level.corona1 notsolid
+    level.corona1 scale 1.00
+
+  level.corona1 hide
+
+    level.corona1 = spawn script_model "targetname" "node3"
+    level.corona1 model "static/corona_orange.tik"
+    level.corona1.origin = ( 168 1283 -151 )
+    level.corona1.angles = ( 0 0 0 )
+    level.corona1 notsolid
+    level.corona1 scale 1.00
+
+  level.corona1 hide
+
+    level.corona1 = spawn script_model "targetname" "node4"
+    level.corona1 model "static/corona_orange.tik"
+    level.corona1.origin = ( -300 1590 -120 )
+    level.corona1.angles = ( 0 0 0 )
+    level.corona1 notsolid
+    level.corona1 scale 1.00
+
+
+  level.corona1 hide // need fix solid ent
+
+    level.corona1 = spawn script_model "targetname" "node4_2"
+    level.corona1 model "static/corona_orange.tik"
+    level.corona1.origin = ( -715 1548 -111 )
+    level.corona1.angles = ( 0 0 0 )
+    level.corona1 notsolid
+    level.corona1 scale 1.00
+
+  level.corona1 hide
+
+    level.corona1 = spawn script_model "targetname" "node5"
+    level.corona1 model "static/corona_orange.tik"
+    level.corona1.origin = ( -735 2548 -115 )
+    level.corona1.angles = ( 0 0 0 )
+    level.corona1 notsolid
+    level.corona1 scale 1.00
+
+  level.corona1 hide
+
+    level.corona1 = spawn script_model "targetname" "node6"
+    level.corona1 model "static/corona_orange.tik"
+    level.corona1.origin = ( -1650 2580 -115 )
+    level.corona1.angles = ( 0 0 0 )
+    level.corona1 notsolid
+    level.corona1 scale 1.00
+
+  level.corona1 hide
+
+    level.corona1 = spawn script_model "targetname" "node7"
+    level.corona1 model "static/corona_orange.tik"
+    level.corona1.origin = ( -1740 1750 -111 ) 
+    level.corona1.angles = ( 0 0 0 )
+    level.corona1 notsolid
+    level.corona1 scale 1.00
+    level.corona1 light 1 0 0 200
+
+
+// ----------------------            ^            -----------------------------------
+// ----------------------            |            -----------------------------------
+// ---------------------- CHANGE COORDINATES HERE -----------------------------------
+
+
+/*
+*******************************************************************************************
+
+**                       **
+
+
+**                       **
+
+**        PLEASE DON'T CHANGE BELOW         **
+
+
+**                       **
+
+
+**                       **
+
+*******************************************************************************************
+*/
+
+    local.alarm = spawn trigger_vehicle
+    local.alarm.origin = $node1.origin
+    local.alarm setsize ( -30 -30 -40  ) ( 30 30 40 )
+    local.alarm setthread "node_thread1"
+    local.alarm.targetname = "trigger_node1"
+
+    local.alarm = spawn trigger_vehicle
+    local.alarm.origin = $node2.origin
+    local.alarm setsize ( -30 -30 -40  ) ( 30 30 40 )
+    local.alarm setthread "node_thread2"
+    local.alarm.targetname = "trigger_node2"
+
+    local.alarm = spawn trigger_vehicle
+    local.alarm.origin = $node3.origin
+    local.alarm setsize ( -30 -30 -40  ) ( 30 30 40 )
+    local.alarm setthread "node_thread3"
+    local.alarm.targetname = "trigger_node3"
+
+    local.alarm = spawn trigger_vehicle
+    local.alarm.origin = $node4.origin
+    local.alarm setsize ( -30 -30 -40  ) ( 30 30 40 )
+    local.alarm setthread "node_thread4"
+    local.alarm.targetname = "trigger_node4"
+
+    local.alarm = spawn trigger_vehicle
+    local.alarm.origin = $node4_2.origin
+    local.alarm setsize ( -30 -30 -40  ) ( 30 30 40 )
+    local.alarm setthread "node_thread4_2"
+    local.alarm.targetname = "trigger_node4_2"
+
+    local.alarm = spawn trigger_vehicle
+    local.alarm.origin = $node5.origin
+    local.alarm setsize ( -30 -30 -40  ) ( 30 30 40 )
+    local.alarm setthread "node_thread5"
+    local.alarm.targetname = "trigger_node5"
+
+    local.alarm = spawn trigger_vehicle
+    local.alarm.origin = $node6.origin
+    local.alarm setsize ( -30 -30 -40  ) ( 30 30 40 )
+    local.alarm setthread "node_thread6"
+    local.alarm.targetname = "trigger_node6"
+
+    local.alarm = spawn trigger_vehicle
+    local.alarm.origin = $node7.origin
+    local.alarm setsize ( -30 -30 -40  ) ( 30 30 40 )
+    local.alarm setthread "node_thread7"
+    local.alarm.targetname = "trigger_node7"
+
+
+    local.alarm = spawn trigger_vehicle
+    local.alarm.origin = $node8.origin
+    local.alarm setsize ( -30 -30 -40  ) ( 30 30 40 )
+    local.alarm setthread "node_thread8"
+    local.alarm.targetname = "trigger_node8"
+
+    local.alarm = spawn trigger_vehicle
+    local.alarm.origin = $node9.origin
+    local.alarm setsize ( -30 -30 -40  ) ( 30 30 40 )
+    local.alarm setthread "node_thread9"
+    local.alarm.targetname = "trigger_node9"
+
+// ================================================================================
+
+
+// ==========
+node_thread1:
+// ==========
+
+  $trigger_node1 waittill trigger
+  local.ent = parm.other
+
+
+if ($tank_axis IsTouching $trigger_node1)
+    {
+
+  $trigger_node1 nottriggerable
+
+    wait 0.1
+
+ //iprintlnbold "An Node Point has been reached!"
+
+  $tank_axis stop
+
+  wait 0.1
+  $tank_1.origin = $trigger_node2.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+if ($tank_allies IsTouching $trigger_node1)
+    {
+
+  $trigger_node1 nottriggerable
+    wait 0.1
+
+  //iprintlnbold "An Node Point has been reached!"
+
+  $tank_allies stop
+
+  wait 0.1
+  $tank_1.origin = $trigger_node2.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+end
+
+// ==========
+node_thread2:
+// ==========
+
+  $trigger_node2 waittill trigger
+   local.ent = parm.other
+
+
+if ($tank_axis IsTouching $trigger_node2)
+    {
+
+  $trigger_node2 nottriggerable
+    wait 0.1
+
+  //iprintlnbold "An Node Point has been reached!"
+
+  $tank_axis stop
+
+  wait 0.1
+  $tank_1.origin = $trigger_node3.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+
+if ($tank_allies IsTouching $trigger_node2)
+    {
+  $trigger_node2 nottriggerable
+    wait 0.1
+
+  //iprintlnbold "An Node Point has been reached!"
+
+  $tank_allies stop
+
+  wait 0.1
+  $tank_1.origin = $trigger_node3.origin
+
+wait 0.5
+$tank_trigger triggerable
+ 
+
+  wait 0.1
+
+  end
+    }
+
+end
+
+// ==========
+node_thread3:
+// ==========
+
+  $trigger_node3 waittill trigger
+   local.ent = parm.other
+
+
+if ($tank_axis IsTouching $trigger_node3)
+    {
+
+  $trigger_node3 nottriggerable
+    wait 0.1
+
+  //iprintlnbold "An Node Point has been reached!"
+
+  $tank_axis stop
+
+  wait 0.1
+  $tank_1.origin = $trigger_node4.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+
+if ($tank_allies IsTouching $trigger_node3) 
+    {
+
+  $trigger_node3 nottriggerable
+    wait 0.1
+
+  //iprintlnbold "An Node Point has been reached!"
+
+  $tank_allies stop
+
+  wait 0.1
+  $tank_1.origin = $trigger_node4.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+end
+
+// ==========
+node_thread4:
+// ==========
+
+  $trigger_node4 waittill trigger
+   local.ent = parm.other
+
+
+if ($tank_axis IsTouching $trigger_node4) 
+    {
+
+  $trigger_node4 nottriggerable
+    wait 0.1
+
+ //iprintlnbold "CHECKPOINT has been reached!"  // CHECKPOINT
+
+  thread escort/escort_messages.scr::checkpoint
+  //iprintln_noloc "A kill has been added for breaching the enemy lines.
+  //local.player addkills 1
+
+  thread escort/mapfile/alg_newspawns.scr::2nd_wave_spawn_axis_side
+
+  $tank_axis stop
+
+//$tank_axis setsize ( -130 -40 0 ) ( 130 40 70 )
+
+  wait 0.1
+  $tank_1.origin = $trigger_node4_2.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+
+if ($tank_allies IsTouching $trigger_node4) 
+    {
+
+  $trigger_node4 nottriggerable
+    wait 0.1
+
+  //iprintlnbold "CHECKPOINT has been reached!"  // CHECKPOINT
+
+  thread escort/escort_messages.scr::checkpoint
+  //iprintln_noloc "A kill has been added for breaching the enemy lines.
+  //local.player addkills 1
+
+  thread escort/mapfile/alg_newspawns.scr::2nd_wave_spawn_allies_side
+
+  $tank_allies stop
+
+//$tank_allies setsize ( -130 -40 0 ) ( 130 40 70 )
+
+  wait 0.1
+  $tank_1.origin = $trigger_node4_2.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+end
+
+// ===========
+node_thread4_2:
+// ===========
+
+  $trigger_node4_2 waittill trigger
+   local.ent = parm.other
+
+
+if ($tank_axis IsTouching $trigger_node4_2) 
+    {
+
+  $trigger_node4_2 nottriggerable
+    wait 0.1
+
+  //iprintlnbold "An Node Point has been reached!"
+
+  $tank_axis stop
+
+ // $tank_axis setsize ( -150 -80 0 ) ( 150 80 128 )
+
+  wait 0.1
+  $tank_1.origin = $trigger_node5.origin
+
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+
+if ($tank_allies IsTouching $trigger_node4_2) 
+    {
+
+  $trigger_node4_2 nottriggerable
+    wait 0.1
+
+  //iprintlnbold "An Node Point has been reached!"
+
+  $tank_allies stop
+
+//  $tank_allies setsize ( -150 -80 0 ) ( 150 80 128 )
+
+  wait 0.1
+  $tank_1.origin = $trigger_node5.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+end
+
+// ==========
+node_thread5:
+// ==========
+
+  $trigger_node5 waittill trigger
+   local.ent = parm.other
+
+
+if ($tank_axis IsTouching $trigger_node5)
+    {
+
+  $trigger_node5 nottriggerable
+    wait 0.1
+
+  $tank_axis stop
+
+  wait 0.1
+  $tank_1.origin = $trigger_node6.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+
+if ($tank_allies IsTouching $trigger_node5)
+    {
+
+  $trigger_node5 nottriggerable
+    wait 0.1
+
+  $tank_allies stop
+
+
+  wait 0.1
+  $tank_1.origin = $trigger_node6.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+end
+
+// ==========
+node_thread6:
+// ==========
+
+  $trigger_node6 waittill trigger
+   local.ent = parm.other
+
+if ($tank_axis IsTouching $trigger_node6) 
+    {
+
+  $trigger_node6 nottriggerable
+    wait 0.1
+
+  //iprintlnbold "An Node Point has been reached!"
+
+  //$tank_axis stop
+
+  wait 0.1
+  $tank_1.origin = $trigger_node7.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+if ($tank_allies IsTouching $trigger_node6) 
+    {
+
+  $trigger_node6 nottriggerable
+    wait 0.1
+
+  //iprintlnbold "An Node Point has been reached!"
+
+  //$tank_allies stop
+
+  wait 0.1
+  $tank_1.origin = $trigger_node7.origin
+
+wait 0.5
+$tank_trigger triggerable
+
+
+  wait 0.1
+
+  end
+    }
+
+end
+
+// ==========
+node_thread7: // Final NODE
+// ==========
+
+  $trigger_node7 waittill trigger
+  local.ent = parm.other
+
+
+if ($tank_axis IsTouching $trigger_node7)
+    {
+
+    $trigger_node7 nottriggerable
+    wait 0.1
+
+  $tank_axis stop	
+
+  wait 0.1
+
+  
+  thread escort/escort_messages.scr::axis_goal
+
+
+$tank_trigger nottriggerable
+$player takeall
+$player stufftext "locationprint 260 200 CHANGING-SIDES...PLEASE-WAIT!!"
+
+wait 3
+// -------------------------------------------------------------
+
+if ( (level.counttime > 360 ) && (level.counttime < 480 ) )
+{
+  //iprintln_noloc "time 2"
+  level.dmroundlimit = 4
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 0
+level.clockcount6 = 0
+level.clockcount5 = 0
+level.clockcount4 = 0
+level.clockcount3 = 0
+level.clockcount2 = 0
+level.clockcount1 = 1
+}
+
+if ( (level.counttime > 240 ) && (level.counttime < 360 ) )
+{
+  //iprintln_noloc "time 4"
+  level.dmroundlimit = 8
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 0
+level.clockcount6 = 0
+level.clockcount5 = 0
+level.clockcount4 = 0
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+}
+
+if ( (level.counttime > 120 ) && (level.counttime < 240 ) )
+{
+  //iprintln_noloc "time 6"
+  level.dmroundlimit = 12
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 0
+level.clockcount6 = 0
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+}
+
+if (  (level.counttime > 1 ) && (level.counttime < 120 ) )
+{
+  //iprintln_noloc "time 8"
+  level.dmroundlimit = 16
+level.clockcount11 = 0
+level.clockcount10 = 0
+level.clockcount9 = 0
+level.clockcount8 = 0
+level.clockcount7 = 1
+level.clockcount6 = 1
+level.clockcount5 = 1
+level.clockcount4 = 1
+level.clockcount3 = 1
+level.clockcount2 = 1
+level.clockcount1 = 1
+}
+
+// -------------------------------------------------------------
+
+  wait 0.5
+
+  level.clockcounter = off
+  thread escort/util.scr::allies_side
+
+    
+
+end
+    }
+
+if ($tank_allies IsTouching $trigger_node7)
+    {
+
+    $trigger_node7 nottriggerable
+    wait 0.1
+
+  $tank_allies stop
+  
+  $tank_trigger nottriggerable
+  $player takeall
+
+  wait 0.1
+
+  
+  thread escort/escort_messages.scr::allies_goal
+
+level.clockcounter = off
+
+waitframe
+
+local.gametype = getcvar "g_gametype"
+setcvar "g_gametype" "4"
+teamwin allies
+setcvar "g_gametype" local.gametype
+    
+
+  wait 3
+
+  end
+    }
+
+end

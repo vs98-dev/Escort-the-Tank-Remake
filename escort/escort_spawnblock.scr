@@ -1,0 +1,35 @@
+
+ 
+spawn_block_trigger local.origin:  //Thanks Rindog 
+ local.trig = spawn trigger_multiple "targetname" "dummy"
+ local.trig.origin = local.origin
+ local.trig setsize ( -4 -4 -4 ) ( 4 4 4 )
+ 
+ local.trig wait 0.2
+ local.trig delay 0.0
+ local.trig setthread escort/escort_spawnblock.scr::spawn_block_trigger_thread
+ local.trig.dummy = spawn fx/dummy.tik "targetname" "dummy"
+ local.trig.dummy.origin = local.origin 
+ local.trig.dummy setsize ( -5 -5 -0 ) ( 5 5 10 )
+ local.trig.dummy solid
+
+end 
+spawn_block_trigger_thread:
+local.player = parm.other
+self.dummy notsolid
+while (local.player istouching self == 1)
+{
+//println test
+ wait .1
+}
+wait 1
+//println endtest
+self.dummy solid
+
+thread spawn_block_trigger_thread_1
+end
+
+spawn_block_trigger_thread_1:
+wait 10
+$dummy remove
+end

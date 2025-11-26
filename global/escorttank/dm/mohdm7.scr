@@ -1,0 +1,147 @@
+main:
+
+setcvar "g_scoreboardpic" "mohdm7"
+
+setcvar "g_gametype" "3"
+
+setcvar fraglimit "1"
+
+
+//thread escort/mapfile/alg_newspawns.scr::spawnblock
+exec escort/mapfile/alg_newspawns.scr::activate_spawns
+exec escort/mapfile/alg_newspawns.scr::1st_wave_spawn_axis_side
+exec escort/escort_messages.scr::Gamemod
+exec escort/escort_messages.scr::messages
+
+local.point = spawn info_vehiclepoint "targetname" "tank_1" "target" "tank_2"
+
+	// call additional stuff for playing this map round based is needed
+	if(level.roundbased)
+		thread roundbasedthread
+
+	// ====================
+	level waittill prespawn
+	// ====================
+	
+		//*** Precache Dm Stuff
+		exec global/DMprecache.scr
+		
+		exec global/door_locked.scr::lock
+		level.script = maps/dm/mohdm7.scr
+		exec global/ambient.scr mohdm7
+$p1 remove
+$p2 remove
+
+/// OBJECTS /////
+
+local.mg42 = spawn script_model
+local.mg42 model "statweapons/mg42_bipod.tik"
+local.mg42.origin = ( 1393 -788 116 )  
+local.mg42.angles = (0 115 0)
+local.mg42gun = spawn models/statweapons/mg42_gun.tik
+local.mg42gun.origin = local.mg42.origin + ( 0 0 0 )
+local.mg42gun.angle = 115
+local.mg42gun yawCenter 115
+local.mg42gun maxyawoffset 25
+
+local.ammobox = spawn script_model
+local.ammobox model "static/mg42ammoboxwbelt.tik" 
+local.ammobox.origin = ( 1362 -799 52 )
+local.ammobox.angles = (0 90 0)
+local.ammobox.scale = 1.0
+local.ammobox notsolid
+
+///////////////
+
+//thread maps/dm/mohdm7.scr::tanky
+//thread maps/dm/mohdm7.scr::tanky2
+
+thread tanky
+thread tanky2
+
+exec escort/ladderspawn.scr ( -3154 2748 64 ) 220 wood 0
+
+	// ====================
+	level waittill spawn
+	// ====================
+
+	exec escort/cabinet.scr::alg_closet
+	exec escort/cabinet.scr::alg_closet2
+	$closet_trigger nottriggerable
+	$closet_trigger2 nottriggerable
+
+end
+
+// ===================================================
+tanky:
+
+spawn vehicles/panzer_tank.tik "targetname" "tank_axis"
+$tank_axis.origin = ( -1049 -1170 -283 )
+$tank_axis.angles = ( 0 0 0 ) 
+$tank_axis notsolid
+//$tank_axis setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_axis nodamage
+$tank_axis.corona = 1
+$tank_axis rendereffects "-shadow"
+$tank_axis immune bullet
+$tank_axis immune fast_bullet
+$tank_axis immune grenade
+$tank_axis immune bash
+$tank_axis.health = 300 // 300
+//$tank_axis takedamage
+waitframe
+
+end
+// ===================================================
+
+
+// ===================================================
+tanky2:
+
+spawn vehicles/panzer_tank_europe.tik "targetname" "tank_allies"
+$tank_allies.origin = ( -1049 -1170 -1000 )
+$tank_allies.angles = ( 0 0 0 )
+$tank_allies notsolid
+//$tank_allies setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_allies nodamage
+$tank_allies.corona = 1
+$tank_allies rendereffects "-shadow"
+$tank_allies immune bullet
+$tank_allies immune fast_bullet
+$tank_allies immune grenade
+$tank_allies immune bash
+$tank_allies.health = 300 // 300
+//$tank_allies takedamage
+waitframe
+end
+// ===================================================
+
+
+end
+
+//-----------------------------------------------------------------------------
+
+roundbasedthread:
+
+	// Can specify different scoreboard messages for round based games here.
+
+	level waitTill prespawn
+
+	level waittill spawn
+
+		// set the parameters for this round based match
+	level.dmrespawning = 1 // 1 or 0
+	level.dmroundlimit = 8 // round time limit in minutes
+	level.clockside = axis // set to axis, allies, kills, or draw
+
+	level waittill roundstart
+
+	exec escort/util.scr::teamleft
+	exec escort/escort_axis.scr
+	exec escort/mapfile/alg_node_points.scr::node_point
+	exec escort/util.scr::map_timecount_8min
+	exec escort/escort_messages.scr::counttime
+	$closet_trigger triggerable
+	$closet_trigger2 triggerable
+
+end

@@ -1,0 +1,241 @@
+/*
+
+ ******************************************
+ **                                      **
+ **     This file is part of the MOD     **
+ **                                      **
+ **       -=[Escort-The-Vehicle]=-       **  *  You are not allowed to modify this mod without the permission of the creator. *
+ **                                      **
+ **     Game MOD created by [PacRac]     **
+ **                                      **
+ ******************************************
+
+*/
+
+
+respawn local.player: 
+local.player = self
+
+if (level.insane_obj == 1) 
+{
+
+if (self.dmteam != spectator)
+{
+wait 2
+
+	self notsolid	
+	self physics_off
+	self hide
+
+self stufftext "locationprint 260 200 Respawning-in...3...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...2...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...1...second!!"
+self notsolid
+self hide
+wait 1
+
+	self solid
+	self physics_on
+	
+	self respawn
+	self show
+}
+//self stufftext "locationprint 310 200 GO!!"
+}
+
+
+
+if ((level.allies_side == 1) && (level.axis_side == 0))
+{
+
+if (self.dmteam == allies)
+{
+wait 2
+
+	self notsolid	
+	self physics_off
+	self hide
+
+self stufftext "locationprint 260 200 Respawning-in...3...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...2...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...1...second!!"
+self notsolid
+self hide
+wait 1
+
+	self solid
+	self physics_on
+	
+	self respawn
+	self show
+
+//self stufftext "locationprint 310 200 GO!!"
+}
+
+if (self.dmteam == axis)
+{
+wait 2
+
+	self notsolid	
+	self physics_off
+	self hide
+
+
+self stufftext "locationprint 260 200 Respawning-in...5...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...4...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...3...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...2...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...1...second!!"
+self notsolid
+self hide
+wait 1
+
+	self solid
+	self physics_on
+	
+	self respawn
+	self show
+
+//self stufftext "locationprint 310 200 GO!!"
+}
+
+}
+else if ((level.allies_side == 0) && (level.axis_side == 1))
+{
+
+if (self.dmteam == axis)
+{
+wait 2
+
+	self notsolid	
+	self physics_off
+	self hide
+
+self stufftext "locationprint 260 200 Respawning-in...3...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...2...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...1...second!!"
+self notsolid
+self hide
+wait 1
+
+	self solid
+	self physics_on
+	
+	self respawn
+	self show
+
+//self stufftext "locationprint 310 200 GO!!"
+}
+
+if (self.dmteam == allies)
+{
+wait 2
+
+	self notsolid	
+	self physics_off
+	self hide
+
+
+self stufftext "locationprint 260 200 Respawning-in...5...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...4...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...3...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...2...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...1...second!!"
+self notsolid
+self hide
+wait 1
+
+	self solid
+	self physics_on
+	
+	self respawn
+	self show
+
+//self stufftext "locationprint 310 200 GO!!"
+}
+
+}
+end
+
+/*
+wait 2
+
+	self notsolid	
+	self physics_off
+	self hide
+
+
+self stufftext "locationprint 260 200 Respawning-in...5...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...4...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...3...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...2...seconds!!"
+self notsolid
+self hide
+wait 1
+self stufftext "locationprint 260 200 Respawning-in...1...second!!"
+self notsolid
+self hide
+wait 1
+
+	self solid
+	self physics_on
+	
+	self respawn
+	self show
+
+//self stufftext "locationprint 310 200 GO!!"
+
+end
+
+*/

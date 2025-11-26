@@ -1,0 +1,387 @@
+main:
+
+setcvar "g_scoreboardpic" "m6l2a"
+
+setcvar "g_gametype" "3"
+
+setcvar fraglimit "1"
+
+
+//thread escort/mapfile/m6l2a_newspawns.scr::spawnblock
+exec escort/mapfile/m6l2a_newspawns.scr::activate_spawns
+exec escort/mapfile/m6l2a_newspawns.scr::1st_wave_spawn_axis_side
+exec escort/escort_messages.scr::Gamemod
+exec escort/escort_messages.scr::messages
+
+
+local.point = spawn info_vehiclepoint "targetname" "tank_1" "target" "tank_2"
+
+	
+//	exec global/ai.scr
+//	exec global/exploder.scr
+//	exec global/loadout_precache.scr maps/m6l2a.scr
+	// call additional stuff for playing this map round based is needed
+	if(level.roundbased)
+		thread roundbasedthread
+
+	// Remove AI
+	removeclass actor
+	removeclass turretGun
+	removeclass health
+	removeclass ammo
+	removeclass AmmoEntity
+
+
+//*** INITIALIZE SPOTLIGHT SYSTEM
+
+//exec global/spotlight.scr
+
+/////////////////////////////////
+
+level waitTill prespawn
+
+/////////////////////////////////
+
+
+	//*** Precache Dm Stuff
+	exec global/DMprecache.scr
+
+level.script = maps/m6l2a.scr
+
+//*** INITIALIZE AMBIENT SOUND SYSTEM
+
+	exec global/ambient.scr m6l2a
+
+//*** INITIALIZE DOOR LOCKING SYSTEM
+
+exec global/door_locked.scr::lock
+
+//*** INITIALIZE FOG DISTANCE AND COLOR
+
+//level.farplaneswitching = 0 	//initialize checking variable
+level.farplane = 2600 // 2550
+level.farplane_color = (.10 .10 .20)
+
+$world farplane level.farplane
+$world farplane_color level.farplane_color
+
+	$explodersmashed remove
+	$exploderchunk remove
+
+	$objective1_fireball1 remove
+	$objective1_fireball2 remove
+	$objective1_fireball3 remove
+	$objective1_fireball4 remove
+	$objective1_fireball5 remove
+	$objective1_fireball6 remove
+	$objective1_fireball7 remove
+
+	$cp1_bomb1 remove
+	$cp1_bomb2 remove
+	$cp1_bomb3 remove
+	$cp2_bomb1 remove
+	$cp2_bomb2 remove
+	$cp2_bomb3 remove
+/*
+	$health1 remove
+	$health2 remove
+	$health3 remove
+	$health4 remove
+	$health5 remove
+	$health6 remove
+*/
+	$cp1_frontdoor remove
+	$cp2_frontdoor remove
+	$p1 remove
+	$p2 remove
+	$p3 remove
+	$p4 remove
+	$p5 remove
+	$p6 remove
+	$p7 remove
+
+/////// Objects ////////////////////////////////////////////
+
+
+local.car = spawn script_model "model" "vehicles/jeep.tik" "targetname" "carro"
+$carro.origin = ( -2798 385 0.13 )
+$carro.angle = -90
+$carro notsolid
+
+local.car1 = spawn script_models "model" "fx/dummy.tik"
+local.car1.origin = ( -2798 385 0.13 )
+local.car1.angles = ( 0.00 -90.00 0.00 )
+local.car1 solid
+local.car1 setsize ( -100 -50 0 ) ( 100 50 60)
+local.car1 nodamage
+local.car1 immune bullet
+local.car1 immune fast_bullet
+local.car1 immune bash
+local.car1 immune mg
+local.car1 immune explosion
+
+// ------------ gmctruck solid ----------------------
+
+local.camiao = spawn script_model "model" "vehicles/gmctruck.tik" "targetname" "camiao"
+$camiao.origin = ( -2530 -950 0 ) 
+$camiao.angles = ( 0 90 0 )
+$camiao notsolid
+$camiao nodamage
+$camiao immune bullet
+$camiao immune fast_bullet
+$camiao immune bash
+$camiao immune mg
+$camiao immune explosion
+
+local.camiao_atras = spawn script_model "model" "fx/dummy.tik" "targetname" "camiao_atras"
+$camiao_atras.origin = ( -2530 -1020 0 ) 
+$camiao_atras.angles = ( 0 90 0 )
+$camiao_atras setsize ( -110 -60 0 ) ( 110 60 160 )
+$camiao_atras solid
+$camiao_atras nodamage
+$camiao_atras immune bullet
+$camiao_atras immune fast_bullet
+$camiao_atras immune bash
+$camiao_atras immune mg
+$camiao_atras immune explosion
+
+local.camiao_atras = spawn script_model "model" "fx/dummy.tik" "targetname" "camiao_meio"
+$camiao_meio.origin = ( -2530 -870 0 ) 
+$camiao_meio.angles = ( 0 90 0 )
+$camiao_meio setsize ( -20 -50 0 ) ( 20 50 130 )
+$camiao_meio solid
+$camiao_meio nodamage
+$camiao_meio immune bullet
+$camiao_meio immune fast_bullet
+$camiao_meio immune bash
+$camiao_meio immune mg
+$camiao_meio immune explosion
+
+local.camiao_atras = spawn script_model "model" "fx/dummy.tik" "targetname" "camiao_frente"
+$camiao_frente.origin = ( -2530 -800 0 ) 
+$camiao_frente.angles = ( 0 90 0 )
+$camiao_frente setsize ( -30 -50 0 ) ( 30 50 90 )
+$camiao_frente solid
+$camiao_frente nodamage
+$camiao_frente immune bullet
+$camiao_frente immune fast_bullet
+$camiao_frente immune bash
+$camiao_frente immune mg
+$camiao_frente immune explosion
+
+// -----------------------------------------------------
+
+local.fix1 = spawn script_model "targetname" "ramp1"
+local.fix1 model "static/worktable.tik" 
+local.fix1.origin = ( -2780 -1175 -66  ) // ( 4788 1300 -390 )
+local.fix1.angles = ( 0 0 -35 ) 
+local.fix1.scale = 4.7
+local.fix1 setsize ( -132 -200 -235 ) ( 132 200 235 ) 
+local.fix1 solid 
+
+local.fix1 = spawn script_model "targetname" "ramp2"
+local.fix1 model "static/worktable.tik" 
+local.fix1.origin = ( -2780 -1240 -66  ) // ( 4724 1300 -390 )
+local.fix1.angles = ( 0 0 35 ) 
+local.fix1.scale = 4.7
+local.fix1 setsize ( -132 -200 -235 ) ( 132 200 235 )
+local.fix1 solid 
+
+local.boxblock = spawn script_model "model" "static/indycrate.tik" "targetname" "boxblock"
+$boxblock.origin = ( -3830 -1228 210 ) 
+$boxblock.angles = ( 0 0 0 )
+$boxblock hide
+
+local.boxblock = spawn script_model "model" "static/indycrate.tik" "targetname" "boxblock1"
+$boxblock1.origin = ( -3830 -1300 210 ) 
+$boxblock1.angles = ( 0 0 0 )
+$boxblock1 hide
+
+local.boxblock = spawn script_model "model" "static/indycrate.tik" "targetname" "boxblock2"
+$boxblock2.origin = ( -3830 -1156 210 ) 
+$boxblock2.angles = ( 0 0 0 )
+$boxblock2 hide
+
+local.boxblock = spawn script_model "model" "static/indycrate.tik" "targetname" "boxblock3"
+$boxblock3.origin = ( -3830 -1228 260 ) 
+$boxblock3.angles = ( 0 0 0 )
+$boxblock3 hide
+
+local.boxblock = spawn script_model "model" "static/indycrate.tik" "targetname" "boxblock4"
+$boxblock4.origin = ( -2270 -1228 210 ) 
+$boxblock4.angles = ( 0 0 0 )
+$boxblock4 hide
+
+local.boxblock = spawn script_model "model" "static/indycrate.tik" "targetname" "boxblock5"
+$boxblock5.origin = ( -2270 -1300 210 ) 
+$boxblock5.angles = ( 0 0 0 )
+$boxblock5 hide
+
+local.boxblock = spawn script_model "model" "static/indycrate.tik" "targetname" "boxblock6"
+$boxblock6.origin = ( -2270 -1156 210 ) 
+$boxblock6.angles = ( 0 0 0 )
+$boxblock6 hide
+
+local.boxblock = spawn script_model "model" "static/indycrate.tik" "targetname" "boxblock7"
+$boxblock7.origin = ( -2270 -1228 260 ) 
+$boxblock7.angles = ( 0 0 0 )
+$boxblock7 hide
+
+
+///////////////////////////////////////////////////////////////
+
+thread maps/m6l2a.scr::tanky
+thread maps/m6l2a.scr::tanky2
+
+exec escort/ladderspawn.scr ( -2468 -1212 8 ) 200 wood 90
+//exec escort/ladderspawn.scr ( -2468 -1248 8 ) 220 wood 90
+
+/////////////////////////////////
+
+level waitTill spawn
+
+/////////////////////////////////
+
+	exec escort/cabinet.scr::m6l2a_closet
+	exec escort/cabinet.scr::m6l2a_closet2
+	$closet_trigger nottriggerable
+	$closet_trigger2 nottriggerable
+
+end
+
+// ===================================================
+tanky:
+
+spawn vehicles/panzer_tank.tik "targetname" "tank_axis"
+$tank_axis.origin = ( -3900 -290 0 )
+$tank_axis.angles = ( 0 0 0 )
+//$tank_axis setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_axis nodamage
+$tank_axis notsolid
+$tank_axis.corona = 1
+$tank_axis rendereffects "-shadow"
+$tank_axis immune bullet
+$tank_axis immune fast_bullet
+$tank_axis immune grenade
+$tank_axis immune bash
+$tank_axis.health = 300 // 300
+//$tank_axis takedamage
+waitframe
+
+end
+// ===================================================
+
+
+// ===================================================
+tanky2:
+
+spawn vehicles/panzer_tank_europe.tik "targetname" "tank_allies"
+$tank_allies.origin = ( -3900 -290 -1000 )
+$tank_allies.angles = ( 0 0 0 )
+//$tank_allies setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_allies nodamage
+$tank_allies notsolid
+$tank_allies.corona = 1
+$tank_allies rendereffects "-shadow"
+$tank_allies immune bullet
+$tank_allies immune fast_bullet
+$tank_allies immune grenade
+$tank_allies immune bash
+$tank_allies.health = 300 // 300
+//$tank_allies takedamage
+waitframe
+end
+// ===================================================
+
+roundbasedthread:
+
+	// Can specify different scoreboard messages for round based games here.
+
+	level waitTill prespawn
+
+	level waittill spawn
+
+	// set the parameters for this round based match
+	level.dmrespawning = 1 // 1 or 0
+	level.dmroundlimit = 8 // round time limit in minutes
+	level.clockside = axis // set to axis, allies, kills, or draw
+
+	level waittill roundstart
+   
+        exec escort/util.scr::teamleft
+	exec escort/escort_axis.scr
+	exec escort/mapfile/m6l2a_node_points.scr::node_point
+	exec escort/util.scr::map_timecount_8min
+	exec escort/escort_messages.scr::counttime
+	$closet_trigger triggerable
+	$closet_trigger2 triggerable
+
+end
+
+//==============================================================================================================================================//
+//																								//
+//									MISCELLANEOUS SOUND SUPPORT THREADS										//
+//																								//
+//==============================================================================================================================================//
+
+//*** Player tries to play the piano
+
+	piano:
+	
+		$pianospeaker playsound moh_piano
+
+	end
+
+//============================================//
+
+//*** Player plucks the cello
+
+	cello:
+
+		$cellospeaker playsound moh_cello
+	
+	end
+
+//============================================//
+
+locked_gate_sound:
+
+	$player playsound gate_metal_locked
+
+end
+
+//============================================//
+
+locked_iron_gate_sound:
+
+	$player playsound gate_iron_locked
+
+end
+
+// End some labels
+alarm_player_reset:
+end
+farplane_near:
+end
+farplane_far:
+end
+cp2_bombplant3:
+end
+cp2_bombplant2:
+end
+cp2_bombplant1:
+end
+cp1_bombplant3:
+end
+cp1_bombplant2:
+end
+m6l2a_changelevel:
+end
+cp1_bombplant1:
+end
+scene3_spawn1_terminate:
+end
+objective2_alarm:
+end
+alarm_control:
+end

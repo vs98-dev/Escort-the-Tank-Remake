@@ -1,0 +1,702 @@
+/*
+
+ ******************************************
+ **                                      **
+ **     This file is part of the MOD     **
+ **                                      **
+ **       -=[Escort-The-Vehicle]=-       **  *  You are not allowed to modify this mod without the permission of the creator. *
+ **                                      **
+ **     Game MOD created by [PacRac]     **
+ **                                      **
+ ******************************************
+
+*/
+
+messages:
+ while (map_is_running)
+{
+wait 120
+iprintln_noloc "-=[Press USE (E) Key to Repair the Tank.]=-"
+wait 5
+iprintln_noloc "-=[Press USE (E) Key to open Rocket's Cabinet.]=-"
+wait 5
+iprintln_noloc "-=[Only 2 Rockets can Destroy the Tank.]=-"
+wait 5
+iprintln_noloc "-=[You have to make the Tank reach the Red Spot on the Floor.]=-"
+}
+end
+
+Gamemod:
+thread escort/util.scr::teams
+thread escort/util.scr::setup
+
+// set scoreboard messages
+setcvar "g_obj_alliedtext1" "|[InS@N3]| Game Mod"
+setcvar "g_obj_alliedtext2" ""
+setcvar "g_obj_alliedtext3" "-=[Escort-The-Tank]=-"
+setcvar "g_obj_axistext1" "Version 1.2"
+setcvar "g_obj_axistext2" ""
+setcvar "g_obj_axistext3" "*Created by [PacRac]"
+
+setcvar "g_gametypestring" "Escort-The-Tank"
+
+ while (map_is_running)
+{
+wait 5
+
+huddraw_virtualsize 100 1 
+huddraw_align  001 left bottom
+huddraw_font   001 "handle-16" 
+huddraw_rect   001 40 -72 14 14  
+huddraw_color  001 1 1 1 
+huddraw_alpha  001 1 
+huddraw_string 001 ("[Escort The Tank]") 
+ 
+//
+huddraw_virtualsize 100 1 
+huddraw_align  002 left bottom
+huddraw_font   002 "verdana-12" 
+huddraw_rect   002 40 -15 14 14 
+huddraw_color  002 1 1 1 
+huddraw_alpha  002 1 
+huddraw_string 002 ("Mod By: [PacRac]") 
+//
+}
+
+end
+
+// ===========================================================================
+
+checkpoint:
+
+$player playsound menu_apply
+local.messagetosay = "THE TANK HAS BREACHED THE ENEMY LINES"  
+			thread scrollMsg local.messagetosay
+
+	huddraw_rect 223 20 160 450 40 
+	huddraw_color 223 1 1 1
+
+end
+
+// ===========================================================================
+
+// ===========================================================================
+
+axis_obj:
+
+huddraw_alpha 225 0
+huddraw_alpha 225 0
+wait 5
+
+$player stufftext "tmstartloop sound/music/mus_18a_action.mp3"
+
+local.messagetosay2 = "AXIS HAVE TO PROTECT AND ESCORT THE TANK"  
+			thread scrollMsg2 local.messagetosay2
+
+	huddraw_rect 224 20 120 480 40 
+	huddraw_color 224 1 0 0
+
+wait 2
+
+local.messagetosay = "ALLIES HAVE TO STOP THE TANK REACHING IT'S DESTINATION"  
+			thread scrollMsg local.messagetosay
+
+	huddraw_rect 223 20 160 600 40 
+	huddraw_color 223 0 0.8 1
+
+wait 2
+$player stufftext "tmstop sound/music/mus_18a_action.mp3"
+
+
+end
+// ===========================================================================
+
+// ===========================================================================
+
+allies_obj:
+
+huddraw_alpha 225 0
+huddraw_alpha 225 0
+wait 5
+
+$player stufftext "tmstartloop sound/music/mus_18a_action.mp3"
+
+local.messagetosay2 = "ALLIES HAVE TO PROTECT AND ESCORT THE TANK"  
+			thread scrollMsg2 local.messagetosay2
+
+	huddraw_rect 224 20 120 480 40 
+	huddraw_color 224 0 0.8 1
+
+wait 2
+
+local.messagetosay = "AXIS HAVE TO STOP THE TANK REACHING IT'S DESTINATION"  
+			thread scrollMsg local.messagetosay
+
+	huddraw_rect 223 20 160 600 40 
+	huddraw_color 223 1 0 0
+
+wait 2
+$player stufftext "tmstop sound/music/mus_18a_action.mp3"
+
+end
+// ===========================================================================
+
+end
+
+// ===========================================================================
+
+axis_goal:
+
+$player playsound menu_apply
+local.messagetosay3 = "WELL DONE!! AXIS HAVE REACHED IT'S DESTINATION"  
+			thread scrollMsg3 local.messagetosay3
+
+	huddraw_rect 225 20 160 560 40 
+	huddraw_color 225 1 0 0
+end
+
+// ===========================================================================
+
+// ===========================================================================
+
+allies_goal:
+
+$player playsound menu_apply
+local.messagetosay3 = "WELL DONE!! ALLIES HAVE REACHED IT'S DESTINATION"  
+			thread scrollMsg3 local.messagetosay3
+
+	huddraw_rect 225 20 160 560 40 
+	huddraw_color 225 0 0.8 1
+
+end
+
+// ===========================================================================
+
+// ===========================================================================
+tank_destroyed:
+
+local.messagetosay3 = "TANK HAS BEEN DESTROYED"  
+			thread scrollMsg3 local.messagetosay3
+
+
+end
+
+tank_repaired:
+
+local.messagetosay3 = "TANK HAS BEEN REPAIRED" 
+			thread scrollMsg3 local.messagetosay3
+
+
+end
+// ===========================================================================
+
+/*
+// ===========================================================================
+
+timeover_message:
+
+$player playsound menu_apply
+local.messagetosay3 = "TIME OVER!!"  
+			thread scrollMsg3 local.messagetosay3
+
+	huddraw_rect 225 20 610 190 40 
+	huddraw_color 225 1 1 0
+
+end
+
+// ===========================================================================
+*/
+
+scrollMsg local.messagetosay:
+
+	huddraw_align 223 center top
+	huddraw_font 223 handle-22
+	huddraw_alpha 223 1
+
+	huddraw_color 223 1 1 1
+
+	huddraw_rect 223 20 120 320 40 
+	huddraw_string 223 local.messagetosay
+
+	for(local.i=1;local.i<=local.messagetosay.size;local.i++)
+	{
+	local.x = ""
+	for(local.z=1;local.z<=(local.messagetosay.size - local.i);local.z++)
+	{
+	local.x = (local.x + " ")
+	}
+	local.tmpstring4 = ""
+	for (local.o=0;local.o<local.i;local.o++) local.tmpstring4 = local.tmpstring4 + local.messagetosay[local.o]
+	huddraw_string 223 (local.x + local.tmpstring4)
+	wait .03
+	}
+	wait 1
+	for (local.o=1;local.o>0;local.o=local.o - 0.01)
+	{
+	huddraw_alpha 223 local.o
+	wait 0.05
+	}
+	huddraw_alpha 223 0 
+
+end
+
+scrollMsg2 local.messagetosay2:
+
+	huddraw_align 224 center top
+	huddraw_font 224 handle-22
+	huddraw_alpha 224 1
+
+	huddraw_color 224 1 1 1
+
+	huddraw_rect 224 20 120 320 40 
+	huddraw_string 224 local.messagetosay2
+
+	for(local.i=1;local.i<=local.messagetosay2.size;local.i++)
+	{
+	local.x = ""
+	for(local.z=1;local.z<=(local.messagetosay2.size - local.i);local.z++)
+	{
+	local.x = (local.x + " ")
+	}
+	local.tmpstring4 = ""
+	for (local.o=0;local.o<local.i;local.o++) local.tmpstring4 = local.tmpstring4 + local.messagetosay2[local.o]
+	huddraw_string 224 (local.x + local.tmpstring4)
+	wait .03
+	}
+	wait 1
+	for (local.o=1;local.o>0;local.o=local.o - 0.01)
+	{
+	huddraw_alpha 224 local.o
+	wait 0.05
+	}
+	huddraw_alpha 224 0 
+
+
+end
+
+scrollMsg3 local.messagetosay3:
+
+	huddraw_align 225 center top
+	huddraw_font 225 handle-22
+	huddraw_alpha 225 1
+
+	huddraw_color 225 1 1 1
+
+	huddraw_rect 225 20 120 320 40 
+	huddraw_string 225 local.messagetosay3
+
+	for(local.i=1;local.i<=local.messagetosay3.size;local.i++)
+	{
+	local.x = ""
+	for(local.z=1;local.z<=(local.messagetosay3.size - local.i);local.z++)
+	{
+	local.x = (local.x + " ")
+	}
+	local.tmpstring4 = ""
+	for (local.o=0;local.o<local.i;local.o++) local.tmpstring4 = local.tmpstring4 + local.messagetosay3[local.o]
+	huddraw_string 225 (local.x + local.tmpstring4)
+	wait .03
+	}
+	wait 1
+	for (local.o=1;local.o>0;local.o=local.o - 0.01)
+	{
+	huddraw_alpha 225 local.o
+	wait 0.05
+	}
+	huddraw_alpha 225 0 
+
+
+end
+
+scrollMsg4 local.messagetosay4:
+
+	huddraw_align 226 center bottom
+	huddraw_font 226 handle-22
+	huddraw_alpha 226 1
+
+	huddraw_color 226 1 1 1
+
+	huddraw_rect 226 20 120 320 40 
+	huddraw_string 226 local.messagetosay4
+
+	for(local.i=1;local.i<=local.messagetosay4.size;local.i++)
+	{
+	local.x = ""
+	for(local.z=1;local.z<=(local.messagetosay4.size - local.i);local.z++)
+	{
+	local.x = (local.x + " ")
+	}
+	local.tmpstring4 = ""
+	for (local.o=0;local.o<local.i;local.o++) local.tmpstring4 = local.tmpstring4 + local.messagetosay4[local.o]
+	huddraw_string 226 (local.x + local.tmpstring4)
+	wait .03
+	}
+	wait 1
+	for (local.o=1;local.o>0;local.o=local.o - 0.01)
+	{
+	huddraw_alpha 226 local.o
+	wait 0.05
+	}
+	huddraw_alpha 226 0 
+
+
+end
+
+info_axis:
+
+ while (map_is_running)
+{
+if (level.axis_side == 1)
+{
+wait 5
+huddraw_virtualsize 100 1 
+huddraw_align  021 right top
+huddraw_font   021 "handle-16" 
+huddraw_rect   021 -125 120 20 20 
+huddraw_color  021 1 1 1
+huddraw_alpha  021 1 
+huddraw_string 021 ("Escort Team:") 
+//
+huddraw_virtualsize 100 1
+huddraw_align  022 right top
+huddraw_rect   022 -30 120 20 20
+huddraw_color  022 1 0 0
+huddraw_alpha  022 1
+huddraw_shader 022 ("textures/hud/axis")  
+//
+huddraw_virtualsize 100 1 
+huddraw_align  023 right top
+huddraw_font   023 "handle-16" 
+huddraw_rect   023 -130 145 26 26 
+huddraw_color  023 1 1 1
+huddraw_alpha  023 1 
+huddraw_string 023 ("Attack Team:")    
+//
+huddraw_virtualsize 100 1
+huddraw_align  024 right top
+huddraw_rect   024 -30 145 20 20
+huddraw_color  024 1 0 0
+huddraw_alpha  024 1
+huddraw_shader 024 ("textures/hud/allies")  
+}
+waitframe
+}
+
+end
+
+info_allies:
+
+ while (map_is_running)
+{
+if (level.allies_side == 1)
+{
+wait 5
+huddraw_virtualsize 100 1 
+huddraw_align  021 right top
+huddraw_font   021 "handle-16" 
+huddraw_rect   021 -125 120 20 20 
+huddraw_color  021 1 1 1
+huddraw_alpha  021 1 
+huddraw_string 021 ("Escort Team:") 
+//
+huddraw_virtualsize 100 1
+huddraw_align  022 right top
+huddraw_rect   022 -30 120 20 20
+huddraw_color  022 1 0 0
+huddraw_alpha  022 1
+huddraw_shader 022 ("textures/hud/allies")  
+//
+huddraw_virtualsize 100 1 
+huddraw_align  023 right top
+huddraw_font   023 "handle-16" 
+huddraw_rect   023 -130 145 26 26 
+huddraw_color  023 1 1 1
+huddraw_alpha  023 1 
+huddraw_string 023 ("Attack Team:")    
+//
+huddraw_virtualsize 100 1
+huddraw_align  024 right top
+huddraw_rect   024 -30 145 20 20
+huddraw_color  024 1 0 0
+huddraw_alpha  024 1
+huddraw_shader 024 ("textures/hud/axis")    
+}
+waitframe
+}
+end
+
+round1:
+waitframe
+huddraw_alpha  032 0
+if (map_is_running)
+{
+wait 5
+huddraw_virtualsize 100 1 
+huddraw_align  031 right top
+huddraw_font   031 "courier-16" 
+huddraw_rect   031 -116 21 20 20 
+huddraw_color  031 0.9 1 0
+huddraw_alpha  031 1 
+huddraw_string 031 ("Round: 1 / 2")    
+}
+end
+
+round2:
+waitframe
+huddraw_alpha  031 0
+if (map_is_running)
+{
+wait 5
+huddraw_virtualsize 100 1 
+huddraw_align  032 right top
+huddraw_font   032 "courier-16" 
+huddraw_rect   032 -116 21 20 20 
+huddraw_color  032 0.9 1 0
+huddraw_alpha  032 1 
+huddraw_string 032 ("Round: 2 / 2")    
+}
+end
+
+// **********************************************************************************
+
+counttime:
+//iprintln_noloc "testing..."
+
+
+local.starttime = level.time
+
+
+while (map_is_running)
+{
+local.elapsedtime = level.time - local.starttime
+
+if (level.clockcount11 == 1)
+{
+if (local.elapsedtime >= ((level.dmroundlimit * 60) - 661)) // 661
+{
+$player playsound gate_iron_locked
+local.messagetosay4 = "TIME LEFT : 11 Minutes"  
+			thread escort/escort_messages.scr::scrollMsg4 local.messagetosay4
+
+	huddraw_rect 226 20 -100 240 40  
+	huddraw_color 226 1 1 0 
+level.clockcount11 = 0
+
+}
+}
+
+if (level.clockcount10 == 1)
+{
+if (local.elapsedtime >= ((level.dmroundlimit * 60) - 601))
+{
+$player playsound gate_iron_locked
+local.messagetosay4 = "TIME LEFT : 10 Minutes"  
+			thread escort/escort_messages.scr::scrollMsg4 local.messagetosay4
+
+	huddraw_rect 226 20 -100 240 40  
+	huddraw_color 226 1 1 0 
+level.clockcount10 = 0
+
+}
+}
+
+if (level.clockcount9 == 1)
+{
+if (local.elapsedtime >= ((level.dmroundlimit * 60) - 541))
+{
+$player playsound gate_iron_locked
+local.messagetosay4 = "TIME LEFT : 9 Minutes"  
+			thread escort/escort_messages.scr::scrollMsg4 local.messagetosay4
+
+	huddraw_rect 226 20 -100 240 40  
+	huddraw_color 226 1 1 0 
+level.clockcount9 = 0
+
+}
+}
+
+if (level.clockcount8 == 1)
+{
+if (local.elapsedtime >= ((level.dmroundlimit * 60) - 481))
+{
+thread escort/fogwave.scr::fog_wave
+$player playsound gate_iron_locked
+local.messagetosay4 = "TIME LEFT : 8 Minutes"  
+			thread escort/escort_messages.scr::scrollMsg4 local.messagetosay4
+
+	huddraw_rect 226 20 -100 240 40  
+	huddraw_color 226 1 1 0 
+level.clockcount8 = 0
+
+
+}
+}
+
+if (level.clockcount7 == 1)
+{
+if (local.elapsedtime >= ((level.dmroundlimit * 60) - 421))
+{
+$player playsound gate_iron_locked
+local.messagetosay4 = "TIME LEFT : 7 Minutes"  
+			thread escort/escort_messages.scr::scrollMsg4 local.messagetosay4
+
+	huddraw_rect 226 20 -100 240 40  
+	huddraw_color 226 1 1 0 
+level.clockcount7 = 0
+
+}
+}
+
+if (level.clockcount6 == 1)
+{
+if (local.elapsedtime >= ((level.dmroundlimit * 60) - 361))
+{
+$player playsound gate_iron_locked
+local.messagetosay4 = "TIME LEFT : 6 Minutes"  
+			thread escort/escort_messages.scr::scrollMsg4 local.messagetosay4
+
+	huddraw_rect 226 20 -100 240 40  
+	huddraw_color 226 1 1 0 
+level.clockcount6 = 0
+
+}
+}
+
+if (level.clockcount5 == 1)
+{
+if (local.elapsedtime >= ((level.dmroundlimit * 60) - 301))
+{
+$player playsound gate_iron_locked
+local.messagetosay4 = "TIME LEFT : 5 Minutes"  
+			thread escort/escort_messages.scr::scrollMsg4 local.messagetosay4
+
+	huddraw_rect 226 20 -100 240 40  
+	huddraw_color 226 1 1 0 
+level.clockcount5 = 0
+
+}
+}
+
+if (level.clockcount4 == 1)
+{
+if (local.elapsedtime >= ((level.dmroundlimit * 60) - 241))
+{
+thread escort/fogwave.scr::fog_wave
+$player playsound gate_iron_locked
+local.messagetosay4 = "TIME LEFT : 4 Minutes"  
+			thread escort/escort_messages.scr::scrollMsg4 local.messagetosay4
+
+	huddraw_rect 226 20 -100 240 40  
+	huddraw_color 226 1 1 0 
+level.clockcount4 = 0
+
+}
+}
+
+if (level.clockcount3 == 1)
+{
+if (local.elapsedtime >= ((level.dmroundlimit * 60) - 181))
+{
+$player playsound gate_iron_locked
+local.messagetosay4 = "TIME LEFT : 3 Minutes"  
+			thread escort/escort_messages.scr::scrollMsg4 local.messagetosay4
+
+	huddraw_rect 226 20 -100 240 40  
+	huddraw_color 226 1 1 0 
+level.clockcount3 = 0
+
+}
+}
+
+if (level.clockcount2 == 1)
+{
+if (local.elapsedtime >= ((level.dmroundlimit * 60) - 121))
+{
+$player playsound gate_iron_locked
+local.messagetosay4 = "TIME LEFT : 2 Minutes"  
+			thread escort/escort_messages.scr::scrollMsg4 local.messagetosay4
+
+	huddraw_rect 226 20 -100 240 40  
+	huddraw_color 226 1 1 0 
+level.clockcount2 = 0
+
+}
+}
+
+if (level.clockcount1 == 1)
+{
+
+if (local.elapsedtime >= ((level.dmroundlimit * 60) - 60))
+{
+$player playsound lock_pick2 
+$player playsound gate_iron_locked
+waitthread clockcounter
+
+}
+}
+waitframe
+}
+end
+
+
+clockcounter:
+
+waitframe
+
+level.clockcounter = 59	
+
+level.clockcount1 = 0
+
+while (map_is_running)
+{
+
+	huddraw_align 227 center bottom
+	huddraw_font 227 handle-22
+	huddraw_alpha 227 1
+	huddraw_rect 227 20 -100 240 40  
+	huddraw_color 227 1 1 0 
+	huddraw_string 227 ("TIME LEFT :" + (level.clockcounter) + " Seconds" ) 
+
+
+//level.clockcount1 = 0
+		
+		if (level.clockcounter <= 30)
+		{
+		$player playsound gate_iron_locked
+		huddraw_align 227 center bottom
+		huddraw_font 227 handle-22
+		huddraw_alpha 227 1
+		huddraw_rect 227 20 -100 240 40  
+		huddraw_color 227 1 0 0 
+		huddraw_string 227 ("TIME LEFT :" + (level.clockcounter) + " Seconds" ) 
+		}
+
+		if (level.clockcounter == 0)
+		{
+		huddraw_string 227 ("TIME OVER!!") 
+		huddraw_rect 227 20 -100 180 40 
+		huddraw_color 227 1 0.2 0
+		$player playsound menu_apply
+		wait 5
+		huddraw_alpha 227 0
+		}
+
+		if (level.clockcounter < 0)
+		{
+		huddraw_alpha 227 0
+		break
+		}
+
+		if (level.clockcounter == off)
+		{
+		huddraw_alpha 227 0
+		break
+		}
+		
+		level.clockcounter--
+		wait 1
+	}
+end
+
+
+// **********************************************************************************

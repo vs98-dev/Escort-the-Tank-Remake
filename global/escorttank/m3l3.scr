@@ -1,0 +1,549 @@
+main:
+
+setcvar "g_scoreboardpic" "m3l3"
+
+setcvar "g_gametype" "3"
+
+setcvar fraglimit "1"
+
+//thread escort/mapfile/m3l3_newspawns.scr::spawnblock
+exec escort/mapfile/m3l3_newspawns.scr::activate_spawns
+exec escort/mapfile/m3l3_newspawns.scr::1st_wave_spawn_allies_side
+exec escort/escort_messages.scr::Gamemod
+exec escort/escort_messages.scr::messages
+
+
+local.point = spawn info_vehiclepoint "targetname" "tank_1" "target" "tank_2"
+
+	
+//	exec global/ai.scr
+//	exec global/exploder.scr
+//	exec global/loadout_precache.scr maps/m3l3.scr
+	// call additional stuff for playing this map round based is needed
+	if(level.roundbased)
+		thread roundbasedthread
+
+	// Remove AI
+	removeclass actor
+	removeclass turretGun
+	removeclass health
+	removeclass ammo
+	removeclass AmmoEntity
+
+	$exploder remove 
+	$exploderchunk remove 
+	$halftrack remove
+	$scene4_tank remove
+	$tigertank_mask remove
+
+	$scene0_destroyed_flak88 exec global/loopsound.scr fire_med
+
+	$scene0_panzerschreck remove
+	$scene0_shell1 remove
+	$scene0_shell2 remove
+	$scene0_shell3 remove
+	$scene0_shell4 remove
+	$scene0_shell5 remove
+	$scene0_shell6 remove
+	$scene0_shell7 remove
+	$scene4_panzerschreck remove
+	$scene1_dead_panzer_mask remove
+
+	$scene4_tank_radiusdamage_source remove
+	$scene4_tank_barrel_collision remove
+
+
+///////////////////////
+level waittill prespawn
+///////////////////////
+
+	//*** Precache Dm Stuff
+	exec global/DMprecache.scr
+
+	level.script = maps/m3l3.scr
+
+	exec global/ambient.scr m3l3
+
+$world farplane 6000 // 5500	
+$world farplane_color (.62 .62 .61)
+
+//$world farplane level.farplane
+//$world farplane_color level.farplane_color
+
+exec global/door_locked.scr
+
+
+/////// Objects ////////////////////////////////////////////
+
+local.fix1 = spawn script_model "targetname" "ramp1"
+local.fix1 model "static/worktable.tik" 
+local.fix1.origin = ( 4788 1300 -390 ) // ( 4788 1300 -390 )
+local.fix1.angles = ( 0 90 35 ) 
+local.fix1.scale = 5
+local.fix1 setsize ( -140 -200 -240 ) ( 140 200 240 ) 
+local.fix1 solid 
+
+local.fix1 = spawn script_model "targetname" "ramp2"
+local.fix1 model "static/worktable.tik" 
+local.fix1.origin = ( 4724 1300 -390 ) // ( 4724 1300 -390 )
+local.fix1.angles = ( 0 90 -35 ) 
+local.fix1.scale = 5
+local.fix1 setsize ( -140 -200 -240 ) ( 140 200 240 )
+local.fix1 solid 
+
+local.rampfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "rampfix1"
+$rampfix1.origin = ( 4754 1300 -90 ) //290
+$rampfix1.angles = ( 0 0 0 ) // -8 0 10
+$rampfix1 scale 5
+$rampfix1 solid
+$rampfix1 setsize ( -5 -120 0 ) ( 5 120 20 )
+$rampfix1 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix"
+$floorfix.origin = ( 3165 847 -344 ) //290
+$floorfix.angles = ( 180 70 0 ) // -8 0 10
+$floorfix scale 10
+$floorfix solid
+$floorfix setsize ( -250 -450 0 ) ( 250 450 1 )
+$floorfix hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix1"
+$floorfix1.origin = ( 5200 1254 -316 ) //316
+$floorfix1.angles = ( 180 0 0 ) // -8 0 10
+$floorfix1 scale 10
+$floorfix1 solid
+$floorfix1 setsize ( -250 -450 0 ) ( 250 450 1 )
+$floorfix1 hide
+
+local.floorfixer = spawn script_model "model" "static/cratelid1.tik" "targetname" "floorfix2"
+$floorfix2.origin = ( 4980 1880 -300 ) //290
+$floorfix2.angles = ( 180 80 0 ) // -8 0 10
+$floorfix2 scale 10
+$floorfix2 solid
+$floorfix2 setsize ( -250 -450 0 ) ( 250 450 1 )
+$floorfix2 hide
+
+
+local.bobine = spawn script_model "model" "static/static_cablespool_empty.tik" "targetname" "bobine1"
+$bobine1.origin = ( 3552 2721 -268 ) 
+local.bobine = spawn script_model "model" "static/static_cablespool_empty.tik" "targetname" "bobine2"
+$bobine2.origin = ( 3488 2721 -268 ) 
+local.bobine = spawn script_model "model" "static/static_cablespool_empty.tik" "targetname" "bobine3"
+$bobine3.origin = ( 3520 2721 -220 ) 
+
+local.bobine = spawn script_model "model" "static/static_cablespool_empty.tik" "targetname" "bobine4"
+$bobine4.origin = ( 3552 2801 -268 ) 
+local.bobine = spawn script_model "model" "static/static_cablespool_empty.tik" "targetname" "bobine5"
+$bobine5.origin = ( 3488 2801 -268 ) 
+local.bobine = spawn script_model "model" "static/static_cablespool_empty.tik" "targetname" "bobine6"
+$bobine6.origin = ( 3520 2801 -220 ) 
+
+/*
+local.bobine = spawn script_model "model" "static/static_cablespool_empty.tik" "targetname" "bobine7"
+$bobine7.origin = ( 3470 2721 -170 ) 
+$bobine7.angles = ( 35 0 0 ) 
+*/
+
+local.powerbox = spawn script_model "model" "static/static_powerbox1.tik" "targetname" "powerbox"
+$powerbox.origin = ( 3826 1031 -252 ) 
+$powerbox.angle = 90
+
+local.dtank = spawn script_model "model" "vehicles/shermantank_damaged.tik" "targetname" "sherman_d"
+$sherman_d.origin = ( 2930 1560 -326 ) // 2950 1570 -326
+$sherman_d.angles = ( 0 -125 10 )
+$sherman_d scale 1.1
+
+local.boxblock = spawn script_model "model" "static/indycrate.tik" "targetname" "boxblock"
+$boxblock.origin = ( 4760 915 -70 ) 
+$boxblock.angles = ( 0 0 90 )
+$boxblock hide
+
+local.mg42 = spawn script_model
+local.mg42 model "statweapons/mg42_bipod.tik"
+local.mg42.origin = ( 1476 3915 -140 )  
+local.mg42.angles = (0 0 -35)
+local.mg42gun = spawn models/statweapons/mg42_gun.tik
+local.mg42gun.origin = local.mg42.origin + ( 0 0 0 )
+local.mg42gun.angle = 0
+local.mg42gun yawCenter 0
+local.mg42gun maxyawoffset 40
+
+local.ammobox = spawn script_model
+local.ammobox model "static/mg42ammoboxwbelt.tik" 
+local.ammobox.origin = ( 1429 3883 -219 )
+local.ammobox.angles = (0 180 0)
+local.ammobox.scale = 1.0
+local.ammobox notsolid
+
+///  ---------------------------------------------
+
+local.fakefloor1 = spawn script_model
+local.fakefloor1 model "static/cratelid2.tik" 
+local.fakefloor1.origin = ( 3432 1210 -50 )
+local.fakefloor1.angles = ( 180 60 0)
+local.fakefloor1.scale = 10.2
+local.fakefloor1 notsolid
+
+local.fakefloor2 = spawn script_model
+local.fakefloor2 model "static/cratelid2.tik" 
+local.fakefloor2.origin = ( 3425 1180 -51 )
+local.fakefloor2.angles = ( 180 60 0)
+local.fakefloor2.scale = 9.5
+local.fakefloor2 notsolid
+
+local.fakefloor3 = spawn script_model
+local.fakefloor3 model "static/cratelid2.tik" 
+local.fakefloor3.origin = ( 3305 1420 -52 )
+local.fakefloor3.angles = ( 180 -30 0)
+local.fakefloor3.scale = 5.5
+local.fakefloor3 notsolid
+
+local.fakefloor4 = spawn script_model
+local.fakefloor4 model "static/cratelid2.tik" 
+local.fakefloor4.origin = ( 3255 1330 -51 )
+local.fakefloor4.angles = ( 180 -30 0)
+local.fakefloor4.scale = 5.5
+local.fakefloor4 notsolid
+
+local.fakefloor4 = spawn script_model
+local.fakefloor4 model "static/cratelid2.tik" 
+local.fakefloor4.origin = ( 3224 1233 -50 )
+local.fakefloor4.angles = ( 180 70 0)
+local.fakefloor4.scale = 2.5
+local.fakefloor4 notsolid
+
+local.fakefloor5 = spawn script_model
+local.fakefloor5 model "static/cratelid2.tik" 
+local.fakefloor5.origin = ( 3182 1262 -51 )
+local.fakefloor5.angles = ( 180 30 0)
+local.fakefloor5.scale = 2.2
+local.fakefloor5 notsolid
+
+local.fakefloor6 = spawn script_model
+local.fakefloor6 model "static/cratelid2.tik" 
+local.fakefloor6.origin = ( 3595 1290 -52 )
+local.fakefloor6.angles = ( 180 60 0)
+local.fakefloor6.scale = 4.4
+local.fakefloor6 notsolid
+
+local.fakewall1 = spawn script_model
+local.fakewall1 model "static/locker.tik" 
+local.fakewall1.origin = ( 3260 1145 -8 ) // + - ? (3260 1145 ?)
+local.fakewall1.angles = ( 180 60 90 ) // ? - +
+local.fakewall1.scale = 1.4
+local.fakewall1 notsolid
+
+local.bookshelf1 = spawn script_model
+local.bookshelf1 model "static/bookcase.tik" 
+local.bookshelf1.origin = ( 3485 1047 -52 )
+local.bookshelf1.angles = ( 0 60 0)
+local.bookshelf1.scale = 1
+local.bookshelf1 solid
+local.bookshelf1 setsize ( -10 -25 -60 ) ( 10 25 60 )
+local.bookshelf1 rendereffects "-shadow"
+local.bookshelf1 nodamage
+
+local.bookshelf2 = spawn script_model
+local.bookshelf2 model "static/bookcase.tik" 
+local.bookshelf2.origin = ( 3442 1072 -52 )
+local.bookshelf2.angles = ( 0 60 0)
+local.bookshelf2.scale = 1
+local.bookshelf2 solid
+local.bookshelf2 setsize ( -10 -25 -60 ) ( 10 25 60 )
+local.bookshelf2 rendereffects "-shadow"
+local.bookshelf2 nodamage
+
+local.bookshelf3 = spawn script_model
+local.bookshelf3 model "static/bookcase.tik" 
+local.bookshelf3.origin = ( 3399 1096 -52 ) // ( - direita + frente - cima )
+local.bookshelf3.angles = ( 0 60 0)
+local.bookshelf3.scale = 1
+local.bookshelf3 solid
+local.bookshelf3 setsize ( -10 -25 -60 ) ( 10 25 60 )
+local.bookshelf3 rendereffects "-shadow"
+local.bookshelf3 nodamage
+
+local.bookshelf4 = spawn script_model
+local.bookshelf4 model "static/bookcase.tik" 
+local.bookshelf4.origin = ( 3485 1047 55 )
+local.bookshelf4.angles = ( 0 60 0)
+local.bookshelf4.scale = 1
+local.bookshelf4 solid
+local.bookshelf4 setsize ( -10 -25 -60 ) ( 10 25 60 )
+local.bookshelf4 rendereffects "-shadow"
+local.bookshelf4 nodamage
+
+local.bookshelf5 = spawn script_model
+local.bookshelf5 model "static/bookcase.tik" 
+local.bookshelf5.origin = ( 3442 1072 55 )
+local.bookshelf5.angles = ( 0 60 0)
+local.bookshelf5.scale = 1
+local.bookshelf5 solid
+local.bookshelf5 setsize ( -10 -25 -60 ) ( 10 25 60 )
+local.bookshelf5 rendereffects "-shadow"
+local.bookshelf5 nodamage
+
+local.bookshelf6 = spawn script_model
+local.bookshelf6 model "static/bookcase.tik" 
+local.bookshelf6.origin = ( 3399 1096 55 ) // ( - direita + frente - cima )
+local.bookshelf6.angles = ( 0 60 0)
+local.bookshelf6.scale = 1
+local.bookshelf6 solid
+local.bookshelf6 setsize ( -10 -25 -60 ) ( 10 25 60 )
+local.bookshelf6 rendereffects "-shadow"
+local.bookshelf6 nodamage
+
+
+local.curtain = spawn script_model
+local.curtain model "static/curtain_dirty.tik" 
+local.curtain.origin = ( 3414 1054 120 ) // ( - direita + frente - cima )
+local.curtain.angles = ( 0 60 0)
+local.curtain.scale = 2.2
+local.curtain rendereffects "-shadow"
+
+local.chair = spawn script_model
+local.chair model "static/singlemetalbed.tik" 
+local.chair.origin = ( 3296 1427 -52 ) // ( - direita + frente - cima )
+local.chair.angles = ( 0 240 0)
+local.chair.scale = 1
+local.chair rendereffects "-shadow"
+local.chair setsize ( -50 -32 0 ) ( 50 32 25 )
+
+local.toilet = spawn trigger_use 
+local.toilet setthread "flush" 
+local.toilet.origin = ( 3363 4179 0 )
+local.toilet setsize ( -15 -15 -60 ) ( 15 15 60  )
+local.toilet.targetname = "toilet" 
+
+
+///  ---------------------------------------------
+
+////////////////////////////////////////////////////////////
+
+exec escort/ladderspawn.scr ( 3525 1315 -282 ) 238 wood -30
+
+thread maps/m3l3.scr::tanky
+thread maps/m3l3.scr::tanky2
+
+///////////////////////
+level waittill spawn
+///////////////////////
+
+
+	exec escort/cabinet.scr::m3l3_closet
+	exec escort/cabinet.scr::m3l3_closet2
+	$closet_trigger nottriggerable
+	$closet_trigger2 nottriggerable
+
+end
+
+// ===================================================
+tanky:
+
+spawn vehicles/panzer_tank.tik "targetname" "tank_axis"
+$tank_axis.origin = ( 2203 3628 -1000 )
+$tank_axis.angles = ( 0 0 0 )
+//$tank_axis setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_axis nodamage
+$tank_axis notsolid
+$tank_axis.corona = 1
+$tank_axis rendereffects "-shadow"
+$tank_axis immune bullet
+$tank_axis immune fast_bullet
+$tank_axis immune grenade
+$tank_axis immune bash
+$tank_axis.health = 300 // 300
+//$tank_axis takedamage
+waitframe
+
+end
+// ===================================================
+
+
+// ===================================================
+tanky2:
+
+spawn vehicles/panzer_tank_europe.tik "targetname" "tank_allies"
+$tank_allies.origin = ( 2203 3628 -247 )
+$tank_allies.angles = ( 0 0 0 )
+//$tank_allies setsize ( -160 -80 0 ) ( 170 80 128 )
+$tank_allies nodamage
+$tank_allies notsolid
+$tank_allies.corona = 1
+$tank_allies rendereffects "-shadow"
+$tank_allies immune bullet
+$tank_allies immune fast_bullet
+$tank_allies immune grenade
+$tank_allies immune bash
+$tank_allies.health = 300 // 300
+//$tank_allies takedamage
+waitframe
+end
+// ===================================================
+
+
+roundbasedthread:
+
+	// Can specify different scoreboard messages for round based games here.
+
+	level waitTill prespawn
+
+	level waittill spawn
+
+	// set the parameters for this round based match
+	level.dmrespawning = 1 // 1 or 0
+	level.dmroundlimit = 10 // round time limit in minutes
+	level.clockside = allies // set to axis, allies, kills, or draw
+
+		level waittill roundstart
+
+        exec escort/util.scr::teamleft
+	exec escort/escort_allies.scr
+	exec escort/mapfile/m3l3_node_points.scr::node_point
+	exec escort/util.scr::map_timecount_10min
+	exec escort/escort_messages.scr::counttime
+	$closet_trigger triggerable
+	$closet_trigger2 triggerable
+
+end
+
+flush:
+
+$toilet waittill trigger
+local.player = parm.other
+if (local.player.dmteam != spectator)
+{
+$toilet nottriggerable
+$toilet playsound toilet_flush
+wait 6
+$toilet triggerable
+thread flush
+}
+
+end
+
+// End some labels
+scene4_tank_initialize:
+end
+scene4_tank_sequence:
+end
+scene7_mgspawn3_terminate:
+end
+scene7_mgspawn2_terminate:
+end
+scene7_neb4_terminate:
+end
+scene7_neb3_terminate:
+end
+scene7_neb2_terminate:
+end
+scene7_bombplant4:
+end
+scene7_bombplant3:
+end
+scene7_bombplant2:
+end
+scene7_bombplant1:
+end
+scene7_neb1_terminate:
+end
+scene4_tank_feedback:
+end
+scene4_tank_death:
+end
+scene4_tank_hint:
+end
+scene4_tank_move local.path:
+end
+scene4_drive_path local.path local.speed:
+end
+scene4_tank_targeting:
+end
+scene4_tank_attack1:
+end
+scene4_tank_attack2:
+end
+scene4_tank_attack3:
+end
+scene4_tank_attack4:
+end
+scene4_tank_attack5:
+end
+scene4_tank_shoot_target local.targetpoint:
+end
+scene4_tank_shoot_player local.targetplayer:
+end
+scene4_manualgun1:
+end
+scene4_manualgun1_targeting local.gunner:
+end
+farplane_near:
+end
+scene3_spawn5_terminate:
+end
+scene7_spawn3_terminate:
+end
+scene7_spawn2_terminate:
+end
+scene4_spawn1_terminate:
+end
+scene4_panzerschreck_trigger:
+end
+scene1_waveterminate_trigger:
+end
+scene7_mgspawn5_terminate:
+end
+scene7_mgspawn4_terminate:
+end
+scene7_mgspawn1_terminate:
+end
+scene6_mgspawn3_terminate:
+end
+scene6_mgspawn2_terminate:
+end
+scene6_mgspawn1_terminate:
+end
+scene6_spawn2_terminate:
+end
+scene6_spawn1_terminate:
+end
+scene4_spawn4_terminate:
+end
+scene4_spawn3_terminate:
+end
+scene4_spawn2_terminate:
+end
+scene3_spawn4_terminate:
+end
+scene3_sniperboardspawn:
+end
+scene3_spawn3_terminate:
+end
+scene3_spawn2_terminate:
+end
+scene3_spawn1_terminate:
+end
+scene1:
+end
+scene3:
+end
+scene7:
+end
+scene4:
+end
+scene4_mgfodderspawn_deactivate:
+end
+scene6:
+end
+scene0_panzerschreck_trigger:
+end
+scene7_defender_spawn1:
+end
+scene7_spawn1_terminate:
+end
+scene4_team_regroup:
+end
+farplane_far:
+end
+scene4_captain_hint:
+end

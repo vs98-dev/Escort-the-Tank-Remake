@@ -1,0 +1,114 @@
+fog_wave:
+
+wait 1
+
+if (getcvar(mapname) == "m5l1b") 
+{
+iprintlnbold "-=[A WAVE OF FOG was detected!]=-" // 69 seconds of fog activity
+
+wait 10
+$world farplane 3900	
+wait 0.5
+$world farplane 3750	
+wait 0.5
+$world farplane 3500	
+wait 5
+$world farplane 3250	
+wait 0.5
+$world farplane 3000	
+wait 0.5
+$world farplane 2750	
+wait 0.5
+$world farplane 2500	
+wait 5
+$world farplane 2250	
+wait 0.5
+$world farplane 2000	
+wait 0.5
+$world farplane 1750	
+wait 0.5
+$world farplane 1500	
+wait 30 // max fog 
+$world farplane 1500	
+wait 0.5
+$world farplane 1750	
+wait 0.5
+$world farplane 2000	
+wait 0.5
+$world farplane 2250	
+wait 5
+$world farplane 2500	
+wait 0.5
+$world farplane 2750	
+wait 0.5
+$world farplane 3000
+wait 0.5
+$world farplane 3250	
+wait 5
+$world farplane 3500	
+wait 0.5
+$world farplane 3750	
+wait 0.5
+$world farplane 3900
+wait 0.5
+}
+
+if (getcvar(mapname) == "dm/mohdm2") 
+{
+iprintlnbold "-=[A WAVE OF FOG was detected!]=-" // 69 seconds of fog activity
+
+wait 10
+$world farplane 5000
+wait 0.5
+$world farplane 4500
+wait 0.5
+$world farplane 4000	
+wait 0.5
+$world farplane 3750	
+wait 0.5
+$world farplane 3500	
+wait 5
+$world farplane 3250	
+wait 0.5
+$world farplane 3000	
+wait 0.5
+$world farplane 2750	
+wait 0.5
+$world farplane 2500	
+wait 5
+$world farplane 2250	
+wait 0.5
+$world farplane 2000	
+wait 0.5
+$world farplane 1750	
+wait 0.5
+$world farplane 1500	
+wait 30 // max fog 
+$world farplane 1500	
+wait 0.5
+$world farplane 1750	
+wait 0.5
+$world farplane 2000	
+wait 0.5
+$world farplane 2250	
+wait 5
+$world farplane 2500	
+wait 0.5
+$world farplane 2750	
+wait 0.5
+$world farplane 3000
+wait 0.5
+$world farplane 3250	
+wait 5
+$world farplane 3500	
+wait 0.5
+$world farplane 3750	
+wait 0.5
+$world farplane 4000
+wait 0.5
+$world farplane 4500
+wait 0.5
+$world farplane 5000
+}
+
+end
